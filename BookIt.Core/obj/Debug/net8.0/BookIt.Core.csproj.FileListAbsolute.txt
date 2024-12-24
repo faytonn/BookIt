@@ -1,0 +1,6 @@
+C:\Users\Fatima\source\repos\BookIt\BookIt.Core\obj\Debug\net8.0\BookIt.Core.csproj.AssemblyReference.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Core\obj\Debug\net8.0\BookIt.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Fatima\source\repos\BookIt\BookIt.Core\obj\Debug\net8.0\BookIt.Core.AssemblyInfoInputs.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Core\obj\Debug\net8.0\BookIt.Core.AssemblyInfo.cs
+C:\Users\Fatima\source\repos\BookIt\BookIt.Core\obj\Debug\net8.0\BookIt.Core.csproj.CoreCompileInputs.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Core\obj\Debug\net8.0\BookIt.Core.sourcelink.json
