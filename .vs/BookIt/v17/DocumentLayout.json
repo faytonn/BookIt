@@ -1,0 +1,333 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\eventimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\eventimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\paymenttransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\paymenttransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\enums\\paymentstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\enums\\paymentstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\enums\\reservationstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\enums\\reservationstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\bookit.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\bookit.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\common\\baseauditableentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\common\\baseauditableentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\entities\\common\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\entities\\common\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\appsettingmodels\\cloudinaryoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\appsettingmodels\\cloudinaryoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.domain\\appsettingmodels\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06B1846C-D4E0-4959-8702-460449A621F1}|BookIt.Domain\\BookIt.Domain.csproj|solutionrelative:bookit.domain\\appsettingmodels\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDD5A394-1445-4F81-A740-24A01D2CC9FB}|BookIt.Presentation\\BookIt.Presentation.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.presentation\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FDD5A394-1445-4F81-A740-24A01D2CC9FB}|BookIt.Presentation\\BookIt.Presentation.csproj|solutionrelative:bookit.presentation\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDD5A394-1445-4F81-A740-24A01D2CC9FB}|BookIt.Presentation\\BookIt.Presentation.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.presentation\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FDD5A394-1445-4F81-A740-24A01D2CC9FB}|BookIt.Presentation\\BookIt.Presentation.csproj|solutionrelative:bookit.presentation\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FDD5A394-1445-4F81-A740-24A01D2CC9FB}|BookIt.Presentation\\BookIt.Presentation.csproj|c:\\users\\fatima\\source\\repos\\bookit\\bookit.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FDD5A394-1445-4F81-A740-24A01D2CC9FB}|BookIt.Presentation\\BookIt.Presentation.csproj|solutionrelative:bookit.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 334,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Message.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Message.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\Message.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Message.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\Message.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T23:08:06.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Chat.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Chat.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\Chat.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Chat.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\Chat.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T23:06:28.095Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EventImage.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\EventImage.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\EventImage.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\EventImage.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\EventImage.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:42:52.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Event.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Event.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\Event.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Event.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\Event.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:37:28.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\ApplicationUser.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\ApplicationUser.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\ApplicationUser.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T23:04:06.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PaymentTransaction.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\PaymentTransaction.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\PaymentTransaction.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\PaymentTransaction.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\PaymentTransaction.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:59:01.725Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Reservation.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Reservation.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\Reservation.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Reservation.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\Reservation.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:51:34.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PaymentStatus.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Enums\\PaymentStatus.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Enums\\PaymentStatus.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Enums\\PaymentStatus.cs",
+              "RelativeToolTip": "BookIt.Domain\\Enums\\PaymentStatus.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:39:44.348Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ReservationStatus.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Enums\\ReservationStatus.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Enums\\ReservationStatus.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Enums\\ReservationStatus.cs",
+              "RelativeToolTip": "BookIt.Domain\\Enums\\ReservationStatus.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:39:10.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BaseAuditableEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Common\\BaseAuditableEntity.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\Common\\BaseAuditableEntity.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Common\\BaseAuditableEntity.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\Common\\BaseAuditableEntity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:35:18.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BookIt.Domain",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\BookIt.Domain.csproj",
+              "RelativeDocumentMoniker": "BookIt.Domain\\BookIt.Domain.csproj",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\BookIt.Domain.csproj",
+              "RelativeToolTip": "BookIt.Domain\\BookIt.Domain.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-03T22:34:26.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Common\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\Entities\\Common\\BaseEntity.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\Entities\\Common\\BaseEntity.cs",
+              "RelativeToolTip": "BookIt.Domain\\Entities\\Common\\BaseEntity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:35:06.571Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CloudinaryOptions.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\AppSettingModels\\CloudinaryOptions.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\AppSettingModels\\CloudinaryOptions.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\AppSettingModels\\CloudinaryOptions.cs",
+              "RelativeToolTip": "BookIt.Domain\\AppSettingModels\\CloudinaryOptions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:34:45.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Admin.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\AppSettingModels\\Admin.cs",
+              "RelativeDocumentMoniker": "BookIt.Domain\\AppSettingModels\\Admin.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\AppSettingModels\\Admin.cs",
+              "RelativeToolTip": "BookIt.Domain\\AppSettingModels\\Admin.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:34:37.528Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\Program.cs",
+              "RelativeDocumentMoniker": "BookIt.Presentation\\Program.cs",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\Program.cs",
+              "RelativeToolTip": "BookIt.Presentation\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T22:25:26.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "BookIt.Presentation\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "BookIt.Presentation\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-03T21:21:01.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "BookIt.Presentation\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "BookIt.Presentation\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAGkAAAAAAAAAAAAAADoAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-03T21:18:35.301Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

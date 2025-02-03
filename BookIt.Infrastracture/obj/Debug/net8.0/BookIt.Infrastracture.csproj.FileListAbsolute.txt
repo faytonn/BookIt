@@ -1,0 +1,12 @@
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Infrastracture.deps.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Infrastracture.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Infrastracture.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.AssemblyInfoInputs.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.AssemblyInfo.cs
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.csproj.CoreCompileInputs.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.sourcelink.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\refint\BookIt.Infrastracture.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\ref\BookIt.Infrastracture.dll

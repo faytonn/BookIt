@@ -1,0 +1,12 @@
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\bin\Debug\net8.0\BookIt.Persistence.deps.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\bin\Debug\net8.0\BookIt.Persistence.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\bin\Debug\net8.0\BookIt.Persistence.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.AssemblyInfoInputs.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.AssemblyInfo.cs
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.sourcelink.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\refint\BookIt.Persistence.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\ref\BookIt.Persistence.dll
