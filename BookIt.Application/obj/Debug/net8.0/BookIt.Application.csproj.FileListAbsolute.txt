@@ -1,0 +1,16 @@
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\bin\Debug\net8.0\BookIt.Application.deps.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\bin\Debug\net8.0\BookIt.Application.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\bin\Debug\net8.0\BookIt.Application.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\bin\Debug\net8.0\BookIt.Domain.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\bin\Debug\net8.0\BookIt.Domain.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.csproj.AssemblyReference.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.AssemblyInfoInputs.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.AssemblyInfo.cs
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.csproj.CoreCompileInputs.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.sourcelink.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.A.CC5AB3BA.Up2Date
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\refint\BookIt.Application.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\ref\BookIt.Application.dll

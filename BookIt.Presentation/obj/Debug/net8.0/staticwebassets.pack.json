@@ -5,6 +5,50 @@
       "PackagePath": "staticwebassets\\BookIt.Presentation.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\charts\\charts.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\charts\\charts.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\charts\\sparkline.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\charts\\sparkline.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\avatars.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\avatars.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\buttons.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\buttons.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\font-awesome-icons.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\font-awesome-icons.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\gridsystem.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\gridsystem.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\notifications.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\notifications.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\panels.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\panels.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\simple-line-icons.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\simple-line-icons.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\sweetalert.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\sweetalert.html"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\components\\typography.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\components\\typography.html"
+    },
+    {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\admin\\assets\\css\\bootstrap.min.css"
     },
@@ -143,6 +187,10 @@
     {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\fonts\\summernote\\summernote.woff2",
       "PackagePath": "staticwebassets\\admin\\assets\\fonts\\summernote\\summernote.woff2"
+    },
+    {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\forms\\forms.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\forms\\forms.html"
     },
     {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\img\\arashmil.jpg",
@@ -1617,68 +1665,20 @@
       "PackagePath": "staticwebassets\\admin\\assets\\js\\setting-demo2.js"
     },
     {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\charts\\charts.html",
-      "PackagePath": "staticwebassets\\admin\\charts\\charts.html"
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\maps\\googlemaps.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\maps\\googlemaps.html"
     },
     {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\charts\\sparkline.html",
-      "PackagePath": "staticwebassets\\admin\\charts\\sparkline.html"
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\maps\\jsvectormap.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\maps\\jsvectormap.html"
     },
     {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\avatars.html",
-      "PackagePath": "staticwebassets\\admin\\components\\avatars.html"
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\tables\\datatables.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\tables\\datatables.html"
     },
     {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\buttons.html",
-      "PackagePath": "staticwebassets\\admin\\components\\buttons.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\font-awesome-icons.html",
-      "PackagePath": "staticwebassets\\admin\\components\\font-awesome-icons.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\gridsystem.html",
-      "PackagePath": "staticwebassets\\admin\\components\\gridsystem.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\notifications.html",
-      "PackagePath": "staticwebassets\\admin\\components\\notifications.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\panels.html",
-      "PackagePath": "staticwebassets\\admin\\components\\panels.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\simple-line-icons.html",
-      "PackagePath": "staticwebassets\\admin\\components\\simple-line-icons.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\sweetalert.html",
-      "PackagePath": "staticwebassets\\admin\\components\\sweetalert.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\components\\typography.html",
-      "PackagePath": "staticwebassets\\admin\\components\\typography.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\forms\\forms.html",
-      "PackagePath": "staticwebassets\\admin\\forms\\forms.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\maps\\googlemaps.html",
-      "PackagePath": "staticwebassets\\admin\\maps\\googlemaps.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\maps\\jsvectormap.html",
-      "PackagePath": "staticwebassets\\admin\\maps\\jsvectormap.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\tables\\datatables.html",
-      "PackagePath": "staticwebassets\\admin\\tables\\datatables.html"
-    },
-    {
-      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\tables\\tables.html",
-      "PackagePath": "staticwebassets\\admin\\tables\\tables.html"
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\tables\\tables.html",
+      "PackagePath": "staticwebassets\\admin\\assets\\tables\\tables.html"
     },
     {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\user\\assets\\css\\Flaticon.eot",
