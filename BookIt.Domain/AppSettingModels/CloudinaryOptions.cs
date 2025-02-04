@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BookIt.Domain.AppSettingModels;
 
-namespace BookIt.Domain.AppSettingModels
+public class CloudinaryOptions
 {
-    internal class CloudinaryOptions
-    {
-    }
+    public string APIKey { get; set; } = null!;
+    public string APISecret { get; set;} = null!;
+    public string CloudName { get; set; } = null!;
 }

@@ -7,8 +7,10 @@ public class PaymentTransaction :BaseAuditableEntity
 {
     public int ReservationId { get; set; }
     public decimal Amount { get; set; }
-    public PaymentStatus Status { get; set; }
     public DateTime PaymentDate { get; set; }
-    public string TransactionReference { get; set; }
-    public Reservation Reservation { get; set; }
+    public string PaymentMethod { get; set; } = null!;
+    public PaymentStatus Status { get; set; }
+    public string TransactionReference { get; set; } = null!;
+
+    public Reservation? Reservation { get; set; }
 }

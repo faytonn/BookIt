@@ -11,9 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookIt.Presentation", "Book
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CDAA5497-7484-47FD-AF5F-96FAF7069D9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Application", "BookIt.Application\BookIt.Application.csproj", "{460BDD3F-E989-4EE5-915E-81818E6555EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookIt.Application", "BookIt.Application\BookIt.Application.csproj", "{460BDD3F-E989-4EE5-915E-81818E6555EB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{06B1846C-D4E0-4959-8702-460449A621F1} = {06B1846C-D4E0-4959-8702-460449A621F1}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Domain", "BookIt.Domain\BookIt.Domain.csproj", "{06B1846C-D4E0-4959-8702-460449A621F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookIt.Domain", "BookIt.Domain\BookIt.Domain.csproj", "{06B1846C-D4E0-4959-8702-460449A621F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastracture", "Infrastracture", "{8C81F3E8-3AE9-4C28-8204-D5D0EFEF5D2F}"
 EndProject

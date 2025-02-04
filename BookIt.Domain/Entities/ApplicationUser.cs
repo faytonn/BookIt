@@ -8,5 +8,6 @@ public class ApplicationUser : IdentityUser
     public string LastName { get; set;} = null!;
     public string Address { get; set; } = null!;
     public bool IsActive { get; set; } = true;
+    public bool IsSubscribed { get; set; } = false;
 
 }

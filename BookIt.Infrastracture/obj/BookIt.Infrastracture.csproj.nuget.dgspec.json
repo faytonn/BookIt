@@ -4,14 +4,84 @@
     "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj": {
+    "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj",
-        "projectName": "BookIt.Infrastracture",
-        "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj",
+        "projectUniqueName": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj",
+        "projectName": "BookIt.Application",
+        "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj",
         "packagesPath": "C:\\Users\\Fatima\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\obj\\",
+        "outputPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Fatima\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\BookIt.Domain.csproj": {
+                "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\BookIt.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\BookIt.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\BookIt.Domain.csproj",
+        "projectName": "BookIt.Domain",
+        "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\BookIt.Domain.csproj",
+        "packagesPath": "C:\\Users\\Fatima\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Fatima\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,6 +114,98 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.27.2, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj",
+        "projectName": "BookIt.Infrastracture",
+        "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj",
+        "packagesPath": "C:\\Users\\Fatima\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Fatima\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj": {
+                "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.27.2, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.10.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
