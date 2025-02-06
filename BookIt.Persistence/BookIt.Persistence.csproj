@@ -24,8 +24,4 @@
     <ProjectReference Include="..\BookIt.Application\BookIt.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Configurations\" />
-  </ItemGroup>
-
 </Project>

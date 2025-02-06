@@ -27,17 +27,24 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
             modelBuilder.AddSeedData();
 
 
-        modelBuilder.Entity<Chat>()
-                .HasOne(x => x.User)
-                .WithMany() // or .WithMany(u => u.Chats) if you have a navigation property
-                .HasForeignKey(x => x.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Event>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<EventDetail>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<EventSeatType>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Category>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Hall>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Chat>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Message>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<News>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<NewsDetail>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Notification>().HasQueryFilter(x => !x.IsDeleted);
+        //modelBuilder.Entity<NotificationDetail>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
+        //modelBuilder.Entity<Slider>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<WaitlistEntry>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<CancellationRefund>().HasQueryFilter(x => !x.IsRefunded);
 
-            modelBuilder.Entity<Chat>()
-                .HasOne(x => x.Moderator)
-                .WithMany()
-                .HasForeignKey(x => x.ModeratorId)
-                .OnDelete(DeleteBehavior.Restrict);
+
 
             modelBuilder.Entity<Message>()
                 .HasOne(x => x.Chat)
@@ -65,17 +72,17 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
 
 
-            modelBuilder.Entity<Category>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<Chat>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<Event>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<EventDetail>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<Hall>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<News>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<Notification>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<PaymentTransaction>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<Reservation>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
-            modelBuilder.Entity<WaitlistEntry>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<Category>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<Chat>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<Event>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<EventDetail>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<Hall>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<News>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<Notification>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<PaymentTransaction>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<Reservation>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
+            //modelBuilder.Entity<WaitlistEntry>().HasQueryFilter(x => !x.IsDeleted);
 
 
             base.OnModelCreating(modelBuilder);

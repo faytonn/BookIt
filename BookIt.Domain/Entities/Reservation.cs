@@ -14,6 +14,7 @@ public class Reservation : BaseAuditableEntity
 
     public int? PaymentTransactionId { get; set; }
 
+    public CancellationRefund? CancellationRefund { get; set; }
     public Event? Event { get; set; }
     public ApplicationUser? User { get; set; }
     public PaymentTransaction? PaymentTransaction { get; set; }
