@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookIt.Application.Interfaces.Services.Generic
+namespace BookIt.Persistence.Services
 {
-    internal interface IRepository
+    internal class CookieService
     {
     }
 }

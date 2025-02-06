@@ -1,3 +1,5 @@
+using BookIt.Persistence.ServiceRegistrations;
+
 namespace BookIt.Presentation
 {
     public class Program
@@ -9,7 +11,12 @@ namespace BookIt.Presentation
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddPersistenceServices(builder.Configuration);
+
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -26,13 +33,11 @@ namespace BookIt.Presentation
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
-                );
-            });
+
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+            );
 
             app.MapControllerRoute(
                 name: "default",

@@ -1,4 +1,4 @@
-﻿using BookIt.Application.DTOs;
+﻿using BookIt.Application.DTOs.EmailDTO;
 
 namespace BookIt.Application.Interfaces.Services.External;
 

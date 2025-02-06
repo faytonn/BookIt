@@ -1,4 +1,4 @@
-﻿using BookIt.Application.DTOs;
+﻿using BookIt.Application.DTOs.EmailDTO;
 using BookIt.Application.Interfaces.Services.External;
 using BookIt.Domain.AppSettingModels;
 using MailKit.Net.Smtp;

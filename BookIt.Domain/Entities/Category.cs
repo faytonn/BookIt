@@ -5,8 +5,11 @@ namespace BookIt.Domain.Entities;
 public class Category : BaseEntity
 {
     public string Name { get; set; } = null!;
-    public Category? ParentCategory { get; set; }
+    public bool IsDeleted { get; set; }
+
     public int? ParentCategoryId { get; set; }
-    public List<Category> ChildCategories { get; set;} = [];
-    public List<Event> Events { get; set; } = [];
+    public Category? ParentCategory { get; set; }
+
+    public ICollection<Category> ChildCategories { get; set;} = [];
+    public ICollection<Event> Events { get; set; } = [];
 }

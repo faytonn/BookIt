@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookIt.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a0da90c07f4bd993ba15321b11d9c87621318f58")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+564ba72d5f0da83103eaa83c09ca21e231c0a19b")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookIt.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BookIt.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

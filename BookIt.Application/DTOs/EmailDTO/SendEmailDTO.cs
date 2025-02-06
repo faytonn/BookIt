@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookIt.Application.DTOs;
+namespace BookIt.Application.DTOs.EmailDTO;
 
 public class SendEmailDTO
 {
