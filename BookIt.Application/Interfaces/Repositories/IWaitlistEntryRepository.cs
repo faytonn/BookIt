@@ -3,6 +3,6 @@ using BookIt.Domain.Entities;
 
 namespace BookIt.Application.Interfaces.Repositories;
 
-public interface IWaitlistEntry : IRepository<WaitlistEntry>
+public interface IWaitlistEntryRepository : IRepository<WaitlistEntry>
 {
 }

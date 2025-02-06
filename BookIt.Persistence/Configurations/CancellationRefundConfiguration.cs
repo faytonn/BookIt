@@ -13,7 +13,7 @@ internal class CancellationRefundConfiguration : IEntityTypeConfiguration<Cancel
         builder.HasKey(c => c.Id);
 
         builder.Property(c => c.RefundAmount)
-            .HasColumnType("decimal(18,2")
+            .HasColumnType("decimal(18,2)")
             .IsRequired();
 
         builder.Property(cr => cr.CancellationDate)

@@ -4,6 +4,7 @@ using BookIt.Persistence.Interceptors;
 using BookIt.Persistence.ServiceRegistrations;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BookIt.Presentation;
 
@@ -20,7 +21,7 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        builder.Services.AddScoped<BaseEntityInterceptor>();
+        
 
 
         // Add services to the container.
@@ -29,6 +30,7 @@ public class Program
         builder.Services.AddPersistenceServices(builder.Configuration);
 
         builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+        builder.Services.AddMvc().AddViewLocalization();
 
         var app = builder.Build();
 
@@ -50,6 +52,10 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+
+        var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+        app.UseRequestLocalization(localizationOptions!.Value);
+
 
         app.UseRouting();
 

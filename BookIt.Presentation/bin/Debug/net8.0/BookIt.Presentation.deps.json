@@ -10,6 +10,7 @@
         "dependencies": {
           "BookIt.Infrastracture": "1.0.0",
           "BookIt.Persistence": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Design": "8.0.12",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "8.0.7"
         },
         "runtime": {
@@ -1444,6 +1445,21 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/8.0.12": {},
+      "Microsoft.EntityFrameworkCore.Design/8.0.12": {
+        "dependencies": {
+          "Humanizer.Core": "2.14.1",
+          "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.8.0",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.12",
+          "Microsoft.Extensions.DependencyModel": "8.0.2",
+          "Mono.TextTemplating": "2.3.1"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "8.0.12.0",
+            "fileVersion": "8.0.1224.60305"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/8.0.12": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "8.0.12",
@@ -3537,6 +3553,13 @@
       "sha512": "sha512-irXnlkKHepepje6+ICaKpe/G4QnWi1G9Em9CmfqAEKb7OUTYaDQ2ieGps2Tl7/rblj5CKB0tDNI421f64x/Tqw==",
       "path": "microsoft.entityframeworkcore.analyzers/8.0.12",
       "hashPath": "microsoft.entityframeworkcore.analyzers.8.0.12.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Design/8.0.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Xo1GfRi2+Ev6NEAf2OBbNV8xsAmvCdeluyRi4Npq3/N9H5GOFlTaor+XZArAz+qC/o7TL5E1ZRSV9wEY0F2x3g==",
+      "path": "microsoft.entityframeworkcore.design/8.0.12",
+      "hashPath": "microsoft.entityframeworkcore.design.8.0.12.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/8.0.12": {
       "type": "package",
