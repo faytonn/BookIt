@@ -10,7 +10,8 @@
         "dependencies": {
           "CloudinaryDotNet": "1.27.2",
           "Microsoft.AspNetCore.Identity": "2.3.0",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.12"
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.12",
+          "Microsoft.Extensions.Identity.Core": "8.0.12"
         },
         "runtime": {
           "BookIt.Domain.dll": {}

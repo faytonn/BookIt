@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using BookIt.Application.Interfaces.Services.UI
+
+
+@inject ILayoutService _layoutService;
+
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 
@@ -19,6 +27,12 @@
     <link rel="stylesheet" href="~/user/assets/css/nice-select.css">
     <link rel="stylesheet" href="~/user/assets/css/jquery.animatedheadline.css">
     <link rel="stylesheet" href="~/user/assets/css/main.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
+          integrity="sha512-2XgQo+ZhNYwS3bYZYhSgE+wTSwEX7UuGPzKS6JKSpB6uhKw/1Vu7I9X+2sQQgH8mOXz3F9slPJ1XG6rU3G8z+A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
     <link rel="shortcut icon" href="~/user/assets/images/favicon.png" type="image/x-icon">
 
@@ -53,6 +67,20 @@
                         <img src="~/user/assets/images/logo/logo.png" alt="logo">
                     </a>
                 </div>
+
+                 <!-- Language Dropdown: Place this where you want the dropdown to appear -->
+            <div class="language-selector" style="display:inline-block; margin-left:15px;">
+                <select id="languageSelect" class="selectpicker" data-width="fit">
+                    <option data-content='<img src="https://res.cloudinary.com/di3ourpee/image/upload/v1738784159/bookit./UK%20Flag.svg" style="height:20px; margin-right:5px;" /> English' value="en"></option>
+                    <option data-content='<img src="https://res.cloudinary.com/di3ourpee/image/upload/v1738784159/bookit./AZE%20Flag.png" style="height:20px; margin-right:5px;" /> Azerbaijani' value="az"></option>
+                    <option data-content='<img src="https://res.cloudinary.com/di3ourpee/image/upload/v1738783701/bookit./CZE%20Flag.svg" style="height:20px; margin-right:5px;" /> Czech' value="cs"></option>
+                </select>
+            </div>
+
+            <!-- If you have other language chooser partial, you can remove or comment it out -->
+            @* <partial name="_LanguageChooser" /> *@
+
+
                 <ul class="menu">
                     <li>
                         <a href="#0" class="active">Home</a>
@@ -274,6 +302,22 @@
     <script src="~/user/assets/js/viewport.jquery.js"></script>
     <script src="~/user/assets/js/nice-select.js"></script>
     <script src="~/user/assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+            integrity="sha512-4Vx1PRCl3NQ6+RHqJROgWXHcg9gnSDFoR0T+S7IYXtM8au5qJw8fE/pD0vH8Sx/l+QrZUL1tMw2PZ0ab2OIFxg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            $('#languageSelect').selectpicker();
+
+            $('#languageSelect').on('changed.bs.select', function () {
+                var selectedCulture = $(this).val();
+                var returnUrl = window.location.pathname;
+                window.location.href = '@Url.Action("SetLanguage", "Home")'
+                    + '?culture=' + selectedCulture
+                    + '&returnUrl=' + encodeURIComponent(returnUrl);
+            });
+        });
+    </script>
 </body>
 
 

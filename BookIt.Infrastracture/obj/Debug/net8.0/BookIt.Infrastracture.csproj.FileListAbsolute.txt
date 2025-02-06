@@ -3,7 +3,9 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookI
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Infrastracture.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Application.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Domain.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Persistence.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Application.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Persistence.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Domain.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.csproj.AssemblyReference.cache
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.GeneratedMSBuildEditorConfig.editorconfig

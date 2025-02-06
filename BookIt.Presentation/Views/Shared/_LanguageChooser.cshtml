@@ -1,0 +1,10 @@
+﻿@* Views/Shared/_LanguageChooser.cshtml *@
+@{
+    // Optionally, you can determine the current language to highlight it.
+    // For now, we simply render the three language links.
+}
+<div class="language-chooser">
+    <a href="@Url.Action("SetLanguage", "Home", new { culture = "en", returnUrl = Context.Request.Path })">English</a>
+    <a href="@Url.Action("SetLanguage", "Home", new { culture = "az", returnUrl = Context.Request.Path })">Azerbaijani</a>
+    <a href="@Url.Action("SetLanguage", "Home", new { culture = "cs", returnUrl = Context.Request.Path })">Czech</a>
+</div>

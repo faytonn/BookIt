@@ -4,12 +4,7 @@ namespace BookIt.Domain.Enums;
 
 public enum LanguageType
 {
-    [Display(Name = "English")]
-    English,
-
-    [Display(Name = "Azerbaijani")]
-    Azerbaijani,
-
-    [Display(Name = "Czech")]
-    Czech
+    English = 1,
+    Azerbaijani = 2,
+    Czech = 3
 }

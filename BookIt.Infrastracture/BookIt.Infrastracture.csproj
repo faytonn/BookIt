@@ -20,8 +20,4 @@
     <ProjectReference Include="..\BookIt.Persistence\BookIt.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Implementations\Services\UI\" />
-  </ItemGroup>
-
 </Project>

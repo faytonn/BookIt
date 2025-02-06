@@ -852,6 +852,7 @@ input[type="submit"] {
       flex-wrap: wrap;
 }
 
+
 .event-banner-section::after, .proceed-book::before, .faq-item .faq-title .right-icon::after, .faq-item .faq-title .right-icon::before, .gallery-item .gallery-thumb a, .gallery-item::before, .speak-con-wrapper::before, .sports-ticket::before, .sports-ticket::after, .client-section::after, .contact-container .bg-thumb::before, .contact-info .info-area::before {
   top: 50%;
   left: 50%;
@@ -899,6 +900,9 @@ input[type="submit"] {
           box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
   background-color: #F5F5F5;
 }
+
+
+
 
 *::-webkit-scrollbar {
   width: 4px;
@@ -2408,8 +2412,8 @@ input[type="submit"] {
   font-weight: 600;
   font-size: 18px;
   -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  -ms-grid-row-align: center;
+  align-self: center;
   display: block;
   width: calc(100% - 55px);
 }

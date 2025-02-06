@@ -1,6 +1,13 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using BookIt.Persistence.Contexts;
+using BookIt.Persistence.DataInitializers;
+using BookIt.Persistence.Interceptors;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 using System.Globalization;
 
 namespace BookIt.Persistence.ServiceRegistrations;
@@ -10,7 +17,19 @@ public static class PersistenceServiceRegistration
 
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default")));
+
+        services.AddScoped<BaseEntityInterceptor>();
+        services.AddScoped<DbContextInitializer>();
+
+
+
         _addLocalizers(services);
+
+        services.AddHttpClient();
+
+        services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+        services.AddHttpContextAccessor();
 
         return services;
     }
@@ -26,14 +45,14 @@ public static class PersistenceServiceRegistration
               var supportedCultures = new List<CultureInfo>
                   {
                         new CultureInfo("en"),
-                        new CultureInfo("az"),
+                        new CultureInfo("aze"),
                         new CultureInfo("cs")
                   };
 
-              //options.DefaultRequestCulture = new RequestCulture(culture: "az", uiCulture: "az");
+              options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
 
-              //options.SupportedCultures = supportedCultures;
-              //options.SupportedUICultures = supportedCultures;
+              options.SupportedCultures = supportedCultures;
+              options.SupportedUICultures = supportedCultures;
 
           });
     }
