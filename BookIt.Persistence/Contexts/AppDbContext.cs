@@ -4,27 +4,33 @@ using BookIt.Persistence.Interceptors;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Security;
 
 
 namespace BookIt.Persistence.Contexts;
 
 
 public class AppDbContext : IdentityDbContext<ApplicationUser>
+{
+    private readonly BaseEntityInterceptor _entityInterceptor;
+
+    public AppDbContext(DbContextOptions<AppDbContext> options,
+                        BaseEntityInterceptor entityInterceptor)
+        : base(options)
     {
-        private readonly BaseEntityInterceptor _entityInterceptor;
+        _entityInterceptor = entityInterceptor;
+    }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options,
-                            BaseEntityInterceptor entityInterceptor)
-            : base(options)
-        {
-            _entityInterceptor = entityInterceptor;
-        }
+    //public AppDbContext()
+    //{
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    //}
 
-            modelBuilder.AddSeedData();
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        modelBuilder.AddSeedData();
 
 
         modelBuilder.Entity<Event>().HasQueryFilter(x => !x.IsDeleted);
@@ -35,7 +41,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<Chat>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Message>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<News>().HasQueryFilter(x => !x.IsDeleted);
-        modelBuilder.Entity<NewsDetail>().HasQueryFilter(x => !x.IsDeleted);
+        //modelBuilder.Entity<NewsDetail>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Notification>().HasQueryFilter(x => !x.IsDeleted);
         //modelBuilder.Entity<NotificationDetail>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
@@ -45,55 +51,17 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<CancellationRefund>().HasQueryFilter(x => !x.IsRefunded);
 
 
+        base.OnModelCreating(modelBuilder);
+    }
 
-            modelBuilder.Entity<Message>()
-                .HasOne(x => x.Chat)
-                .WithMany(x => x.Messages)
-                .HasForeignKey(x => x.ChatId)
-                .OnDelete(DeleteBehavior.Cascade);
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(_entityInterceptor);
 
-            modelBuilder.Entity<Category>()
-                .HasOne(c => c.ParentCategory)
-                .WithMany(c => c.ChildCategories)
-                .HasForeignKey(c => c.ParentCategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
+        //optionsBuilder.UseSqlServer("DefaultConnection");
 
-            modelBuilder.Entity<Event>()
-                .HasMany(e => e.Reservations)
-                .WithOne(r => r.Event)
-                .HasForeignKey(r => r.EventId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<PaymentTransaction>()
-                .HasOne(pt => pt.Reservation)
-                .WithOne(r => r.PaymentTransaction)
-                .HasForeignKey<Reservation>(r => r.PaymentTransactionId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-
-
-            //modelBuilder.Entity<Category>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<Chat>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<Event>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<EventDetail>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<Hall>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<News>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<Notification>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<PaymentTransaction>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<Reservation>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<WaitlistEntry>().HasQueryFilter(x => !x.IsDeleted);
-
-
-            base.OnModelCreating(modelBuilder);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.AddInterceptors(_entityInterceptor);
-
-            base.OnConfiguring(optionsBuilder);
-        }
+        base.OnConfiguring(optionsBuilder);
+    }
 
 
     public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;

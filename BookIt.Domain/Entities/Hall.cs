@@ -9,5 +9,5 @@ public class Hall : BaseEntity
     public bool IsDeleted { get; set; } 
     public GeneralLocation? Location { get; set; }
     public ICollection<Seat> Seats { get; set; } = [];
-    public ICollection<Event> Events { get; set; } = [];
+    public ICollection<EventDetail> EventDetails { get; set; } = [];
 }

@@ -45,8 +45,10 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microso
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Http.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Localization.Abstractions.dll
@@ -296,5 +298,3 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\refint\
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.genruntimeconfig.cache
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\ref\BookIt.Presentation.dll
-C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.dll
-C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Http.dll

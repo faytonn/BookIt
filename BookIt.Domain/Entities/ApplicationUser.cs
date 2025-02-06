@@ -10,4 +10,8 @@ public class ApplicationUser : IdentityUser
     public bool IsActive { get; set; } = true;
     public bool IsSubscribed { get; set; } = false;
 
+    public ICollection<Reservation>? Reservations { get; set; }
+    public ICollection<Chat>? Chats { get; set; }
+    public ICollection<Message>? Messages { get; set; }
+
 }

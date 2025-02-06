@@ -1,6 +1,9 @@
+using BookIt.Persistence.Contexts;
 using BookIt.Persistence.DataInitializers;
+using BookIt.Persistence.Interceptors;
 using BookIt.Persistence.ServiceRegistrations;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookIt.Presentation;
 
@@ -13,6 +16,12 @@ public class Program
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+        builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+        builder.Services.AddScoped<BaseEntityInterceptor>();
+
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();

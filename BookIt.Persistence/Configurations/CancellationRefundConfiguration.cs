@@ -23,7 +23,7 @@ internal class CancellationRefundConfiguration : IEntityTypeConfiguration<Cancel
                .IsRequired();
 
         builder.HasOne(cr => cr.Reservation)
-               .WithOne() // or .WithOne(x => x.CancellationRefund) if a one-to-one relationship is needed
+               .WithOne(r => r.CancellationRefund) // or empty inside the bracket idk yet
                .HasForeignKey<CancellationRefund>(cr => cr.ReservationId)
                .OnDelete(DeleteBehavior.Restrict);
     }

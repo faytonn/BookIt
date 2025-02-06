@@ -18,3 +18,5 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookI
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\refint\BookIt.Infrastracture.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\ref\BookIt.Infrastracture.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\bin\Debug\net8.0\BookIt.Infrastracture.runtimeconfig.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Infrastracture\obj\Debug\net8.0\BookIt.Infrastracture.genruntimeconfig.cache

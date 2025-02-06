@@ -8,6 +8,14 @@ public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
 {
     public void Configure(EntityTypeBuilder<Notification> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("Notifications");
+
+        builder.HasKey(n => n.Id);
+
+        builder.HasMany(n => n.NotificationDetails)
+               .WithOne(nd => nd.Notification)
+               .HasForeignKey(nd => nd.NotificationId)
+               .OnDelete(DeleteBehavior.Cascade);
+
     }
 }

@@ -2,7 +2,7 @@
 
 namespace BookIt.Domain.Entities;
 
-public class NewsDetail : BaseAuditableEntity
+public class NewsDetail : BaseEntity
 {
     public string Title { get; set; } = null!;
     public string Description { get; set; } = null!;

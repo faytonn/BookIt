@@ -8,6 +8,16 @@ public class NewsConfiguration : IEntityTypeConfiguration<News>
 {
     public void Configure(EntityTypeBuilder<News> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("News");
+
+        builder.HasKey(n => n.Id);
+
+        builder.Property(n => n.ImagePath)
+               .HasMaxLength(250);
+
+        builder.HasMany(n => n.NewsDetails)
+               .WithOne(nd => nd.News)
+               .HasForeignKey(nd => nd.NewsId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

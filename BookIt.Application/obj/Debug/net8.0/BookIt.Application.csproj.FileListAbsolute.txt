@@ -14,3 +14,5 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.A
 C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\refint\BookIt.Application.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\ref\BookIt.Application.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\bin\Debug\net8.0\BookIt.Application.runtimeconfig.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Application\obj\Debug\net8.0\BookIt.Application.genruntimeconfig.cache

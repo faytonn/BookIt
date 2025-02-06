@@ -17,7 +17,7 @@ public static class PersistenceServiceRegistration
 
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default")));
+        services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<BaseEntityInterceptor>();
         services.AddScoped<DbContextInitializer>();

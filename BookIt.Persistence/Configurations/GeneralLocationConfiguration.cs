@@ -8,6 +8,25 @@ public class GeneralLocationConfiguration : IEntityTypeConfiguration<GeneralLoca
 {
     public void Configure(EntityTypeBuilder<GeneralLocation> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("GeneralLocations");
+
+        builder.HasKey(gl => gl.Id);
+
+        builder.Property(gl => gl.Name)
+               .IsRequired()
+               .HasMaxLength(150);
+
+        builder.Property(gl => gl.Address)
+               .IsRequired()
+               .HasMaxLength(250);
+
+        builder.Property(gl => gl.City)
+               .IsRequired()
+               .HasMaxLength(100);
+
+        builder.Property(gl => gl.Country)
+               .IsRequired()
+               .HasMaxLength(100);
+
     }
 }

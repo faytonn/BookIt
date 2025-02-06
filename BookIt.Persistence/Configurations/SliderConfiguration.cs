@@ -8,6 +8,12 @@ internal class SliderConfiguration : IEntityTypeConfiguration<Slider>
 {
     public void Configure(EntityTypeBuilder<Slider> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("Sliders");
+
+        builder.HasKey(s => s.Id);
+
+        builder.Property(s => s.ImagePath)
+               .IsRequired()
+               .HasMaxLength(250);
     }
 }
