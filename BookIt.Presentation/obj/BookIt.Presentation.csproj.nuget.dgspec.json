@@ -49,6 +49,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "Microsoft.AspNetCore.Http.Features": {
               "target": "Package",
               "version": "[2.3.0, )"
@@ -196,9 +200,6 @@
             "projectReferences": {
               "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj": {
                 "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj"
-              },
-              "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Persistence\\BookIt.Persistence.csproj": {
-                "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Persistence\\BookIt.Persistence.csproj"
               }
             }
           }
@@ -335,12 +336,6 @@
             "Microsoft.AspNetCore.SignalR.Core": {
               "target": "Package",
               "version": "[1.2.0, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[8.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",

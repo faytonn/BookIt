@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using BookIt.Domain.Entities;
 
 namespace BookIt.Persistence.ServiceRegistrations;
 
@@ -22,6 +23,11 @@ public static class PersistenceServiceRegistration
         services.AddScoped<BaseEntityInterceptor>();
         services.AddScoped<DbContextInitializer>();
 
+
+        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        {
+
+        }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
         _addLocalizers(services);

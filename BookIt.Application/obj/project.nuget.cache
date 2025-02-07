@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "uwC8HuYmSUlHWzgq/46A8FBAfNVOdHNH1AwSyKiUvWdZEACjNPANf5m2NDuIazY+9Tu/uzZfXdmIsMCTPM8X5A==",
+  "dgSpecHash": "MDqAdamdJ86Yg23sQoB19P43z++I/lokrJkT5Z417dwz/Hc9S5Fk8uv85sQGQbKGPtI/YD7mwEuaoid2oeaX8A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Fatima\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Fatima\\.nuget\\packages\\cloudinarydotnet\\1.27.2\\cloudinarydotnet.1.27.2.nupkg.sha512",
     "C:\\Users\\Fatima\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Fatima\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.3.0\\microsoft.aspnetcore.authentication.2.3.0.nupkg.sha512",

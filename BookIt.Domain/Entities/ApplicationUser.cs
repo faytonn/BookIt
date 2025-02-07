@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BookIt.Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookIt.Domain.Entities;
 
@@ -9,6 +10,7 @@ public class ApplicationUser : IdentityUser
     public string Address { get; set; } = null!;
     public bool IsActive { get; set; } = true;
     public bool IsSubscribed { get; set; } = false;
+    public LanguageType SelectedLanguage { get; set; }
 
     public ICollection<Reservation>? Reservations { get; set; }
     public ICollection<Chat>? Chats { get; set; }

@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookIt.Application\BookIt.Application.csproj" />
-    <ProjectReference Include="..\BookIt.Persistence\BookIt.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using BookIt.Infrastracture;
 using BookIt.Persistence.Contexts;
 using BookIt.Persistence.DataInitializers;
 using BookIt.Persistence.Interceptors;
@@ -18,8 +19,8 @@ public class Program
         builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-        builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+        //builder.Services.AddDbContext<AppDbContext>(options =>
+        //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         
 
@@ -28,6 +29,8 @@ public class Program
         builder.Services.AddControllersWithViews();
 
         builder.Services.AddPersistenceServices(builder.Configuration);
+        builder.Services.AddInfrastractureServices();
+
 
         builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
         builder.Services.AddMvc().AddViewLocalization();

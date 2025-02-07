@@ -2738,6 +2738,7 @@
       },
       "BookIt.Application/1.0.0": {
         "dependencies": {
+          "AutoMapper": "13.0.1",
           "BookIt.Domain": "1.0.0",
           "Microsoft.AspNetCore.Http.Features": "2.3.0",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.3.0",
@@ -2763,7 +2764,6 @@
         "dependencies": {
           "AutoMapper": "13.0.1",
           "BookIt.Application": "1.0.0",
-          "BookIt.Persistence": "1.0.0",
           "CloudinaryDotNet": "1.27.2",
           "MailKit": "4.10.0",
           "Microsoft.AspNetCore.Localization": "2.3.0",
