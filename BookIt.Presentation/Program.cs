@@ -1,10 +1,7 @@
 using BookIt.Infrastracture;
-using BookIt.Persistence.Contexts;
 using BookIt.Persistence.DataInitializers;
-using BookIt.Persistence.Interceptors;
 using BookIt.Persistence.ServiceRegistrations;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace BookIt.Presentation;
@@ -21,7 +18,6 @@ public class Program
 
         //builder.Services.AddDbContext<AppDbContext>(options =>
         //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
         
 
 

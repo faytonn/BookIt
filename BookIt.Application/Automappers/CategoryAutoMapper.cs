@@ -13,15 +13,5 @@ public class CategoryAutoMapper : Profile
         CreateMap<Category, GetCategoryDTO>().ReverseMap();
         CreateMap<Category, UpdateCategoryDTO>().ReverseMap();
         CreateMap<Category, CreateCategoryDTO>().ReverseMap();
-
-        CreateMap<CreateCategoryDetailDTO, Category>()
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.ParentCategoryId, opt => opt.MapFrom(src => src.ParentCategoryId));
-
-        CreateMap<UpdateCategoryDetailDTO, Category>()
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.ParentCategoryId, opt => opt.MapFrom(src => src.ParentCategoryId));
-
-
     }
 }

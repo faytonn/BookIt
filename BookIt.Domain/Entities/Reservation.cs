@@ -20,4 +20,6 @@ public class Reservation : BaseAuditableEntity
     public ApplicationUser? User { get; set; }
     public PaymentTransaction? PaymentTransaction { get; set; }
 
+    public ICollection<ReservationSeat>? ReservationSeats { get; set; }
+
 }

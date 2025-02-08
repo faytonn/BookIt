@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookIt.Application\BookIt.Application.csproj" />
+    <ProjectReference Include="..\BookIt.Infrastracture\BookIt.Infrastracture.csproj" />
   </ItemGroup>
 
 </Project>

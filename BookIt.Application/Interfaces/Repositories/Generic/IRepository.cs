@@ -25,4 +25,5 @@ public interface IRepository<T> where T : BaseEntity
     void HardDelete(T entity);
     void SoftDelete(T entity);
     void Repair(T entity);
+    Task CreateRangeAsync(IEnumerable<T> entities);
 }

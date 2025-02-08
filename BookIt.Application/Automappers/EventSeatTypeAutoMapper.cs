@@ -8,8 +8,8 @@ public class EventSeatTypeAutoMapper : Profile
 {
     public EventSeatTypeAutoMapper()
     {
-        CreateMap<EventSeatType, GetEventSeatTypeDTO>().ReverseMap();
-        CreateMap<EventSeatType, UpdateEventSeatTypeDTO>().ReverseMap();
-        CreateMap<EventSeatType, CreateEventSeatTypeDTO>().ReverseMap();
+        CreateMap<EventDetailSeatType, GetEventSeatTypeDTO>().ReverseMap();
+        CreateMap<EventDetailSeatType, UpdateEventSeatTypeDTO>().ReverseMap();
+        CreateMap<EventDetailSeatType, CreateEventSeatTypeDTO>().ReverseMap();
     }
 }

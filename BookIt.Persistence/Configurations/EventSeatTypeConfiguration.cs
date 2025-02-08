@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookIt.Persistence.Configurations;
 
-public class EventSeatTypeConfiguration : IEntityTypeConfiguration<EventSeatType>
+public class EventSeatTypeConfiguration : IEntityTypeConfiguration<EventDetailSeatType>
 {
-    public void Configure(EntityTypeBuilder<EventSeatType> builder)
+    public void Configure(EntityTypeBuilder<EventDetailSeatType> builder)
     {
         builder.ToTable("EventSeatTypes");
 
@@ -19,9 +19,9 @@ public class EventSeatTypeConfiguration : IEntityTypeConfiguration<EventSeatType
         builder.Property(est => est.AdditionalDetails)
                .HasMaxLength(500);
 
-        builder.HasOne(est => est.Event)
+        builder.HasOne(est => est.EventDetail)
                .WithMany() // i can maybe make an icollection for event seat types
-               .HasForeignKey(est => est.EventId)
+               .HasForeignKey(est => est.EventDetailId)
                .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(est => est.SeatType)

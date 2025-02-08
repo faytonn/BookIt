@@ -1,6 +1,6 @@
 ﻿namespace BookIt.Application.Interfaces.Helpers;
 
-public interface IValidationMessageProvider
+public interface IValidationMessagesProvider
 {
     public string GetValue(string key);
 }

@@ -2,10 +2,10 @@
 
 namespace BookIt.Domain.Entities;
 
-public class EventSeatType : BaseAuditableEntity
+public class EventDetailSeatType : BaseAuditableEntity
 {
-    public int EventId { get; set; }
-    public Event Event { get; set; } = null!;
+    public int EventDetailId { get; set; }
+    public EventDetail EventDetail { get; set; } = null!;
 
     public int SeatTypeId { get; set; }
     public SeatType SeatType { get; set; } = null!;

@@ -306,6 +306,9 @@
             "projectReferences": {
               "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj": {
                 "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Application\\BookIt.Application.csproj"
+              },
+              "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj": {
+                "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj"
               }
             }
           }

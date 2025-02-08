@@ -11,5 +11,6 @@ public class Category : BaseEntity
     public Category? ParentCategory { get; set; }
 
     public ICollection<Category> ChildCategories { get; set;} = [];
+    public ICollection<CategoryDetail> CategoryDetails { get; set; } = [];
     public ICollection<Event> Events { get; set; } = [];
 }

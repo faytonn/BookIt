@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookIt.Infrastracture")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e5f211cb6570e16cfc13add2dfc602b97a46e5b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f730c48a332cfcab6adef053ed3b30da08099be")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookIt.Infrastracture")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BookIt.Infrastracture")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

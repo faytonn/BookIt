@@ -145,7 +145,13 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         return await _dbContext.SaveChangesAsync();
     }
 
-    
 
-    
+    public async Task CreateRangeAsync(IEnumerable<T> entities)
+    {
+        await _table.AddRangeAsync(entities);
+
+        
+        await SaveChangesAsync();
+    }
+
 }

@@ -34,8 +34,9 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
         modelBuilder.Entity<Event>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<EventDetail>().HasQueryFilter(x => !x.IsDeleted);
-        modelBuilder.Entity<EventSeatType>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<EventDetailSeatType>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Category>().HasQueryFilter(x => !x.IsDeleted);
+        //modelBuilder.Entity<CategoryDetail>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Hall>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Chat>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Message>().HasQueryFilter(x => !x.IsDeleted);
@@ -63,13 +64,14 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     }
 
 
-    public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
+    //public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
     public DbSet<CancellationRefund> CancellationRefunds { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
+    public DbSet<CategoryDetail> CategoryDetails { get; set; } = null!;
     public DbSet<Chat> Chats { get; set; } = null!;
     public DbSet<Event> Events { get; set; } = null!;
     public DbSet<EventDetail> EventDetails { get; set; } = null!;
-    public DbSet<EventSeatType> EventSeatTypes { get; set; } = null!;
+    public DbSet<EventDetailSeatType> EventSeatTypes { get; set; } = null!;
     public DbSet<GeneralLocation> GeneralLocations { get; set; } = null!;
     public DbSet<Hall> Halls { get; set; } = null!;
     public DbSet<Language> Languages { get; set; } = null!;

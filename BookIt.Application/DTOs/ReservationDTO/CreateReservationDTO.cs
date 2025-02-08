@@ -10,5 +10,6 @@ public class CreateReservationDTO : IDTO
     public int NumberOfTickets { get; set; }
     public DateTime ReservationDate { get; set; }
     public decimal TotalAmount { get; set; }
-    public ReservationStatus ReservationStatus { get; set; }
+    //public ReservationStatus ReservationStatus { get; set; }
+    public List<int> SeatIds { get; set; } = [];
 }

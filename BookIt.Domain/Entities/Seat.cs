@@ -11,8 +11,10 @@ public class Seat : BaseEntity
     public int SeatTypeId { get; set; }
     public SeatType SeatType { get; set; } = null!;
 
-    public bool IsReserved { get; set; } = false;
+    //public bool IsReserved { get; set; } = false;
 
     public int HallId { get; set; }
     public Hall Hall { get; set; } = null!;
+
+    public ICollection<ReservationSeat>? ReservationSeats { get; set; } = [];
 }
