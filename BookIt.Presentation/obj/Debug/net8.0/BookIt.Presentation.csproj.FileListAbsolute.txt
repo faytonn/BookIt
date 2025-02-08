@@ -298,3 +298,4 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\refint\
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.genruntimeconfig.cache
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\ref\BookIt.Presentation.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.MvcApplicationPartsAssemblyInfo.cs

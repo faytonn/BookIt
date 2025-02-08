@@ -1,3 +1,4 @@
+using BookIt.Application.ServiceRegistrations;
 using BookIt.Infrastracture;
 using BookIt.Persistence.DataInitializers;
 using BookIt.Persistence.ServiceRegistrations;
@@ -24,6 +25,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
+        builder.Services.AddApplicationServices();
         builder.Services.AddPersistenceServices(builder.Configuration);
         builder.Services.AddInfrastractureServices();
 

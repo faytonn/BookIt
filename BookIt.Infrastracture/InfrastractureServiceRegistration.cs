@@ -1,6 +1,8 @@
 ﻿using BookIt.Application.Interfaces.Helpers;
 using BookIt.Application.Interfaces.Localizers;
+using BookIt.Application.Interfaces.Repositories;
 using BookIt.Application.Interfaces.Services.External;
+using BookIt.Application.Interfaces.Services.UI;
 using BookIt.Infrastracture.External;
 using BookIt.Infrastracture.Localizers;
 using Microsoft.AspNetCore.Builder;
@@ -21,10 +23,11 @@ public static class InfrastractureServiceRegistration
 
         _addLocalizers(services);
 
-
         return services;
     }
 
+
+    
     private static void _addLocalizers(IServiceCollection services)
     {
         services.Configure<RequestLocalizationOptions>(

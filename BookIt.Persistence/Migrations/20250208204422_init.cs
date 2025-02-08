@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookIt.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedEntities : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -856,6 +856,16 @@ namespace BookIt.Persistence.Migrations
                     { 1, "https://res.cloudinary.com/di3ourpee/image/upload/v1738784159/bookit./UK%20Flag.svg", "en", "EN" },
                     { 2, "https://res.cloudinary.com/di3ourpee/image/upload/v1738784159/bookit./AZE%20Flag.png", "az", "AZE" },
                     { 3, "https://res.cloudinary.com/di3ourpee/image/upload/v1738783701/bookit./CZE%20Flag.svg", "cze", "CS" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "News",
+                columns: new[] { "Id", "CreatedAt", "CreatedBy", "ImagePath", "IsDeleted", "UpdatedAt", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 2, 8, 21, 44, 20, 929, DateTimeKind.Local).AddTicks(9103), "Default", "https://res.cloudinary.com/di3ourpee/image/upload/v1738786112/bookit./HitMeHardAndSoft.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Default" },
+                    { 2, new DateTime(2025, 2, 8, 21, 44, 20, 929, DateTimeKind.Local).AddTicks(9187), "Default", "https://res.cloudinary.com/di3ourpee/image/upload/v1738786345/bookit./KendrickLamar.webp", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Default" },
+                    { 3, new DateTime(2025, 2, 8, 21, 44, 20, 929, DateTimeKind.Local).AddTicks(9194), "Default", "https://res.cloudinary.com/di3ourpee/image/upload/v1738786457/bookit./paddington3.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Default" }
                 });
 
             migrationBuilder.InsertData(

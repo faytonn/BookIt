@@ -2,12 +2,14 @@
 using BookIt.Application.DTOs.CategoryDetailDTO;
 using BookIt.Application.DTOs.CategoryDTO;
 using BookIt.Application.DTOs.Common;
+using BookIt.Application.Exceptions;
 using BookIt.Application.Interfaces.Repositories;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace BookIt.Persistence.Implementations.Services;
 
@@ -28,75 +30,57 @@ public class CategoryService : ICategoryService
 
     public async Task<GetCategoryDTO> GetAsync(int id, LanguageType language = LanguageType.English)
     {
-        var entity = await _categoryRepository.GetAsync(
-            id,
-            ignoreFilter: false);
+        var category = await _categoryRepository.GetAsync(x => x.Id == id, _getWithIncludes());
 
-        if (entity == null) 
-            return null;
+        if (category == null)
+        {
+            throw new NotFoundException();
+        }
 
-        var dto = _mapper.Map<GetCategoryDTO>(entity);
+        var dto = _mapper.Map<GetCategoryDTO>(category);
 
-        var details = _categoryDetailRepository
-            .GetAll(d => d.CategoryId == entity.Id)
-            .ToList();
-
-        dto.CategoryDetails = _mapper.Map<List<GetCategoryDetailDTO>>(details);
         return dto;
     }
 
-    public List<GetCategoryDTO> GetAll(LanguageType language = LanguageType.English)
+    public  List<GetCategoryDTO> GetAll(LanguageType language = LanguageType.English)
     {
-        var entities = _categoryRepository.GetAll().ToList();
-        var dtoList = new List<GetCategoryDTO>();
+        var categories =  _categoryRepository.GetAll(include: _getWithIncludes(language));
 
-        foreach (var entity in entities)
-        {
-            var catDto = _mapper.Map<GetCategoryDTO>(entity);
-            // get details
-            var details = _categoryDetailRepository
-                .GetAll(d => d.CategoryId == entity.Id)
-                .ToList();
-            catDto.CategoryDetails = _mapper.Map<List<GetCategoryDetailDTO>>(details);
-            dtoList.Add(catDto);
-        }
+        var dtos = _mapper.Map<List<GetCategoryDTO>>(categories);
 
-        return dtoList;
+        return dtos;
     }
 
     public async Task<PaginateDTO<GetCategoryDTO>> GetPagesAsync(LanguageType language = LanguageType.English, int page = 1, int limit = 10)
     {
-        var query = _categoryRepository.GetAll();
-        var totalItems = await query.CountAsync();
+        var query = _categoryRepository.GetAll(include: _getWithIncludes(language));
+        var count = query.Count();
 
-        var paged = _categoryRepository.Paginate(query, limit, page).ToList();
+        var pageCount = (int)Math.Ceiling((decimal)count / limit);
 
-        var items = new List<GetCategoryDTO>();
-        foreach (var entity in paged)
+        if (page > pageCount)
+            page = pageCount;
+
+        if (page < 1)
+            page = 1;
+
+        query = _categoryRepository.Paginate(query, limit, page);
+
+
+        var categories = await query.ToListAsync();
+
+        var dtos = _mapper.Map<List<GetCategoryDTO>>(categories);
+
+        PaginateDTO<GetCategoryDTO> paginateDto = new()
         {
-            var catDto = _mapper.Map<GetCategoryDTO>(entity);
-
-            var details = _categoryDetailRepository
-                .GetAll(d => d.CategoryId == entity.Id)
-                .ToList();
-            catDto.CategoryDetails = _mapper.Map<List<GetCategoryDetailDTO>>(details);
-
-            items.Add(catDto);
-        }
-
-        return new PaginateDTO<GetCategoryDTO>
-        {
-            Items = items,
+            Items = dtos,
             CurrentPage = page,
-            PageSize = limit,
-            TotalItems = totalItems
+            PageCount = pageCount
         };
+
+        return paginateDto;
     }
 
-    public async Task<bool> IsExistAsync(int id)
-    {
-        return await _categoryRepository.IsExistAsync(x => x.Id == id && !x.IsDeleted);
-    }
 
 
 
@@ -105,22 +89,30 @@ public class CategoryService : ICategoryService
         if (!modelState.IsValid)
             return false;
 
-        var entity = _mapper.Map<Category>(dto);
-        entity.IsDeleted = false;
+        var extsingCategoryName = await _categoryRepository.GetAsync(x => x.CategoryDetails.FirstOrDefault()!.Name.ToLower() == dto.CategoryDetails.FirstOrDefault()!.Name!.ToLower());
 
-        await _categoryRepository.CreateAsync(entity);
-        await _categoryRepository.SaveChangesAsync();
-
-        if (dto.CategoryDetails != null && dto.CategoryDetails.Any())
+        if (extsingCategoryName != null)
         {
-            foreach (var detailDto in dto.CategoryDetails)
-            {
-                var detail = _mapper.Map<CategoryDetail>(detailDto);
-                detail.CategoryId = entity.Id; 
-                await _categoryDetailRepository.CreateAsync(detail);
-            }
-            await _categoryDetailRepository.SaveChangesAsync();
+            modelState.AddModelError("", "This category already exists.");
+            return false;
         }
+
+        foreach (var detail in dto.CategoryDetails)
+        {
+            var languageExists = await _languageService.GetLanguageAsync(x => x.Id == detail.LanguageId);
+
+            if (languageExists == null)
+            {
+                modelState.AddModelError("", "Something went wrong, please try again.");
+                return false;
+            }
+        }
+
+        var category = _mapper.Map<Category>(dto);
+
+        await _categoryRepository.CreateAsync(category);
+
+        await _categoryRepository.SaveChangesAsync();
 
         return true;
     }
@@ -130,81 +122,50 @@ public class CategoryService : ICategoryService
         if (!modelState.IsValid)
             return false;
 
-        var existing = await _categoryRepository.GetAsync(dto.Id);
-        if (existing == null)
+        var category = await _categoryRepository.GetAsync(x => x.Id == dto.Id, x => x.Include(x => x.CategoryDetails));
+
+        if (category == null)
+            throw new NotFoundException();
+
+        var existingCategory = await _categoryRepository.GetAsync(x => x.CategoryDetails.FirstOrDefault().Name.ToLower() == dto.CategoryDetails.FirstOrDefault()!.Name!.ToLower() && x.Id != dto.Id);
+
+        if(existingCategory != null)
         {
-            modelState.AddModelError("Id", "Category not found.");
+            modelState.AddModelError("", "This category name already exists.");
             return false;
         }
 
-        existing.Name = dto.Name;
-        existing.ParentCategoryId = dto.CategoryId;
+        category = _mapper.Map(dto, category);
 
-        _categoryRepository.Update(existing);
+        _categoryRepository.Update(category);
         await _categoryRepository.SaveChangesAsync();
 
-        // Now handle details (if you want them in the same request).
-        // This can get tricky: do you want to update existing detail rows, 
-        // add new ones, or remove old ones that aren't in the DTO?
-
-        // For a simple approach, let's just update existing detail IDs or insert new:
-        if (dto.CategoryDetails != null)
-        {
-            foreach (var detailDto in dto.CategoryDetails)
-            {
-                if (detailDto.Id == 0)
-                {
-                    // brand new detail
-                    var newDetail = _mapper.Map<CategoryDetail>(detailDto);
-                    newDetail.CategoryId = existing.Id;
-                    await _categoryDetailRepository.CreateAsync(newDetail);
-                }
-                else
-                {
-                    var existingDetail = await _categoryDetailRepository.GetAsync(detailDto.Id);
-                    if (existingDetail == null)
-                    {
-                        continue;
-                    }
-
-                    existingDetail.LanguageId = detailDto.LanguageId;
-                    existingDetail.Title = detailDto.Name;
-                    _categoryDetailRepository.Update(existingDetail);
-                }
-            }
-            await _categoryDetailRepository.SaveChangesAsync();
-        }
-
         return true;
+
     }
 
     public async Task<UpdateCategoryDTO> GetUpdatedDtoAsync(int id)
     {
-        var entity = await _categoryRepository.GetAsync(id);
-        if (entity == null) 
-            return null;
+        var category = await _categoryRepository.GetAsync(x => x.Id == id, _getWithIncludes());
 
-        var dto = _mapper.Map<UpdateCategoryDTO>(entity);
+        if (category == null)
+            throw new NotFoundException();
 
-        // gather existing details
-        var details = await _categoryDetailRepository
-            .GetAll(d => d.CategoryId == entity.Id)
-            .ToListAsync();
-
-        dto.CategoryDetails = _mapper.Map<List<UpdateCategoryDetailDTO>>(details);
+        var dto = _mapper.Map<UpdateCategoryDTO>(category);
 
         return dto;
     }
 
     public async Task DeleteAsync(int id)
     {
-        var existing = await _categoryRepository.GetAsync(id);
-        if (existing == null) return;
+        var exists = await _categoryRepository.GetAsync(id);
+        if (exists == null) 
+            throw new NotFoundException();
 
-        _categoryRepository.SoftDelete(existing);
+        _categoryRepository.SoftDelete(exists);
         await _categoryRepository.SaveChangesAsync();
 
-        var details = _categoryDetailRepository.GetAll(d => d.CategoryId == existing.Id).ToList();
+        var details = _categoryDetailRepository.GetAll(d => d.CategoryId == exists.Id).ToList();
         foreach (var detail in details)
         {
             _categoryDetailRepository.SoftDelete(detail);
@@ -214,39 +175,66 @@ public class CategoryService : ICategoryService
 
 
 
-    public async Task<bool> AddCategoryDetailAsync(CreateCategoryDetailDTO detailDto)
-    {
-        var categoryExists = await _categoryRepository.IsExistAsync(c => c.Id == detailDto.ParentCategoryId);
-        if (!categoryExists) return false;
+    //public async Task<bool> AddCategoryDetailAsync(CreateCategoryDetailDTO detailDto)
+    //{
+    //    var categoryExists = await _categoryRepository.IsExistAsync(c => c.Id == detailDto.ParentCategoryId);
+    //    if (!categoryExists) return false;
 
-        var detail = _mapper.Map<CategoryDetail>(detailDto);
-        await _categoryDetailRepository.CreateAsync(detail);
-        await _categoryDetailRepository.SaveChangesAsync();
-        return true;
+    //    var detail = _mapper.Map<CategoryDetail>(detailDto);
+    //    await _categoryDetailRepository.CreateAsync(detail);
+    //    await _categoryDetailRepository.SaveChangesAsync();
+    //    return true;
+    //}
+
+    //public async Task<bool> UpdateCategoryDetailAsync(UpdateCategoryDetailDTO detailDto)
+    //{
+    //    var existing = await _categoryDetailRepository.GetAsync(detailDto.Id);
+    //    if (existing == null) return false;
+
+    //    existing.LanguageId = detailDto.LanguageId;
+    //    existing.Name = detailDto.Name;
+    //    existing.CategoryId = detailDto.Id; // if changing the category?
+
+    //    _categoryDetailRepository.Update(existing);
+    //    await _categoryDetailRepository.SaveChangesAsync();
+    //    return true;
+    //}
+
+    //public async Task DeleteCategoryDetailAsync(int detailId)
+    //{
+    //    var existing = await _categoryDetailRepository.GetAsync(detailId);
+    //    if (existing == null) return;
+
+    //    _categoryDetailRepository.SoftDelete(existing);
+    //    await _categoryDetailRepository.SaveChangesAsync();
+    //}
+
+
+    public async Task<bool> IsExistAsync(int id)
+    {
+        return await _categoryRepository.IsExistAsync(x => x.Id == id);
+    }
+    private static Func<IQueryable<Category>, IIncludableQueryable<Category, object>> _getWithIncludes(LanguageType language)
+    {
+        return x => x.Include(x => x.CategoryDetails.Where(x => x.LanguageId == (int)language));
+    }
+    private static Func<IQueryable<Category>, IIncludableQueryable<Category, object>> _getWithIncludes()
+    {
+        return x => x.Include(x => x.CategoryDetails);
     }
 
-    public async Task<bool> UpdateCategoryDetailAsync(UpdateCategoryDetailDTO detailDto)
+    public Task<bool> AddCategoryDetailAsync(CreateCategoryDetailDTO categoryDetailDTO)
     {
-        var existing = await _categoryDetailRepository.GetAsync(detailDto.Id);
-        if (existing == null) return false;
-
-        existing.LanguageId = detailDto.LanguageId;
-        existing.Title = detailDto.Name;
-        existing.CategoryId = detailDto.Id; // if changing the category?
-
-        _categoryDetailRepository.Update(existing);
-        await _categoryDetailRepository.SaveChangesAsync();
-        return true;
+        throw new NotImplementedException();
     }
 
-    public async Task DeleteCategoryDetailAsync(int detailId)
+    public Task<bool> UpdateCategoryDetailAsync(UpdateCategoryDetailDTO categoryDetailDTO)
     {
-        var existing = await _categoryDetailRepository.GetAsync(detailId);
-        if (existing == null) return;
-
-        _categoryDetailRepository.SoftDelete(existing);
-        await _categoryDetailRepository.SaveChangesAsync();
+        throw new NotImplementedException();
     }
 
-
+    public Task DeleteCategoryDetailAsync(int categoryDetailId)
+    {
+        throw new NotImplementedException();
+    }
 }
