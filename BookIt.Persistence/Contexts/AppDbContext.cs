@@ -27,6 +27,9 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         modelBuilder.AddSeedData();
@@ -51,7 +54,6 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<CancellationRefund>().HasQueryFilter(x => !x.IsRefunded);
 
 
-        base.OnModelCreating(modelBuilder);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -1,4 +1,6 @@
-﻿using BookIt.Application.Interfaces.Services.External;
+﻿using BookIt.Application.Interfaces.Helpers;
+using BookIt.Application.Interfaces.Localizers;
+using BookIt.Application.Interfaces.Services.External;
 using BookIt.Infrastracture.External;
 using BookIt.Infrastracture.Localizers;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +16,8 @@ public static class InfrastractureServiceRegistration
     {
         services.AddScoped<ICloudinaryService, CloudinaryService>();
         services.AddScoped<IEmailService, EmailService>();
+
+        services.AddScoped<IValidationMessagesProvider, ValidationMessagesLocalizer>();
 
         _addLocalizers(services);
 

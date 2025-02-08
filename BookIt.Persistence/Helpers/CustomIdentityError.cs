@@ -7,9 +7,9 @@ namespace BookIt.Persistence.Helpers;
 
 internal class CustomIdentityErrorDescriber : IdentityErrorDescriber
 {
-    private readonly IValidationMessagesLocalizer _localizer;
+    private readonly ValidationMessagesLocalizer _localizer;
 
-    public CustomIdentityErrorDescriber(IValidationMessagesLocalizer localization)
+    public CustomIdentityErrorDescriber(ValidationMessagesLocalizer localization)
     {
         _localizer = localization;
     }
