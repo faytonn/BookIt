@@ -51,6 +51,8 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         {
             baseAuditableEntity.IsDeleted = false;
         }
+
+        
     }
 
     public IQueryable<T> GetAll(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool ignoreFilter = false)
@@ -72,6 +74,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
             query = query.IgnoreQueryFilters();
         }
 
+       
         return query;
     }
 

@@ -17,14 +17,14 @@
           "BookIt.Presentation.dll": {}
         },
         "resources": {
+          "en/BookIt.Presentation.resources.dll": {
+            "locale": "en"
+          },
           "az/BookIt.Presentation.resources.dll": {
             "locale": "az"
           },
           "cs/BookIt.Presentation.resources.dll": {
             "locale": "cs"
-          },
-          "en/BookIt.Presentation.resources.dll": {
-            "locale": "en"
           }
         }
       },

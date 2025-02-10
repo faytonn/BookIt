@@ -1,0 +1,84 @@
+﻿@using BookIt.Application.DTOs.GeneralLocationDTO
+@model List<BookIt.Application.DTOs.GeneralLocationDTO.GetGeneralLocationDTO>
+
+
+<br>
+<br>
+<br>
+<br>
+
+<h2>Archived General Locations</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 1;
+        }
+        @foreach (var location in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@location.Name</td>
+                <td>@location.Address</td>
+                <td>@location.City</td>
+                <td>@location.Country</td>
+                <td>
+                    <form asp-action="Restore" asp-route-id="@location.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-success btn-sm">Restore</button>
+                    </form>
+                    
+                    <form asp-action="HardDelete" asp-route-id="@location.Id" method="post" style="display:inline; margin-left:5px;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger btn-sm hard-delete-btn">
+                            Hard Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.hard-delete-btn').on('click', function (e) {
+                e.preventDefault(); 
+                var form = $(this).closest('form');
+
+                swal({
+                    title: "Are you sure?",
+                    text: "This will permanently delete the location!",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "Cancel",
+                            visible: true,
+                            className: "btn btn-danger"
+                        },
+                        confirm: {
+                            text: "Yes, delete it!",
+                            className: "btn btn-secondary"
+                        }
+                    },
+                    dangerMode: true,
+                }).then(function (willDelete) {
+                    if (willDelete) {
+                        form.submit(); 
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,47 @@
+﻿@using BookIt.Application.DTOs.GeneralLocationDTO
+@model UpdateGeneralLocationDTO
+@{
+    ViewData["Title"] = "Update General Location";
+}
+<br>
+<br>
+<br>
+<br>
+
+<h2>Update General Location</h2>
+
+<form asp-action="Update" method="post">
+    @Html.AntiForgeryToken()
+    <!-- Hidden field for the record ID -->
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Country"></label>
+        <input asp-for="Country" class="form-control" />
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

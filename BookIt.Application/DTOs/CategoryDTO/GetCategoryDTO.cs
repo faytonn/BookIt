@@ -9,7 +9,7 @@ public class GetCategoryDTO : IDTO
     public string Name { get; set; } = null!;
     public bool IsDeleted {  get; set; }
     public int? ParentCategoryId { get; set; }
-
+    
     public List<GetCategoryDetailDTO> CategoryDetails { get; set; } = [];
 
 }

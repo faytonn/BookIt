@@ -44,6 +44,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<Chat>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Message>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<News>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<GeneralLocation>().HasQueryFilter(x => !x.IsDeleted);
         //modelBuilder.Entity<NewsDetail>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Notification>().HasQueryFilter(x => !x.IsDeleted);
         //modelBuilder.Entity<NotificationDetail>().HasQueryFilter(x => !x.IsDeleted);

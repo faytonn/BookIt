@@ -1,0 +1,52 @@
+﻿@using BookIt.Application.DTOs.GeneralLocationDTO
+@model List<GetGeneralLocationDTO>
+@{
+    ViewData["Title"] = "General Locations";
+    int count = 1;
+}
+<br>
+<br>
+<br>
+<br>
+<h2>General Locations</h2>
+
+<a asp-action="Create" class="btn btn-success">Create New General Location</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var location in Model)
+            {
+                <tr>
+                    <td>@(count++)</td>
+                    <td>@location.Name</td>
+                    <td>@location.Address</td>
+                    <td>@location.City</td>
+                    <td>@location.Country</td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@location.Id" class="btn btn-warning">
+                            <i class="mdi mdi-grease-pencil"></i> Update
+                        </a>
+
+                        <form asp-action="Delete" asp-route-id="@location.Id" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

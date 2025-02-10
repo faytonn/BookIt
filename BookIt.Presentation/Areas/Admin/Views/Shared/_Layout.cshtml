@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+    <title>BookIt - Admin Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
           name="viewport" />
     <link rel="icon"
           href="~/admin/assets/img/kaiadmin/favicon.ico"
           type="image/x-icon" />
 
+    @* <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> *@
     <!-- Fonts and icons -->
     <script src="~/admin/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -93,82 +94,49 @@
                             <h4 class="text-section">Components</h4>
                         </li>
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="~/admin/assets/#base">
+                            <a data-bs-toggle="collapse" href="#categoriesDropdown" class="collapsed" aria-expanded="false">
                                 <i class="fas fa-layer-group"></i>
-                                <p>Base</p>
+                                <p>Categories</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="base">
+                            <div class="collapse" id="categoriesDropdown">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="~/admin/assets/components/avatars.html">
-                                            <span class="sub-item">Avatars</span>
+                                        <a asp-controller="Category" asp-action="Index" asp-area="Admin">
+                                            <span class="sub-item">Active Categories</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="~/admin/assets/components/buttons.html">
-                                            <span class="sub-item">Buttons</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/components/gridsystem.html">
-                                            <span class="sub-item">Grid System</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/components/panels.html">
-                                            <span class="sub-item">Panels</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/components/notifications.html">
-                                            <span class="sub-item">Notifications</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/components/sweetalert.html">
-                                            <span class="sub-item">Sweet Alert</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/components/font-awesome-icons.html">
-                                            <span class="sub-item">Font Awesome Icons</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/components/simple-line-icons.html">
-                                            <span class="sub-item">Simple Line Icons</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/components/typography.html">
-                                            <span class="sub-item">Typography</span>
+                                        <a asp-controller="Category" asp-action="Archived" asp-area="Admin">
+                                            <span class="sub-item">Archived Categories</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="~/admin/assets/#sidebarLayouts">
-                                <i class="fas fa-th-list"></i>
-                                <p>Sidebar Layouts</p>
+                            <a data-bs-toggle="collapse" href="#generalLocationsDropdown" class="collapsed" aria-expanded="false">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <p>General Locations</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="sidebarLayouts">
+                            <div class="collapse" id="generalLocationsDropdown">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="~/admin/assets/sidebar-style-2.html">
-                                            <span class="sub-item">Sidebar Style 2</span>
+                                        <a asp-controller="GeneralLocation" asp-action="Index" asp-area="Admin">
+                                            <span class="sub-item">Active General Locations</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="~/admin/assets/icon-menu.html">
-                                            <span class="sub-item">Icon Menu</span>
+                                        <a asp-controller="GeneralLocation" asp-action="Archived" asp-area="Admin">
+                                            <span class="sub-item">Archived General Locations</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="~/admin/assets/#forms">
                                 <i class="fas fa-pen-square"></i>
@@ -623,7 +591,7 @@
                                                      class="avatar-img rounded" />
                                             </div>
                                             <div class="u-text">
-                                                <h4>Hizrian</h4>
+                                                <h4>Fayton</h4>
                                                 <p class="text-muted">hello@example.com</p>
                                                 <a href="~/admin/assets/profile.html"
                                                    class="btn btn-xs btn-secondary btn-sm">View Profile</a>
@@ -647,35 +615,36 @@
             </div>
             </nav>
             <!-- End Navbar -->
-                @RenderBody()
-            <footer class="footer">
-                <div class="container-fluid d-flex justify-content-between">
-                    <nav class="pull-left">
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="~/admin/assets/http://www.themekita.com">
-                                    ThemeKita
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="~/admin/assets/#"> Help </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="~/admin/assets/#"> Licenses </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright">
-                        2024, made with <i class="fa fa-heart heart text-danger"></i> by
-                        <a href="~/admin/assets/http://www.themekita.com">ThemeKita</a>
-                    </div>
-                    <div>
-                        Distributed by
-                        <a target="_blank" href="~/admin/assets/https://themewagon.com/">ThemeWagon</a>.
-                    </div>
-                </div>
-            </footer>
         </div>
+            @RenderBody()
+        <footer class="footer">
+            <div class="container-fluid d-flex justify-content-between">
+                <nav class="pull-left">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/admin/assets/http://www.themekita.com">
+                                ThemeKita
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/admin/assets/#"> Help </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/admin/assets/#"> Licenses </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright">
+                    2024, made with <i class="fa fa-heart heart text-danger"></i> by
+                    <a href="~/admin/assets/http://www.themekita.com">ThemeKita</a>
+                </div>
+                <div>
+                    Distributed by
+                    <a target="_blank" href="~/admin/assets/https://themewagon.com/">ThemeWagon</a>.
+                </div>
+            </div>
+        </footer>
+    </div>
 
     </div>
     <!--   Core JS Files   -->
@@ -711,39 +680,19 @@
     <!-- Kaiadmin JS -->
     <script src="~/admin/assets/js/kaiadmin.min.js"></script>
 
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="~/admin/assets/js/setting-demo.js"></script>
-    <script src="~/admin/assets/js/demo.js"></script>
+    
     <script>
-        $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#177dff",
-            fillColor: "rgba(23, 125, 255, 0.14)",
-        });
-
-        $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#f3545d",
-            fillColor: "rgba(243, 84, 93, .14)",
-        });
-
-        $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#ffa534",
-            fillColor: "rgba(255, 165, 52, .14)",
-        });
+        $('.scrollbar-inner').scrollbar();
     </script>
 
+    @* <style>
+        footer {
+            
+            margin-top: -200px;
+        }
+    </style> *@
 
+    @RenderSection("Scripts", false)
 </body>
 </html>
 

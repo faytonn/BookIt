@@ -1,0 +1,41 @@
+﻿@model List<BookIt.Application.DTOs.CategoryDTO.GetCategoryDTO>
+
+<li class="nav-item">
+    <a data-bs-toggle="collapse" href="#softDeletedCategories" class="collapsed" aria-expanded="false">
+        <p>Soft Deleted Categories</p>
+        <span class="caret"></span>
+    </a>
+    <div class="collapse" id="softDeletedCategories">
+        <ul class="nav nav-collapse">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var cat in Model)
+                {
+                    <li>
+                        <a asp-action="Restore" asp-controller="Category" asp-area="Admin" method="post">
+                            <span class="sub-item">
+                                @cat.CategoryDetails.FirstOrDefault()?.Name ?? cat.Name
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="HardDelete" asp-controller="Category" asp-area="Admin"
+                           onclick="return confirm('Are you sure you want to permanently delete this category?');" method="post">
+                            <span class="sub-item">
+                                Hard Delete - @cat.CategoryDetails.FirstOrDefault()?.Name ?? cat.Name
+                            </span>
+                        </a>
+                    </li>
+                }
+            }
+            else
+            {
+                <li>
+                    <a href="#">
+                        <span class="sub-item">No soft deleted categories</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</li>

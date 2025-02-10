@@ -1,4 +1,4 @@
-﻿@model BookIt.Application.DTOs.CategoryDTO.CreateCategoryDTO
+﻿@* @model BookIt.Application.DTOs.CategoryDTO.CreateCategoryDTO
 
 
 <!-- If you're using .NET Core's built-in validation, show validation summary -->
@@ -59,3 +59,67 @@
             <partial name="_ValidationScriptsPartial" />
 }
  
+ *@
+
+                    @using BookIt.Application.DTOs.CategoryDTO
+@model CreateCategoryDTO
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Create Category</div>
+    </div>
+
+    <form asp-action="Create" method="post" class="form-group">
+        <div class="card-body">
+            <!-- Category Name -->
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- Parent Category Dropdown -->
+            <div class="mb-3">
+                <label asp-for="ParentCategoryId" class="form-label">Parent Category (optional)</label>
+                <select asp-for="ParentCategoryId" class="form-control" asp-items="ViewBag.ParentCategories">
+                    <option value="">None</option>
+                </select>
+                <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+            </div>
+
+            <!-- Language Details -->
+            <div class="row">
+                <!-- English -->
+                <div class="col-md-4">
+                    <label class="form-label">English Title</label>
+                    <input type="hidden" name="CategoryDetails[0].LanguageId" value="1" />
+                    <input type="text" name="CategoryDetails[0].Name" class="form-control" />
+                </div>
+
+                <!-- Azerbaijani -->
+                <div class="col-md-4">
+                    <label class="form-label">Azerbaijani Title</label>
+                    <input type="hidden" name="CategoryDetails[1].LanguageId" value="2" />
+                    <input type="text" name="CategoryDetails[1].Name" class="form-control" />
+                </div>
+
+                <!-- Czech -->
+                <div class="col-md-4">
+                    <label class="form-label">Czech Title</label>
+                    <input type="hidden" name="CategoryDetails[2].LanguageId" value="3" />
+                    <input type="text" name="CategoryDetails[2].Name" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="card-action">
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a asp-action="Index" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,100 @@
+﻿@using BookIt.Application.DTOs.CategoryDTO
+@model List<BookIt.Application.DTOs.CategoryDTO.GetCategoryDTO>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+<h2>Archived Categories</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Parent Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 1;
+            var allCategories = ViewBag.AllCategories as IEnumerable<GetCategoryDTO>;
+        }
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@(category.CategoryDetails.FirstOrDefault()?.Name ?? category.Name)</td>
+                <td>
+                    @if (category.ParentCategoryId == null)
+                    {
+                        <span>No Parent</span>
+                    }
+                    else
+                    {
+                        // Look up the parent category in allCategories.
+                        var parent = allCategories?.FirstOrDefault(x => x.Id == category.ParentCategoryId);
+                        if (parent != null)
+                        {
+                            <span>@parent.Name</span>
+                        }
+                        else
+                        {
+                            <span>Unknown Parent</span>
+                        }
+                    }
+                </td>
+                <td>
+                    <form asp-action="Restore" asp-route-id="@category.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-success btn-sm">Restore</button>
+                    </form>
+                    <form asp-action="HardDelete" asp-route-id="@category.Id" method="post" style="display:inline; margin-left:5px;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger btn-sm hard-delete-btn">
+                            Hard Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.hard-delete-btn').on('click', function (e) {
+                e.preventDefault(); // Prevent the default form submission
+                var form = $(this).closest('form');
+
+                // Use SweetAlert for confirmation.
+                // Adjust the options if you're using SweetAlert or SweetAlert2.
+                swal({
+                    title: "Are you sure?",
+                    text: "This will permanently delete the category!",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "Cancel",
+                            visible: true,
+                            className: "btn btn-danger"
+                        },
+                        confirm: {
+                            text: "Yes, delete it!",
+                            className: "btn btn-secondary"
+                        }
+                    },
+                    dangerMode: true,
+                }).then(function (willDelete) {
+                    if (willDelete) {
+                        form.submit(); // Submit the form if confirmed
+                    }
+                });
+            });
+        });
+    </script>
+}

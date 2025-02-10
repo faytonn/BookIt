@@ -2,10 +2,10 @@
 
 namespace BookIt.Domain.Entities;
 
-public class Category : BaseEntity
+public class Category : BaseAuditableEntity
 {
     public string Name { get; set; } = null!;
-    public bool IsDeleted { get; set; }
+    //public bool IsDeleted { get; set; }
 
     public int? ParentCategoryId { get; set; }
     public Category? ParentCategory { get; set; }

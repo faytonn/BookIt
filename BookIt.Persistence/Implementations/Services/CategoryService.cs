@@ -7,6 +7,7 @@ using BookIt.Application.Interfaces.Repositories;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
@@ -46,6 +47,8 @@ public class CategoryService : ICategoryService
     {
         var categories =  _categoryRepository.GetAll(include: _getWithIncludes(language));
 
+
+
         var dtos = _mapper.Map<List<GetCategoryDTO>>(categories);
 
         return dtos;
@@ -54,6 +57,7 @@ public class CategoryService : ICategoryService
     public async Task<PaginateDTO<GetCategoryDTO>> GetPagesAsync(LanguageType language = LanguageType.English, int page = 1, int limit = 10)
     {
         var query = _categoryRepository.GetAll(include: _getWithIncludes(language));
+
         var count = query.Count();
 
         var pageCount = (int)Math.Ceiling((decimal)count / limit);
@@ -80,6 +84,7 @@ public class CategoryService : ICategoryService
 
         return paginateDto;
     }
+
 
 
 
@@ -163,7 +168,6 @@ public class CategoryService : ICategoryService
             throw new NotFoundException();
 
         _categoryRepository.SoftDelete(exists);
-        await _categoryRepository.SaveChangesAsync();
 
         var details = _categoryDetailRepository.GetAll(d => d.CategoryId == exists.Id).ToList();
         foreach (var detail in details)
@@ -173,7 +177,35 @@ public class CategoryService : ICategoryService
         await _categoryDetailRepository.SaveChangesAsync();
     }
 
+    public async Task RestoreAsync(int id)
+    {
+        var category = await _categoryRepository.GetAsync(id, ignoreFilter: true);
+        if (category == null)
+            throw new NotFoundException("Category not found.");
 
+        _categoryRepository.Repair(category);
+        await _categoryRepository.SaveChangesAsync();
+    }
+
+    public async Task HardDeleteAsync(int id)
+    {
+        var category = await _categoryRepository.GetAsync(id, ignoreFilter: true);
+        if (category == null)
+            throw new NotFoundException("Category not found.");
+
+        _categoryRepository.HardDelete(category);
+        await _categoryRepository.SaveChangesAsync();
+    }
+
+
+    public List<GetCategoryDTO> GetArchivedCategories(LanguageType language = LanguageType.English)
+    {
+        var query = _categoryRepository.GetAll(include: _getWithIncludes(language), ignoreFilter: true);
+
+        var archived = query.Where(c => c.IsDeleted).ToList();
+
+        return _mapper.Map<List<GetCategoryDTO>>(archived);
+    }
 
     //public async Task<bool> AddCategoryDetailAsync(CreateCategoryDetailDTO detailDto)
     //{
@@ -223,18 +255,5 @@ public class CategoryService : ICategoryService
         return x => x.Include(x => x.CategoryDetails);
     }
 
-    public Task<bool> AddCategoryDetailAsync(CreateCategoryDetailDTO categoryDetailDTO)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> UpdateCategoryDetailAsync(UpdateCategoryDetailDTO categoryDetailDTO)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteCategoryDetailAsync(int categoryDetailId)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

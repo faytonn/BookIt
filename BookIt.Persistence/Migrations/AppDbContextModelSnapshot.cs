@@ -161,6 +161,13 @@ namespace BookIt.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -173,6 +180,13 @@ namespace BookIt.Persistence.Migrations
 
                     b.Property<int?>("ParentCategoryId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -470,10 +484,27 @@ namespace BookIt.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -645,7 +676,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 2, 9, 0, 46, 40, 693, DateTimeKind.Local).AddTicks(5329),
+                            CreatedAt = new DateTime(2025, 2, 9, 22, 25, 42, 782, DateTimeKind.Local).AddTicks(7225),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786112/bookit./HitMeHardAndSoft.jpg",
                             IsDeleted = false,
@@ -655,7 +686,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 2, 9, 0, 46, 40, 693, DateTimeKind.Local).AddTicks(5384),
+                            CreatedAt = new DateTime(2025, 2, 9, 22, 25, 42, 782, DateTimeKind.Local).AddTicks(7313),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786345/bookit./KendrickLamar.webp",
                             IsDeleted = false,
@@ -665,7 +696,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 2, 9, 0, 46, 40, 693, DateTimeKind.Local).AddTicks(5387),
+                            CreatedAt = new DateTime(2025, 2, 9, 22, 25, 42, 782, DateTimeKind.Local).AddTicks(7319),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786457/bookit./paddington3.jpg",
                             IsDeleted = false,

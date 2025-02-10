@@ -2,7 +2,7 @@
 
 namespace BookIt.Domain.Entities;
 
-public class GeneralLocation : BaseEntity
+public class GeneralLocation : BaseAuditableEntity
 {
     public string Name { get; set; } = null!;
     public string Address { get; set; } = null!;

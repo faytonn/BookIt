@@ -100,5 +100,6 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<ILayoutService, LayoutService>();
         services.AddScoped<ISettingService, SettingService>();
+        services.AddScoped<IGeneralLocationService, GeneralLocationService>();
     }
 }
