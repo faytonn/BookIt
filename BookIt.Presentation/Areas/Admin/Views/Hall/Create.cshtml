@@ -1,0 +1,49 @@
+﻿@using BookIt.Application.DTOs.HallDTO
+@model CreateHallDTO
+
+@{
+    ViewData["Title"] = "Create Hall";
+}
+
+<h2>Create Hall</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <!-- General Location Dropdown -->
+    <div class="form-group">
+        <label asp-for="LocationId">General Location</label>
+        <select asp-for="LocationId" class="form-control" asp-items="ViewBag.Locations">
+            <option value="">Select a location</option>
+        </select>
+        <span asp-validation-for="LocationId" class="text-danger"></span>
+    </div>
+
+    <!-- Multi-Language Hall Name Inputs -->
+    <div class="row">
+        <!-- English -->
+        <div class="col-md-4">
+            <label class="form-label">English Name</label>
+            <input type="hidden" name="HallDetails[0].LanguageId" value="1" />
+            <input type="text" name="HallDetails[0].Name" class="form-control" placeholder="Enter hall name in English" />
+        </div>
+        <!-- Azerbaijani -->
+        <div class="col-md-4">
+            <label class="form-label">Azerbaijani Name</label>
+            <input type="hidden" name="HallDetails[1].LanguageId" value="2" />
+            <input type="text" name="HallDetails[1].Name" class="form-control" placeholder="Enter hall name in Azerbaijani" />
+        </div>
+        <!-- Czech -->
+        <div class="col-md-4">
+            <label class="form-label">Czech Name</label>
+            <input type="hidden" name="HallDetails[2].LanguageId" value="3" />
+            <input type="text" name="HallDetails[2].Name" class="form-control" placeholder="Enter hall name in Czech" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Create</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

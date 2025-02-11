@@ -32,10 +32,10 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
                .HasForeignKey(e => e.GeneralLocationId)
                .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(e => e.EventDetail)
-               .WithOne(ed => ed.Event)
-               .HasForeignKey<EventDetail>(ed => ed.EventId)
-               .OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany(e => e.EventDetail)
+        .WithOne(ed => ed.Event)
+        .HasForeignKey(ed => ed.EventId)
+        .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(e => e.Reservations)
                .WithOne(r => r.Event)

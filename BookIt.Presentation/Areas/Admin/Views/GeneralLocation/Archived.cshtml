@@ -35,12 +35,12 @@
                 <td>
                     <form asp-action="Restore" asp-route-id="@location.Id" method="post" style="display:inline;">
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-success btn-sm">Restore</button>
+                        <button type="submit" class="btn btn-success btn">Restore</button>
                     </form>
                     
                     <form asp-action="HardDelete" asp-route-id="@location.Id" method="post" style="display:inline; margin-left:5px;">
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-danger btn-sm hard-delete-btn">
+                        <button type="submit" class="btn btn-danger btn hard-delete-btn">
                             Hard Delete
                         </button>
                     </form>
@@ -74,6 +74,7 @@
                     },
                     dangerMode: true,
                 }).then(function (willDelete) {
+                    // console.log("Confirmation result:", willDelete);
                     if (willDelete) {
                         form.submit(); 
                     }

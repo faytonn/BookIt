@@ -6,9 +6,9 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\BookIt.
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\BookIt.Presentation.runtimeconfig.json
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\BookIt.Presentation.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\BookIt.Presentation.pdb
+C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\en\BookIt.Presentation.resources.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\az\BookIt.Presentation.resources.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\cs\BookIt.Presentation.resources.dll
-C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\en\BookIt.Presentation.resources.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\Azure.Identity.dll
@@ -267,6 +267,7 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\BookIt.
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\BookIt.Application.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\bin\Debug\net8.0\BookIt.Domain.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.csproj.AssemblyReference.cache
+C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.Areas.Admin.Resources.AdminLayout.en.resources
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.Resources.Layout.az.resources
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.Resources.Layout.cs.resources
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.Resources.Layout.en.resources
@@ -280,9 +281,9 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.RazorAssemblyInfo.cache
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.RazorAssemblyInfo.cs
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.sourcelink.json
+C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\en\BookIt.Presentation.resources.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\az\BookIt.Presentation.resources.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\cs\BookIt.Presentation.resources.dll
-C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\en\BookIt.Presentation.resources.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\staticwebassets\msbuild.BookIt.Presentation.Microsoft.AspNetCore.StaticWebAssets.props
@@ -299,4 +300,3 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\refint\
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.genruntimeconfig.cache
 C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\ref\BookIt.Presentation.dll
-C:\Users\Fatima\source\repos\BookIt\BookIt.Presentation\obj\Debug\net8.0\BookIt.Presentation.Areas.Admin.Resources.AdminLayout.en.resources

@@ -3,6 +3,6 @@ using BookIt.Domain.Entities;
 
 namespace BookIt.Application.Interfaces.Repositories;
 
-public interface IEventSeatTypeRepository : IRepository<EventDetailSeatType>
+public interface IEventDetailSeatTypeRepository : IRepository<EventDetailSeatType>
 {
 }

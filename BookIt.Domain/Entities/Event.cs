@@ -8,6 +8,7 @@ public class Event : BaseAuditableEntity
     public string Title { get; set; } = null!;
     public string ImagePath { get; set; } = null!;
     //public string Description { get; set; } = null!;
+    public int LanguageId { get; set; }
     public DateTime EventDate { get; set; }
     public string PriceRange { get; set; } = null!;
     public bool IsSoldOut { get; set; } = false;
@@ -21,7 +22,7 @@ public class Event : BaseAuditableEntity
     //public int AvailableSeats { get; set; }
     //public decimal Price { get; set; }
     //public bool isSoldOut { get; set; }
-    public EventDetail? EventDetail { get; set; }
+    public ICollection<EventDetail> EventDetail { get; set; } = [];
     public ICollection<EventDetailSeatType> EventSeatTypes { get; set; } = [];
     public ICollection<Reservation> Reservations { get; set; } = [];
     public ICollection<WaitlistEntry>? WaitlistEntries { get; set; }

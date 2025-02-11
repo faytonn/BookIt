@@ -5,7 +5,7 @@ using BookIt.Persistence.Implementations.Repositories.Generic;
 
 namespace BookIt.Persistence.Implementations.Repositories;
 
-public class EventSeatTypeRepository : Repository<EventDetailSeatType>, IEventSeatTypeRepository
+public class EventSeatTypeRepository : Repository<EventDetailSeatType>, IEventDetailSeatTypeRepository
 {
     public EventSeatTypeRepository(AppDbContext dbContext) : base(dbContext)
     {

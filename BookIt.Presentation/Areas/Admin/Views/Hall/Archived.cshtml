@@ -1,0 +1,79 @@
+﻿@using BookIt.Application.DTOs.HallDTO
+@model List<GetHallDTO>
+
+<br>
+<br>
+<br>
+<br>
+
+<h2>Archived Halls</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Hall Name</th>
+            <th>General Location</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 1;
+        }
+        @foreach (var hall in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@hall.Name</td>
+                <td>@hall.LocationName</td>
+                <td>
+                    <form asp-action="Restore" asp-route-id="@hall.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-success btn">Restore</button>
+                    </form>
+                    <form asp-action="HardDelete" asp-route-id="@hall.Id" method="post" style="display:inline; margin-left:5px;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger btn hard-delete-btn">
+                            Hard Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.hard-delete-btn').on('click', function (e) {
+                e.preventDefault(); // Prevent the form from submitting immediately
+                var form = $(this).closest('form');
+
+                swal({
+                    title: "Are you sure?",
+                    text: "This will permanently delete the hall!",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "Cancel",
+                            visible: true,
+                            className: "btn btn-danger"
+                        },
+                        confirm: {
+                            text: "Yes, delete it!",
+                            className: "btn btn-secondary"
+                        }
+                    },
+                    dangerMode: true,
+                }).then(function (willDelete) {
+                    // console.log("Confirmation result:", willDelete); // Debug log
+                    if (willDelete) {
+                        form.submit(); // Submit the form if confirmed
+                    }
+                });
+            });
+        });
+    </script>
+}

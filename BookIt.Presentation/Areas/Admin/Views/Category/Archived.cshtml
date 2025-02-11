@@ -34,7 +34,6 @@
                     }
                     else
                     {
-                        // Look up the parent category in allCategories.
                         var parent = allCategories?.FirstOrDefault(x => x.Id == category.ParentCategoryId);
                         if (parent != null)
                         {
@@ -49,11 +48,11 @@
                 <td>
                     <form asp-action="Restore" asp-route-id="@category.Id" method="post" style="display:inline;">
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-success btn-sm">Restore</button>
+                        <button type="submit" class="btn btn-success btn">Restore</button>
                     </form>
                     <form asp-action="HardDelete" asp-route-id="@category.Id" method="post" style="display:inline; margin-left:5px;">
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-danger btn-sm hard-delete-btn">
+                        <button type="submit" class="btn btn-danger btn hard-delete-btn">
                             Hard Delete
                         </button>
                     </form>

@@ -1,11 +1,19 @@
 ﻿using BookIt.Application.DTOs.Common;
+using Microsoft.AspNetCore.Http;
 
 namespace BookIt.Application.DTOs.EventDetailDTO;
 
 public class UpdateEventDetailDTO : IDTO
 {
+    public int Id { get; set; }
+
+    public int EventId { get; set; }    
+    public int LanguageId {  get; set; }
     public string Title { get; set; } = null!;
+
+    public IFormFile FormFile { get; set; } = null!;
     public string ImagePath { get; set; } = null!;
+
     public DateTime EventDate { get; set; }
     public int LocationId { get; set; }
     public string Description { get; set; } = null!;

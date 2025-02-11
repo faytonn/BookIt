@@ -1,0 +1,62 @@
+﻿@using BookIt.Application.DTOs.EventDetailDTO
+@model List<GetEventDetailDTO>
+
+@{
+    ViewData["Title"] = "Event Details";
+    int count = 1;
+    var eventId = ViewBag.EventId;
+    var languageId = ViewBag.LanguageId;
+}
+
+<br>
+<br>
+<br>
+<br>
+
+<h2>Event Details for Event @eventId (Language: @languageId)</h2>
+
+<a asp-action="Create" asp-route-eventId="@eventId" asp-route-languageId="@languageId" class="btn btn-success">Create New Detail</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Date</th>
+            <th>Price Range</th>
+            <th>Seats</th>
+            <th>Hall</th>
+            <th>Price</th>
+            <th>Sold Out?</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@detail.Title</td>
+                <td>@detail.Description</td>
+                <td><img src="@detail.ImagePath" alt="Image" style="max-height:50px;" /></td>
+                <td>@detail.EventDate.ToShortDateString()</td>
+                <td>@detail.PriceRange</td>
+                <td>@detail.AvailableSeats / @detail.TotalSeats</td>
+                <td>@detail.HallId</td>
+                <td>@detail.Price</td>
+                <td>@(detail.IsSoldOut ? "Yes" : "No")</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@detail.Id" class="btn btn-warning btn-sm">Update</a>
+                    <form asp-action="Delete" asp-route-id="@detail.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this detail?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

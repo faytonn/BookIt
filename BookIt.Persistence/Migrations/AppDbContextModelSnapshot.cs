@@ -303,6 +303,9 @@ namespace BookIt.Persistence.Migrations
                     b.Property<bool>("IsSoldOut")
                         .HasColumnType("bit");
 
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PriceRange")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -371,6 +374,9 @@ namespace BookIt.Persistence.Migrations
                     b.Property<bool>("IsSoldOut")
                         .HasColumnType("bit");
 
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
 
@@ -399,8 +405,7 @@ namespace BookIt.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventId")
-                        .IsUnique();
+                    b.HasIndex("EventId");
 
                     b.HasIndex("HallId");
 
@@ -519,6 +524,13 @@ namespace BookIt.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -531,6 +543,13 @@ namespace BookIt.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -676,7 +695,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 2, 9, 22, 25, 42, 782, DateTimeKind.Local).AddTicks(7225),
+                            CreatedAt = new DateTime(2025, 2, 11, 3, 31, 6, 48, DateTimeKind.Local).AddTicks(7619),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786112/bookit./HitMeHardAndSoft.jpg",
                             IsDeleted = false,
@@ -686,7 +705,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 2, 9, 22, 25, 42, 782, DateTimeKind.Local).AddTicks(7313),
+                            CreatedAt = new DateTime(2025, 2, 11, 3, 31, 6, 48, DateTimeKind.Local).AddTicks(7689),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786345/bookit./KendrickLamar.webp",
                             IsDeleted = false,
@@ -696,7 +715,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 2, 9, 22, 25, 42, 782, DateTimeKind.Local).AddTicks(7319),
+                            CreatedAt = new DateTime(2025, 2, 11, 3, 31, 6, 48, DateTimeKind.Local).AddTicks(7693),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786457/bookit./paddington3.jpg",
                             IsDeleted = false,
@@ -1692,8 +1711,8 @@ namespace BookIt.Persistence.Migrations
             modelBuilder.Entity("BookIt.Domain.Entities.EventDetail", b =>
                 {
                     b.HasOne("BookIt.Domain.Entities.Event", "Event")
-                        .WithOne("EventDetail")
-                        .HasForeignKey("BookIt.Domain.Entities.EventDetail", "EventId")
+                        .WithMany("EventDetail")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

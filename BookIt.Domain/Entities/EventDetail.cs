@@ -7,6 +7,7 @@ public class EventDetail : BaseAuditableEntity
     public string Title { get; set; } = null!;
     public string ImagePath { get; set; } = null!;
     public DateTime EventDate { get; set; }
+    public int LanguageId { get; set; }
     public int LocationId { get; set; }
     public GeneralLocation Location { get; set; } = null!;
     public string Description { get; set; } = null!;

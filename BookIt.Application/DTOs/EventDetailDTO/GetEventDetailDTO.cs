@@ -5,6 +5,8 @@ namespace BookIt.Application.DTOs.EventDetailDTO;
 public class GetEventDetailDTO : IDTO
 {
     public int Id { get; set; }
+    public int EventId { get; set; }
+    public int LanguageId { get; set; }
     public string Title { get; set; } = null!;
     public string ImagePath { get; set; } = null!;
     public DateTime EventDate { get; set; }
@@ -16,5 +18,4 @@ public class GetEventDetailDTO : IDTO
     public int HallId { get; set; }
     public decimal Price { get; set; }
     public bool IsSoldOut { get; set; }
-    public int EventId { get; set; }
 }

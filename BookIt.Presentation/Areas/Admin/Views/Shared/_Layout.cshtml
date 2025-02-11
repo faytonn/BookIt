@@ -138,42 +138,28 @@
                         </li>
 
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="~/admin/assets/#forms">
-                                <i class="fas fa-pen-square"></i>
-                                <p>Forms</p>
+                            <a data-bs-toggle="collapse" href="#hallDropdown" class="collapsed" aria-expanded="false">
+                                <i class="fas fa-chalkboard"></i>
+                                <p>Halls</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="forms">
+                            <div class="collapse" id="hallDropdown">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="~/admin/assets/forms/forms.html">
-                                            <span class="sub-item">Basic Form</span>
+                                        <a asp-controller="Hall" asp-action="Index" asp-area="Admin">
+                                            <span class="sub-item">Active Halls</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Hall" asp-action="Archived" asp-area="Admin">
+                                            <span class="sub-item">Archived Halls</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="~/admin/assets/#tables">
-                                <i class="fas fa-table"></i>
-                                <p>Tables</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="tables">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="~/admin/assets/tables/tables.html">
-                                            <span class="sub-item">Basic Table</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/tables/datatables.html">
-                                            <span class="sub-item">Datatables</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+
+
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="~/admin/assets/#maps">
                                 <i class="fas fa-map-marker-alt"></i>

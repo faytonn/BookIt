@@ -1,0 +1,44 @@
+﻿@using BookIt.Application.DTOs.HallDTO
+@model List<GetHallDTO>
+
+@{
+    ViewData["Title"] = "Halls";
+    int count = 1;
+}
+
+<br>
+<br>
+<br>
+<br>
+
+<h2>Halls</h2>
+
+<a asp-action="Create" class="btn btn-success">Create New Hall</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Hall Name</th>
+            <th>General Location</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hall in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@hall.Name</td>
+                <td>@hall.LocationName</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@hall.Id" class="btn btn-warning btn">Update</a>
+                    <form asp-area="Admin" asp-action="Delete" asp-route-id="@hall.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

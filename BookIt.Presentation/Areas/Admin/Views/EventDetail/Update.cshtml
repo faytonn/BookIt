@@ -1,0 +1,85 @@
+﻿@using BookIt.Application.DTOs.EventDetailDTO
+@model UpdateEventDetailDTO
+
+@{
+    ViewData["Title"] = "Update Event Detail";
+}
+<br>
+<br>
+<br>
+<br>
+
+<h2>Update Event Detail</h2>
+
+<form asp-action="Update" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImagePath">Image</label>
+        <input class="form-control" type="file" name="ImageFile" />
+        <span asp-validation-for="ImagePath" class="text-danger"></span>
+        <small>Current Image: <img src="@Model.ImagePath" alt="Current Image" style="max-height:50px;" /></small>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventDate"></label>
+        <input asp-for="EventDate" class="form-control" type="date" />
+        <span asp-validation-for="EventDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PriceRange"></label>
+        <input asp-for="PriceRange" class="form-control" />
+        <span asp-validation-for="PriceRange" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TotalSeats"></label>
+        <input asp-for="TotalSeats" class="form-control" />
+        <span asp-validation-for="TotalSeats" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AvailableSeats"></label>
+        <input asp-for="AvailableSeats" class="form-control" />
+        <span asp-validation-for="AvailableSeats" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="HallId">Hall</label>
+        <select asp-for="HallId" class="form-control" asp-items="ViewBag.Halls">
+            <option value="">Select a hall</option>
+        </select>
+        <span asp-validation-for="HallId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-check">
+        <input asp-for="IsSoldOut" class="form-check-input" />
+        <label asp-for="IsSoldOut" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

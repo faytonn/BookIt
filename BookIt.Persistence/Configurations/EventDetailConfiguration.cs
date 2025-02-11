@@ -32,7 +32,7 @@ public class EventDetailConfiguration : IEntityTypeConfiguration<EventDetail>
                .IsRequired();
 
         builder.HasOne(ed => ed.Location)
-               .WithMany() 
+               .WithMany()
                .HasForeignKey(ed => ed.LocationId)
                .OnDelete(DeleteBehavior.Restrict);
 
@@ -42,9 +42,10 @@ public class EventDetailConfiguration : IEntityTypeConfiguration<EventDetail>
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(ed => ed.Event)
-               .WithOne(e => e.EventDetail)
-               .HasForeignKey<EventDetail>(ed => ed.EventId)
-               .OnDelete(DeleteBehavior.Cascade);
+            .WithMany(e => e.EventDetail)
+            .HasForeignKey(ed => ed.EventId)
+            .OnDelete(DeleteBehavior.Cascade);
+
 
     }
 }

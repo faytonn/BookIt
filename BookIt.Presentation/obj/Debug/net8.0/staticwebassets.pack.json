@@ -1681,6 +1681,10 @@
       "PackagePath": "staticwebassets\\admin\\assets\\tables\\tables.html"
     },
     {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\uploads\\KendrickLamar.jpg",
+      "PackagePath": "staticwebassets\\uploads\\KendrickLamar.jpg"
+    },
+    {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\user\\assets\\css\\Flaticon.eot",
       "PackagePath": "staticwebassets\\user\\assets\\css\\Flaticon.eot"
     },

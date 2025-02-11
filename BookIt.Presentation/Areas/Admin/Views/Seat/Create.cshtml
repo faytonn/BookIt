@@ -1,0 +1,56 @@
+﻿@using BookIt.Application.DTOs.SeatDTO
+@model CreateSeatDTO
+
+@{
+    ViewData["Title"] = "Create Seat";
+}
+<br>
+<br>
+<br>
+<br>
+
+<h2>Create Seat</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="SeatName"></label>
+        <input asp-for="SeatName" class="form-control" />
+        <span asp-validation-for="SeatName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SeatRow"></label>
+        <input asp-for="SeatRow" class="form-control" />
+        <span asp-validation-for="SeatRow" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SeatColumn"></label>
+        <input asp-for="SeatColumn" class="form-control" />
+        <span asp-validation-for="SeatColumn" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SeatTypeId"></label>
+        <select asp-for="SeatTypeId" class="form-control" asp-items="ViewBag.SeatTypes">
+            <option value="">Select Seat Type</option>
+        </select>
+        <span asp-validation-for="SeatTypeId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="HallId"></label>
+        <select asp-for="HallId" class="form-control" asp-items="ViewBag.Halls">
+            <option value="">Select Hall</option>
+        </select>
+        <span asp-validation-for="HallId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
