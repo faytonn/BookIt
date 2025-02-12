@@ -9,7 +9,8 @@ public class EventDetailSeatTypeAutoMapper : Profile
     public EventDetailSeatTypeAutoMapper()
     {
         CreateMap<EventDetailSeatType, GetEventDetailSeatTypeDTO>()
-                  .ForMember(dest => dest.EventId, opt => opt.MapFrom(src => src.EventDetail.EventId));
+                .ForMember(dest => dest.SeatTypeName,
+                           opt => opt.MapFrom(src => src.SeatType != null ? src.SeatType.Name : "N/A"));
 
         CreateMap<CreateEventDetailSeatTypeDTO, EventDetailSeatType>();
 

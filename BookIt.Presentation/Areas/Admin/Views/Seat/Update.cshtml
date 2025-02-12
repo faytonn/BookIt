@@ -1,56 +1,42 @@
-﻿@using BookIt.Application.DTOs.SeatDTO
-@model UpdateSeatDTO
-
+﻿
+@model BookIt.Application.DTOs.SeatDTO.UpdateSeatDTO
 @{
-    ViewData["Title"] = "Update Seat";
+    ViewBag.Title = "Update Seat";
 }
 <br>
 <br>
 <br>
 <br>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<h2>Update Seat</h2>
 
-<form asp-action="Update" method="post">
-    @Html.AntiForgeryToken()
+
+<form asp-action="Edit" method="post">
     <input type="hidden" asp-for="Id" />
-
+    <input type="hidden" asp-for="HallId" />
     <div class="form-group">
         <label asp-for="SeatName"></label>
         <input asp-for="SeatName" class="form-control" />
         <span asp-validation-for="SeatName" class="text-danger"></span>
     </div>
-
     <div class="form-group">
         <label asp-for="SeatRow"></label>
         <input asp-for="SeatRow" class="form-control" />
         <span asp-validation-for="SeatRow" class="text-danger"></span>
     </div>
-
     <div class="form-group">
         <label asp-for="SeatColumn"></label>
         <input asp-for="SeatColumn" class="form-control" />
         <span asp-validation-for="SeatColumn" class="text-danger"></span>
     </div>
-
     <div class="form-group">
         <label asp-for="SeatTypeId"></label>
-        <select asp-for="SeatTypeId" class="form-control" asp-items="ViewBag.SeatTypes">
-            <option value="">Select Seat Type</option>
-        </select>
+        <input asp-for="SeatTypeId" class="form-control" />
         <span asp-validation-for="SeatTypeId" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
-        <label asp-for="HallId"></label>
-        <select asp-for="HallId" class="form-control" asp-items="ViewBag.Halls">
-            <option value="">Select Hall</option>
-        </select>
-        <span asp-validation-for="HallId" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-primary">Update Seat</button>
 </form>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

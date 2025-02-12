@@ -1,0 +1,42 @@
+﻿@model BookIt.Application.DTOs.SeatDTO.CreateBulkSeatDTO
+@{
+    ViewBag.Title = "Bulk Create Seats";
+}
+<br>
+<br>
+<br>
+<br>
+<h2>Bulk Create Seats</h2>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<form asp-action="BulkCreate" method="post">
+    <input type="hidden" asp-for="HallId" />
+    <div class="form-group">
+        <label asp-for="StartRow"></label>
+        <input asp-for="StartRow" class="form-control" />
+        <span asp-validation-for="StartRow" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndRow"></label>
+        <input asp-for="EndRow" class="form-control" />
+        <span asp-validation-for="EndRow" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartColumn"></label>
+        <input asp-for="StartColumn" class="form-control" />
+        <span asp-validation-for="StartColumn" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndColumn"></label>
+        <input asp-for="EndColumn" class="form-control" />
+        <span asp-validation-for="EndColumn" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SeatTypeId"></label>
+        <input asp-for="SeatTypeId" class="form-control" />
+        <span asp-validation-for="SeatTypeId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Seats in Bulk</button>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

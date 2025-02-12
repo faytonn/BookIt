@@ -129,7 +129,7 @@ public class EventDetailSeatTypeService : IEventDetailSeatTypeService
         await _repository.SaveChangesAsync();
     }
 
-    public List<GetEventDetailSeatTypeDTO> GetArchivedEventSeatTypes(int eventDetailId, LanguageType language = LanguageType.English)
+    public List<GetEventDetailSeatTypeDTO> GetArchivedEventSeatTypes(int eventDetailId)
     {
         var archived = _repository.GetAll(ignoreFilter: true)
                        .Where(x => x.IsDeleted && x.EventDetailId == eventDetailId)

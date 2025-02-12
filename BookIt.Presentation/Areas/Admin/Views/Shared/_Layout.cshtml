@@ -161,112 +161,74 @@
 
 
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="~/admin/assets/#maps">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <p>Maps</p>
+                            <a data-bs-toggle="collapse" href="#seatDropdown" class="collapsed" aria-expanded="false">
+                                <i class="fas fa-chair"></i>
+                                <p>Seats</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="maps">
+                            <div class="collapse" id="seatDropdown">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="~/admin/assets/maps/googlemaps.html">
-                                            <span class="sub-item">Google Maps</span>
+                                        <a asp-area="Admin" asp-controller="Seat" asp-action="Index">
+                                            <span class="sub-item">Active Seats</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="~/admin/assets/maps/jsvectormap.html">
-                                            <span class="sub-item">Jsvectormap</span>
+                                        <a asp-area="Admin" asp-controller="Seat" asp-action="Archived">
+                                            <span class="sub-item">Archived Seats</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="~/admin/assets/#charts">
-                                <i class="far fa-chart-bar"></i>
-                                <p>Charts</p>
+                            <a data-bs-toggle="collapse" href="#seatTypeDropdown" class="collapsed" aria-expanded="false">
+                                <i class="fas fa-th-large"></i>
+                                <p>Seat Types</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="charts">
+                            <div class="collapse" id="seatTypeDropdown">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="~/admin/assets/charts/charts.html">
-                                            <span class="sub-item">Chart Js</span>
+                                        <a asp-area="Admin" asp-controller="SeatType" asp-action="Index">
+                                            <span class="sub-item">Active Seat Types</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="~/admin/assets/charts/sparkline.html">
-                                            <span class="sub-item">Sparkline</span>
+                                        <a asp-area="Admin" asp-controller="SeatType" asp-action="Archived">
+                                            <span class="sub-item">Archived Seat Types</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+
+
+                        <!-- Event Seat Types (EventDetailSeatType) -->
                         <li class="nav-item">
-                            <a href="~/admin/assets/widgets.html">
-                                <i class="fas fa-desktop"></i>
-                                <p>Widgets</p>
-                                <span class="badge badge-success">4</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="~/admin/assets/../../documentation/index.html">
-                                <i class="fas fa-file"></i>
-                                <p>Documentation</p>
-                                <span class="badge badge-secondary">1</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="~/admin/assets/#submenu">
-                                <i class="fas fa-bars"></i>
-                                <p>Menu Levels</p>
+                            <a data-bs-toggle="collapse" href="#eventSeatTypeDropdown" class="collapsed" aria-expanded="false">
+                                <i class="fas fa-dollar-sign"></i>
+                                <p>Event Seat Types</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="submenu">
+                            <div class="collapse" id="eventSeatTypeDropdown">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a data-bs-toggle="collapse" href="~/admin/assets/#subnav1">
-                                            <span class="sub-item">Level 1</span>
-                                            <span class="caret"></span>
+                                        <a asp-area="Admin" asp-controller="EventSeatType" asp-action="Index">
+                                            <span class="sub-item">Active Event Seat Types</span>
                                         </a>
-                                        <div class="collapse" id="subnav1">
-                                            <ul class="nav nav-collapse subnav">
-                                                <li>
-                                                    <a href="~/admin/assets/#">
-                                                        <span class="sub-item">Level 2</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="~/admin/assets/#">
-                                                        <span class="sub-item">Level 2</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
                                     <li>
-                                        <a data-bs-toggle="collapse" href="~/admin/assets/#subnav2">
-                                            <span class="sub-item">Level 1</span>
-                                            <span class="caret"></span>
-                                        </a>
-                                        <div class="collapse" id="subnav2">
-                                            <ul class="nav nav-collapse subnav">
-                                                <li>
-                                                    <a href="~/admin/assets/#">
-                                                        <span class="sub-item">Level 2</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="~/admin/assets/#">
-                                            <span class="sub-item">Level 1</span>
+                                        <a asp-area="Admin" asp-controller="EventSeatType" asp-action="Archived">
+                                            <span class="sub-item">Archived Event Seat Types</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+                    </ul>
+                    </li>
                     </ul>
                 </div>
             </div>
@@ -666,16 +628,16 @@
     <!-- Kaiadmin JS -->
     <script src="~/admin/assets/js/kaiadmin.min.js"></script>
 
-    
+
     <script>
         $('.scrollbar-inner').scrollbar();
     </script>
 
     @* <style>
-        footer {
-            
-            margin-top: -200px;
-        }
+    footer {
+
+    margin-top: -200px;
+    }
     </style> *@
 
     @RenderSection("Scripts", false)

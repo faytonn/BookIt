@@ -33,7 +33,9 @@ public class SeatTypeService : ISeatTypeService
 
     public List<GetSeatTypeDTO> GetAll(LanguageType language = LanguageType.English)
     {
-        var seatTypes = _seatTypeRepository.GetAll().ToList();
+        var seatTypes = _seatTypeRepository
+                      .GetAll(include: q => q.Include(s => s.Hall))
+                      .ToList();
         return _mapper.Map<List<GetSeatTypeDTO>>(seatTypes);
     }
 
@@ -86,16 +88,18 @@ public class SeatTypeService : ISeatTypeService
         if (!modelState.IsValid)
             return false;
 
-        
+
         var seatType = await _seatTypeRepository.GetAsync(x => x.Id == dto.Id);
-        
+
         if (seatType == null)
         {
             modelState.AddModelError("", "Seat type not found.");
             return false;
         }
 
-        var existing = await _seatTypeRepository.GetAsync(x => x.Name.ToLower() == dto.Name.ToLower() && x.Id != dto.Id);
+        var existing = await _seatTypeRepository.GetAsync(
+                x => x.Name.ToLower() == dto.Name.ToLower()
+                && x.HallId == dto.HallId && x.Id != dto.Id);
         if (existing != null)
         {
             modelState.AddModelError("", "Another seat type with this name already exists.");
@@ -120,5 +124,33 @@ public class SeatTypeService : ISeatTypeService
     public async Task<bool> IsExistAsync(int id)
     {
         return await _seatTypeRepository.IsExistAsync(x => x.Id == id);
+    }
+
+    public async Task RestoreAsync(int id)
+    {
+        var seatType = await _seatTypeRepository.GetAsync(id, ignoreFilter: true);
+        if (seatType == null)
+            throw new NotFoundException("Hall not found.");
+
+        _seatTypeRepository.Repair(seatType);
+        await _seatTypeRepository.SaveChangesAsync();
+    }
+
+    public async Task HardDeleteAsync(int id)
+    {
+        var seatType = await _seatTypeRepository.GetAsync(x => x.Id == id, ignoreFilter: true);
+        if (seatType == null)
+            throw new NotFoundException("Seat type not found.");
+        _seatTypeRepository.HardDelete(seatType);
+        await _seatTypeRepository.SaveChangesAsync();
+    }
+
+    public List<GetSeatTypeDTO> GetArchivedSeatTypes(LanguageType language = LanguageType.English)
+    {
+        var archived = _seatTypeRepository
+                            .GetAll(ignoreFilter: true)
+                            .Where(x => x.IsDeleted)
+                            .ToList();
+        return _mapper.Map<List<GetSeatTypeDTO>>(archived);
     }
 }

@@ -7,11 +7,11 @@
     var eventId = ViewBag.EventId;
     var languageId = ViewBag.LanguageId;
 }
-
 <br>
 <br>
 <br>
 <br>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <h2>Event Details for Event @eventId (Language: @languageId)</h2>
 

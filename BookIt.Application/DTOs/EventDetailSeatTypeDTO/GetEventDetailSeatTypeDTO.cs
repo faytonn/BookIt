@@ -9,4 +9,6 @@ public class GetEventDetailSeatTypeDTO : IDTO
     public int SeatTypeId { get; set; }
     public decimal Price { get; set; }
     public string? AdditionalDetails { get; set; }
+
+    public string SeatTypeName { get; set; } = null!;
 }

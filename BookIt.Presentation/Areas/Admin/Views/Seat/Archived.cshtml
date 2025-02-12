@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BookIt.Application.DTOs.SeatDTO.GetSeatDTO>
+@{
+    ViewBag.Title = "Archived Seats";
+}
+<br>
+<br>
+<br>
+<br>
+
+<h2>Archived Seats</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Seat Name</th>
+            <th>Row</th>
+            <th>Column</th>
+            <th>Seat Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var seat in Model)
+        {
+            <tr>
+                <td>@seat.SeatName</td>
+                <td>@seat.SeatRow</td>
+                <td>@seat.SeatColumn</td>
+                <td>@seat.SeatTypeId</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

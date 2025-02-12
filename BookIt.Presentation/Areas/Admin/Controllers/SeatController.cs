@@ -1,98 +1,88 @@
 ﻿using BookIt.Application.DTOs.SeatDTO;
 using BookIt.Application.Interfaces.Services;
+using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BookIt.Presentation.Areas.Admin.Controllers;
-
-public class SeatController : Controller
+namespace BookIt.Web.Controllers
 {
-    private readonly ISeatService _seatService;
-    private readonly ISeatTypeService _seatTypeService;
-    private readonly IHallService _hallService;
+    public class SeatController : Controller
+    {
+        private readonly ISeatService _seatService;
 
-    public SeatController(ISeatService seatService, ISeatTypeService seatTypeService, IHallService hallService)
-    {
-        _seatService = seatService;
-        _seatTypeService = seatTypeService;
-        _hallService = hallService;
-    }
-
-    public IActionResult Index()
-    {
-        var seats = _seatService.GetAll(); 
-        return View(seats);
-    }
-    public IActionResult Create()
-    {
-        PopulateDropdowns();
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(CreateSeatDTO dto)
-    {
-        if (!ModelState.IsValid)
+        public SeatController(ISeatService seatService)
         {
-            PopulateDropdowns();
+            _seatService = seatService;
+        }
+
+        public async Task<IActionResult> Index(int hallId)
+        {
+            var seats = await _seatService.GetSeatsByHallAsync(hallId);
+            ViewBag.HallId = hallId;
+            return View(seats);
+        }
+
+        public IActionResult Create(int hallId)
+        {
+            var dto = new CreateSeatDTO { HallId = hallId };
             return View(dto);
         }
 
-        var result = await _seatService.CreateAsync(dto, ModelState);
-        if (!result)
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateSeatDTO dto)
         {
-            PopulateDropdowns();
+            if (ModelState.IsValid)
+            {
+                var result = await _seatService.CreateAsync(dto, ModelState);
+                if (result)
+                    return RedirectToAction("Index", new { hallId = dto.HallId });
+            }
             return View(dto);
         }
-        return RedirectToAction(nameof(Index));
-    }
-
-    public async Task<IActionResult> Update(int id)
-    {
-        var dto = await _seatService.GetUpdatedDtoAsync(id);
-        if (dto == null)
-            return NotFound();
-        PopulateDropdowns();
-        return View(dto);
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Update(int id, UpdateSeatDTO dto)
-    {
-        if (!ModelState.IsValid)
+        public IActionResult BulkCreate(int hallId)
         {
-            PopulateDropdowns();
+            var dto = new CreateBulkSeatDTO { HallId = hallId };
             return View(dto);
         }
 
-        var result = await _seatService.UpdateAsync(dto, ModelState);
-        if (!result)
+        [HttpPost]
+        public async Task<IActionResult> BulkCreate(CreateBulkSeatDTO dto)
         {
-            PopulateDropdowns();
+            if (ModelState.IsValid)
+            {
+                await _seatService.BulkCreateSeatsAsync(dto, ModelState);
+                return RedirectToAction("Index", new { hallId = dto.HallId });
+            }
             return View(dto);
         }
-        return RedirectToAction(nameof(Index));
-    }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Delete(int id)
-    {
-        await _seatService.DeleteAsync(id);
-        return RedirectToAction(nameof(Index));
-    }
+        public async Task<IActionResult> Update(int id)
+        {
+            var dto = await _seatService.GetUpdatedDtoAsync(id);
+            return View(dto);
+        }
 
-    private void PopulateDropdowns()
-    {
-        var seatTypes = _seatTypeService.GetAll()
-             .Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name }).ToList();
-        ViewBag.SeatTypes = seatTypes;
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateSeatDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _seatService.UpdateAsync(dto, ModelState);
+                return RedirectToAction("Index", new { hallId = dto.HallId });
+            }
+            return View(dto);
+        }
 
-        var halls = _hallService.GetAll()
-             .Select(h => new SelectListItem { Value = h.Id.ToString(), Text = h.Name }).ToList();
-        ViewBag.Halls = halls;
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, int hallId)
+        {
+            await _seatService.DeleteAsync(id);
+            return RedirectToAction("Index", new { hallId });
+        }
 
+        public IActionResult Archived(LanguageType language = LanguageType.English)
+        {
+            var archivedSeats = _seatService.GetArchivedSeats(language);
+            return View(archivedSeats);
+        }
     }
 }

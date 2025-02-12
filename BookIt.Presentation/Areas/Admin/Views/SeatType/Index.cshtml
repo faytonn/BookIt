@@ -1,0 +1,49 @@
+﻿@using BookIt.Application.DTOs.SeatTypeDTO
+@model List<GetSeatTypeDTO>
+
+@{
+    ViewData["Title"] = "Seat Types";
+    int count = 1;
+}
+<br>
+<br>
+<br>
+<br>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+<h2>Seat Types</h2>
+
+<a asp-action="Create" class="btn btn-success">Create New Seat Type</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Default Price</th>
+            <th>Description</th>
+            <th>Hall</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var seatType in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@seatType.Name</td>
+                <td>@seatType.DefaultPrice</td>
+                <td>@seatType.Description</td>
+                <td>@seatType.HallName</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@seatType.Id" class="btn btn-warning btn">Update</a>
+                    <form asp-action="Delete" asp-route-id="@seatType.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

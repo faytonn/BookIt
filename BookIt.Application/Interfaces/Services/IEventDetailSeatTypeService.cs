@@ -8,6 +8,6 @@ namespace BookIt.Application.Interfaces.Services
     {
         Task RestoreAsync(int id);
         Task HardDeleteAsync(int id);
-        List<GetEventDetailSeatTypeDTO> GetArchivedEventSeatTypes(int eventDetailId, LanguageType language = LanguageType.English);
+        List<GetEventDetailSeatTypeDTO> GetArchivedEventSeatTypes(int eventDetailId);
     }
 }

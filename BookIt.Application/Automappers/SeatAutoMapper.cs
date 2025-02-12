@@ -12,5 +12,6 @@ public class SeatAutoMapper : Profile
         CreateMap<Seat, GetSeatDTO>().ReverseMap();
         CreateMap<Seat, UpdateSeatDTO>().ReverseMap();
         CreateMap<Seat, CreateSeatDTO>().ReverseMap();
+        CreateMap<Seat, CreateBulkSeatDTO>().ReverseMap();
     }
 }

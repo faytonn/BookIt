@@ -1,11 +1,13 @@
 ﻿@using BookIt.Application.DTOs.CategoryDTO
 @model List<BookIt.Application.DTOs.CategoryDTO.GetCategoryDTO>
 
+<br>
+<br>
+<br>
+<br>
 
-    <br>
-    <br>
-    <br>
-    <br>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
 <h2>Archived Categories</h2>
 
 <table class="table table-striped">

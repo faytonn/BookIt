@@ -2,7 +2,7 @@
 
 namespace BookIt.Domain.Entities;
 
-public class Seat : BaseEntity
+public class Seat : BaseAuditableEntity
 {
     public string SeatName { get; set; } = null!;
     public int SeatColumn { get; set; }
@@ -11,7 +11,7 @@ public class Seat : BaseEntity
     public int SeatTypeId { get; set; }
     public SeatType SeatType { get; set; } = null!;
 
-    //public bool IsReserved { get; set; } = false;
+    public bool IsReserved { get; set; } = false;
 
     public int HallId { get; set; }
     public Hall Hall { get; set; } = null!;

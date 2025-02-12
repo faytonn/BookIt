@@ -695,7 +695,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 2, 11, 3, 31, 6, 48, DateTimeKind.Local).AddTicks(7619),
+                            CreatedAt = new DateTime(2025, 2, 11, 15, 55, 18, 519, DateTimeKind.Local).AddTicks(5655),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786112/bookit./HitMeHardAndSoft.jpg",
                             IsDeleted = false,
@@ -705,7 +705,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 2, 11, 3, 31, 6, 48, DateTimeKind.Local).AddTicks(7689),
+                            CreatedAt = new DateTime(2025, 2, 11, 15, 55, 18, 519, DateTimeKind.Local).AddTicks(5774),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786345/bookit./KendrickLamar.webp",
                             IsDeleted = false,
@@ -715,7 +715,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 2, 11, 3, 31, 6, 48, DateTimeKind.Local).AddTicks(7693),
+                            CreatedAt = new DateTime(2025, 2, 11, 15, 55, 18, 519, DateTimeKind.Local).AddTicks(5779),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786457/bookit./paddington3.jpg",
                             IsDeleted = false,
@@ -1114,8 +1114,18 @@ namespace BookIt.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("HallId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("SeatColumn")
                         .HasColumnType("int");
@@ -1130,6 +1140,13 @@ namespace BookIt.Persistence.Migrations
 
                     b.Property<int>("SeatTypeId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
