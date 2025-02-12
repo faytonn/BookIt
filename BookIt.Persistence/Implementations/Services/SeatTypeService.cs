@@ -7,6 +7,7 @@ using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using BookIt.Persistence.Implementations.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,14 @@ public class SeatTypeService : ISeatTypeService
     {
         _seatTypeRepository = seatTypeRepository;
         _mapper = mapper;
+    }
+
+    public async Task<List<GetSeatTypeDTO>> GetByHall(int hallId)
+    {
+        var query = _seatTypeRepository.GetAll(st => st.HallId == hallId && !st.IsDeleted);
+
+        var seatTypes = await query.ToListAsync();
+        return _mapper.Map<List<GetSeatTypeDTO>>(seatTypes);
     }
 
     public async Task<GetSeatTypeDTO> GetAsync(int id, LanguageType language = LanguageType.English)

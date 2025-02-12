@@ -6,10 +6,18 @@
 <br>
 <br>
 <br>
-<h2>Bulk Create Seats</h2>
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<h2>Bulk Create Seats</h2>
+
 <form asp-action="BulkCreate" method="post">
-    <input type="hidden" asp-for="HallId" />
+    <div class="form-group">
+        <label asp-for="HallId"></label>
+        <select asp-for="HallId" asp-items="ViewBag.Halls" class="form-control" id="HallId">
+            <option value="0">-- Please select a hall --</option>
+        </select>
+        <span asp-validation-for="HallId" class="text-danger"></span>
+    </div>
     <div class="form-group">
         <label asp-for="StartRow"></label>
         <input asp-for="StartRow" class="form-control" />
@@ -32,11 +40,55 @@
     </div>
     <div class="form-group">
         <label asp-for="SeatTypeId"></label>
-        <input asp-for="SeatTypeId" class="form-control" />
+        <select asp-for="SeatTypeId" asp-items="ViewBag.SeatTypes" class="form-control" id="SeatTypeId">
+            <option value="0">-- Please select a seat type --</option>
+        </select>
         <span asp-validation-for="SeatTypeId" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Create Seats in Bulk</button>
+    <button type="submit" class="btn btn-primary">Bulk Create Seats</button>
 </form>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $hallDropdown = $('#HallId');
+            var $seatTypeDropdown = $('#SeatTypeId');
+
+            if ($hallDropdown.val() == "0" || $hallDropdown.val() == "") {
+                $seatTypeDropdown.prop("disabled", true);
+            }
+
+            $hallDropdown.change(function () {
+                var hallId = $(this).val();
+                if (!hallId || hallId == "0") {
+                    $seatTypeDropdown.empty();
+                    $seatTypeDropdown.append($('<option>').val("0").text("-- Please select a seat type --"));
+                    $seatTypeDropdown.prop("disabled", true);
+                    return;
+                }
+                $seatTypeDropdown.prop("disabled", false);
+
+                $.ajax({
+                    url: '@Url.Action("GetSeatTypesByHall", "Seat", new { area = "Admin" })',
+                    data: { hallId: hallId },
+                    success: function (data) {
+                        $seatTypeDropdown.empty();
+                        $seatTypeDropdown.append($('<option>').val("0").text("-- Please select a seat type --"));
+
+                        $.each(data, function (index, item) {
+                            $seatTypeDropdown.append($('<option>', {
+                                value: item.id,
+                                text: item.name
+                            }));
+                        });
+                    },
+                    error: function () {
+                        alert('Error retrieving seat types.');
+                    }
+                });
+            });
+        });
+    </script>
 }

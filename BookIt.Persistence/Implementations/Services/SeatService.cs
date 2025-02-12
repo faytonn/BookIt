@@ -52,7 +52,6 @@ public class SeatService : ISeatService
         if(!modelState.IsValid) 
             return false;
 
-
         if (dto.StartRow > dto.EndRow || dto.StartColumn > dto.EndColumn)
             throw new ArgumentException("Invalid row or column range for bulk creation.");
 
@@ -61,9 +60,10 @@ public class SeatService : ISeatService
             for (int col = dto.StartColumn; col <= dto.EndColumn; col++)
             {
                 var existingSeat = await _seatRepository.GetAsync(
-                    s => s.HallId == dto.HallId
-                         && s.SeatRow == row
-                         && s.SeatColumn == col);
+                    s => s.HallId == dto.HallId &&
+                         s.SeatRow == row &&
+                         s.SeatColumn == col);
+
                 if (existingSeat != null)
                 {
                     continue;
@@ -81,12 +81,10 @@ public class SeatService : ISeatService
                     IsReserved = false
                 };
 
-                await _seatRepository.CreateAsync(seat);
+               await _seatRepository.CreateAsync(seat);
             }
         }
-
         await _seatRepository.SaveChangesAsync();
-
         return true;
     }
 

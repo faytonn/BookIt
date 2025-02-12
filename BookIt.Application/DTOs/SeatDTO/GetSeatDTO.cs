@@ -10,5 +10,6 @@ public class GetSeatDTO : IDTO
     public int SeatColumn { get; set; }
     public int SeatTypeId { get; set; }
     public int HallId { get; set; }
+    //public string HallName { get; set; }
     public bool IsReserved { get; set; }
 }
