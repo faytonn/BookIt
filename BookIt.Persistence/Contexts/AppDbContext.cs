@@ -37,7 +37,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
         modelBuilder.Entity<Event>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<EventDetail>().HasQueryFilter(x => !x.IsDeleted);
-        modelBuilder.Entity<EventDetailSeatType>().HasQueryFilter(x => !x.IsDeleted);
+        //modelBuilder.Entity<EventDetailSeatType>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Category>().HasQueryFilter(x => !x.IsDeleted);
         //modelBuilder.Entity<CategoryDetail>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Hall>().HasQueryFilter(x => !x.IsDeleted);
@@ -74,7 +74,6 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Chat> Chats { get; set; } = null!;
     public DbSet<Event> Events { get; set; } = null!;
     public DbSet<EventDetail> EventDetails { get; set; } = null!;
-    public DbSet<EventDetailSeatType> EventSeatTypes { get; set; } = null!;
     public DbSet<GeneralLocation> GeneralLocations { get; set; } = null!;
     public DbSet<Hall> Halls { get; set; } = null!;
     public DbSet<Language> Languages { get; set; } = null!;

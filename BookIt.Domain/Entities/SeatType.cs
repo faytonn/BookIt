@@ -11,7 +11,7 @@ public class SeatType : BaseAuditableEntity
     public int? HallId { get; set; }
     public Hall? Hall { get; set; }
 
-    public ICollection<EventDetailSeatType> EventSeatTypes { get; set; } = [];
+    //public ICollection</*EventDetailSeatType*/> EventSeatTypes { get; set; } = [];
 
 
 }

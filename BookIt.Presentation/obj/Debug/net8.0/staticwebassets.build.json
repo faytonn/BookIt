@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "i22Sc+NY+rIGqJyaaYtIou3jXHhL3ffRNa+BzEyxxX0=",
+  "Hash": "JCE179F76zDnXJR9YWqp1vgufVxjJSAUD6tkbTaVeCU=",
   "Source": "BookIt.Presentation",
   "BasePath": "_content/BookIt.Presentation",
   "Mode": "Default",
@@ -8014,6 +8014,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\admin\\assets\\tables\\tables.html"
+    },
+    {
+      "Identity": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\uploads\\hitmehardandsoft.jpeg",
+      "SourceId": "BookIt.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\",
+      "BasePath": "_content/BookIt.Presentation",
+      "RelativePath": "uploads/hitmehardandsoft.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\hitmehardandsoft.jpeg"
     },
     {
       "Identity": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\uploads\\KendrickLamar.jpg",

@@ -8,7 +8,7 @@ using System.Net;
 
 namespace BookIt.Infrastracture.External;
 
-internal class CloudinaryService : ICloudinaryService
+public class CloudinaryService : ICloudinaryService
 {
     private readonly IConfiguration _configuration;
     private readonly CloudinaryOptions _cloudinaryOptions;

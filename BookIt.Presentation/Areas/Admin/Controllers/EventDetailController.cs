@@ -32,7 +32,7 @@ public class EventDetailController : Controller
     {
         ViewBag.EventId = eventId;
         ViewBag.LanguageId = languageId;
-        PopulateDropdowns(); // Populate dropdown for Halls, etc.
+        PopulateDropdowns(); 
         return View();
     }
 
@@ -40,7 +40,6 @@ public class EventDetailController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreateEventDetailDTO dto)
     {
-        // Handle image upload (if a file is posted)
         if (Request.Form.Files.Count > 0)
         {
             var file = Request.Form.Files[0];
@@ -70,7 +69,6 @@ public class EventDetailController : Controller
         return RedirectToAction("Index", new { eventId = dto.EventId, languageId = dto.LanguageId });
     }
 
-    // GET: /Admin/EventDetail/Update/5
     public async Task<IActionResult> Update(int id)
     {
         var dto = await _eventDetailService.GetUpdatedDtoAsync(id);
@@ -78,12 +76,10 @@ public class EventDetailController : Controller
         return View(dto);
     }
 
-    // POST: /Admin/EventDetail/Update/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Update(int id, UpdateEventDetailDTO dto)
     {
-        // Handle image upload if a new file is provided.
         if (Request.Form.Files.Count > 0)
         {
             var file = Request.Form.Files[0];
@@ -114,7 +110,6 @@ public class EventDetailController : Controller
         return RedirectToAction("Index", new { eventId = dto.EventId, languageId = dto.LanguageId });
     }
 
-    // POST: /Admin/EventDetail/Delete?id=5&eventId=1&languageId=1
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(int id, int eventId, int languageId)
@@ -123,7 +118,6 @@ public class EventDetailController : Controller
         return RedirectToAction("Index", new { eventId, languageId });
     }
 
-    // GET: /Admin/EventDetail/Archived?eventId=1&languageId=1
     public IActionResult Archived(int eventId, int languageId = 1)
     {
         var archived = _eventDetailService.GetArchivedEventDetails(eventId, (Domain.Enums.LanguageType)languageId);
@@ -150,12 +144,10 @@ public class EventDetailController : Controller
 
     private void PopulateDropdowns()
     {
-        // Example: Populate halls dropdown from HallService
         var halls = _hallService.GetAll()
             .Select(h => new SelectListItem { Value = h.Id.ToString(), Text = h.Name })
             .ToList();
         ViewBag.Halls = halls;
 
-        // Optionally populate other dropdowns if needed.
     }
 }

@@ -1,7 +1,5 @@
-﻿using BookIt.Application.DTOs.EventSeatTypeDTO;
-using BookIt.Application.DTOs.SeatDTO;
+﻿using BookIt.Application.DTOs.SeatDTO;
 using BookIt.Application.Interfaces.Services.Generic;
-using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 

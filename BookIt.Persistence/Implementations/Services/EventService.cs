@@ -22,7 +22,6 @@ public class EventService : IEventService
         _mapper = mapper;
     }
 
-    // IGetService<GetEventDTO> implementations
     public async Task<GetEventDTO> GetAsync(int id, LanguageType language = LanguageType.English)
     {
         var ev = await _eventRepository.GetAsync(x => x.Id == id,
@@ -32,6 +31,24 @@ public class EventService : IEventService
             throw new NotFoundException("Event not found.");
         return _mapper.Map<GetEventDTO>(ev);
     }
+
+    public async Task<GetEventDTO?> GetAsyncByTitle(string title)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+            return null;
+
+        var ev = await _eventRepository.GetAsync(
+            x => x.Title.Trim().ToLower() == title.Trim().ToLower(),
+            include: q => q.Include(e => e.GeneralLocation)
+                          .Include(e => e.Category)
+        );
+
+        if (ev == null)
+            return null;
+
+        return _mapper.Map<GetEventDTO>(ev);
+    }
+
 
     public List<GetEventDTO> GetAll(LanguageType language = LanguageType.English)
     {
@@ -64,13 +81,11 @@ public class EventService : IEventService
         return await _eventRepository.IsExistAsync(x => x.Id == id);
     }
 
-    // IModifyService<CreateEventDTO, UpdateEventDTO> implementations
     public async Task<bool> CreateAsync(CreateEventDTO dto, ModelStateDictionary modelState)
     {
         if (!modelState.IsValid)
             return false;
 
-        // Additional validations (e.g., duplicate check) can be added here.
 
         var newEvent = _mapper.Map<Event>(dto);
         await _eventRepository.CreateAsync(newEvent);

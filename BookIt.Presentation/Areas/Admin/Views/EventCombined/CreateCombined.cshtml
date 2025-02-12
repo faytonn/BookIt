@@ -1,0 +1,24 @@
+﻿@model BookIt.Application.DTOs.EventAndDetailsCombinedDTO.EventCombinedDTO
+
+@{
+    ViewData["Title"] = "Create Event & Detail";
+}
+
+<h2>Create Event & Detail</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@{
+    ViewData["GeneralLocations"] = Model.GeneralLocations;
+    ViewData["Categories"] = Model.Categories;
+    ViewData["Languages"] = Model.Languages;
+    ViewData["Halls"] = Model.Halls;
+}
+
+<div>
+    @Html.Partial("_EventFormPartial", Model.Event)
+</div>
+
+<div>
+    @Html.Partial("_EventDetailFormPartial", Model.EventDetail)
+</div>

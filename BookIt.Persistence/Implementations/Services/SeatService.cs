@@ -34,8 +34,13 @@ public class SeatService : ISeatService
 
         if (existingSeat != null)
         {
-            modelState.AddModelError("", "A seat at this row and column already exists in this hall.");
+            modelState.AddModelError("", "A seat at this row and column already exists in this hall.\n(Maybe check the Archived page?)");
             return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(dto.SeatName))
+        {
+            dto.SeatName = $"{(char)('A' + dto.SeatRow - 1)}{dto.SeatColumn}";
         }
 
         var seat = _mapper.Map<Seat>(dto);

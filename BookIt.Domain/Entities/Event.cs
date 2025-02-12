@@ -6,7 +6,7 @@ namespace BookIt.Domain.Entities;
 public class Event : BaseAuditableEntity
 {
     public string Title { get; set; } = null!;
-    public string ImagePath { get; set; } = null!;
+    public string ImagePath { get; set; } = string.Empty;
     //public string Description { get; set; } = null!;
     public int LanguageId { get; set; }
     public DateTime EventDate { get; set; }
@@ -23,7 +23,6 @@ public class Event : BaseAuditableEntity
     //public decimal Price { get; set; }
     //public bool isSoldOut { get; set; }
     public ICollection<EventDetail> EventDetail { get; set; } = [];
-    public ICollection<EventDetailSeatType> EventSeatTypes { get; set; } = [];
     public ICollection<Reservation> Reservations { get; set; } = [];
     public ICollection<WaitlistEntry>? WaitlistEntries { get; set; }
 

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BookIt.Application.DTOs.EventDTO.GetEventDTO>
+
+@{
+    ViewData["Title"] = "Archived Events";
+}
+
+<h2>Archived Events</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Event Date</th>
+            <th>Price Range</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Sold Out?</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 1;
+        }
+        @foreach (var evt in Model)
+        {
+            <tr>
+                <td>@count</td>
+                <td>@evt.Title</td>
+                <td>@evt.EventDate.ToString("dd/MM/yyyy")</td>
+                <td>@evt.PriceRange</td>
+                <td>@evt.LocationName</td>
+                <td>@evt.CategoryName</td>
+                <td>@(evt.IsSoldOut ? "Yes" : "No")</td>
+                <td>
+                    <form asp-action="Restore" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@evt.Id" />
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                    </form>
+                    <form asp-action="HardDelete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@evt.Id" />
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to permanently delete this event?');">Hard Delete</button>
+                    </form>
+                </td>
+            </tr>
+            count++;
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Back to Active Events</a>

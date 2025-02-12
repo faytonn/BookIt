@@ -2,10 +2,10 @@
 using BookIt.Application.DTOs.SeatDTO;
 using BookIt.Application.DTOs.SeatTypeDTO;
 using BookIt.Application.Interfaces.Services;
-using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace BookIt.Web.Controllers;
 
@@ -30,11 +30,9 @@ public class SeatController : Controller
     {
         var model = new SeatFilterDTO();
 
-        // Populate General Locations
-        var locations = _generalLocationService.GetAll(); // returns List<GetGeneralLocationDTO> with Id and Name
+        var locations = _generalLocationService.GetAll(); 
         model.GeneralLocations = new SelectList(locations, "Id", "Name", generalLocationId);
 
-        // Populate halls if a general location is selected
         if (generalLocationId > 0)
         {
             var halls = _hallService.GetAll()
@@ -47,7 +45,6 @@ public class SeatController : Controller
             model.Halls = new List<SelectListItem>();
         }
 
-        // Populate seat types and seats if a hall is selected
         if (hallId > 0)
         {
             var seatTypes = await _seatTypeService.GetByHall(hallId);
@@ -66,7 +63,6 @@ public class SeatController : Controller
             model.Seats = new List<GetSeatDTO>();
         }
 
-        // Set selected filter values
         model.SelectedGeneralLocationId = generalLocationId;
         model.SelectedHallId = hallId;
         model.SelectedSeatTypeId = seatTypeId;
@@ -74,11 +70,17 @@ public class SeatController : Controller
         return View(model);
     }
 
-    public async Task<IActionResult> GetSeatTypesByHall(int hallId)
+
+    [HttpGet]
+    public IActionResult GetHallsByLocation(int generalLocationId)
     {
-        var seatTypes = await _seatTypeService.GetByHall(hallId);
-        return Json(seatTypes);
+        var halls = _hallService.GetAll()
+                            .Where(h => h.LocationId == generalLocationId)
+                            .Select(h => new { id = h.Id, name = h.Name })
+                            .ToList();
+        return Json(halls);
     }
+
 
     public IActionResult Create(int hallId)
     {
@@ -175,6 +177,7 @@ public class SeatController : Controller
     public IActionResult Archived(LanguageType language = LanguageType.English)
     {
         var archivedSeats = _seatService.GetArchivedSeats(language);
+
         return View(archivedSeats);
     }
 
@@ -195,6 +198,16 @@ public class SeatController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetSeatTypesByHall(int hallId)
+    {
+        var seatTypes = await _seatTypeService.GetByHall(hallId);
+        var result = seatTypes.Select(st => new { id = st.Id, name = st.Name }).ToList();
+        return Json(result);
+    }
+
+   
 
     private void PopulateHallsAndSeatTypes()
     {

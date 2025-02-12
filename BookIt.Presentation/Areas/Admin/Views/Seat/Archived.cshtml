@@ -1,37 +1,96 @@
 ﻿@model IEnumerable<BookIt.Application.DTOs.SeatDTO.GetSeatDTO>
+
 @{
-    ViewBag.Title = "Archived Seats";
+    ViewData["Title"] = "Archived Seats";
 }
 <br>
 <br>
 <br>
 <br>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <h2>Archived Seats</h2>
 
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-<table class="table table-bordered">
+<table class="table table-striped">
     <thead>
         <tr>
+            <th>#</th>
             <th>Seat Name</th>
             <th>Row</th>
             <th>Column</th>
             <th>Seat Type</th>
+            <th>Reserved?</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var seat in Model)
+        @if (Model != null && Model.Any())
+        {
+            int count = 1;
+            foreach (var seat in Model)
+            {
+                <tr>
+                    <td>@count</td>
+                    <td>@seat.SeatName</td>
+                    <td>@seat.SeatRow</td>
+                    <td>@seat.SeatColumn</td>
+                    <td>@seat.SeatTypeName</td>
+                    <td>@(seat.IsReserved ? "Yes" : "No")</td>
+                    <td>
+                        <form asp-action="Restore" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@seat.Id" />
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                        </form>
+                        <form asp-action="HardDelete" method="post" style="display:inline; margin-left:5px;">
+                            <input type="hidden" name="id" value="@seat.Id" />
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-danger hard-delete-btn">Hard Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+        else
         {
             <tr>
-                <td>@seat.SeatName</td>
-                <td>@seat.SeatRow</td>
-                <td>@seat.SeatColumn</td>
-                <td>@seat.SeatTypeId</td>
+                <td colspan="7">No archived seats found.</td>
             </tr>
         }
     </tbody>
 </table>
+
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            $('.hard-delete-btn').on('click', function (e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                swal({
+                    title: "Are you sure?",
+                    text: "This will permanently delete the seat!",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "Cancel",
+                            visible: true,
+                            className: "btn btn-danger"
+                        },
+                        confirm: {
+                            text: "Yes, delete it!",
+                            className: "btn btn-secondary"
+                        }
+                    },
+                    dangerMode: true,
+                }).then(function (willDelete) {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
 }

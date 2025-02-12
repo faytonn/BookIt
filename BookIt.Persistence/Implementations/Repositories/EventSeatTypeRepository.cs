@@ -1,13 +1,13 @@
-﻿using BookIt.Application.Interfaces.Repositories;
-using BookIt.Domain.Entities;
-using BookIt.Persistence.Contexts;
-using BookIt.Persistence.Implementations.Repositories.Generic;
+﻿//using BookIt.Application.Interfaces.Repositories;
+//using BookIt.Domain.Entities;
+//using BookIt.Persistence.Contexts;
+//using BookIt.Persistence.Implementations.Repositories.Generic;
 
-namespace BookIt.Persistence.Implementations.Repositories;
+//namespace BookIt.Persistence.Implementations.Repositories;
 
-public class EventSeatTypeRepository : Repository<EventDetailSeatType>, IEventDetailSeatTypeRepository
-{
-    public EventSeatTypeRepository(AppDbContext dbContext) : base(dbContext)
-    {
-    }
-}
+//public class EventSeatTypeRepository : Repository<EventDetailSeatType>, IEventDetailSeatTypeRepository
+//{
+//    public EventSeatTypeRepository(AppDbContext dbContext) : base(dbContext)
+//    {
+//    }
+//}

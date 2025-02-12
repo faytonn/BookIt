@@ -1,8 +1,8 @@
-﻿using BookIt.Application.Interfaces.Repositories.Generic;
-using BookIt.Domain.Entities;
+﻿//using BookIt.Application.Interfaces.Repositories.Generic;
+//using BookIt.Domain.Entities;
 
-namespace BookIt.Application.Interfaces.Repositories;
+//namespace BookIt.Application.Interfaces.Repositories;
 
-public interface IEventDetailSeatTypeRepository : IRepository<EventDetailSeatType>
-{
-}
+//public interface IEventDetailSeatTypeRepository : IRepository<EventDetailSeatType>
+//{
+//}

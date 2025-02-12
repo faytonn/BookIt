@@ -1,0 +1,42 @@
+﻿@model BookIt.Application.DTOs.EventDTO.UpdateEventDTO
+
+@{
+    ViewData["Title"] = "Update Event";
+}
+
+<br>
+<br>
+<br>
+<br>
+
+<h2>Update Event</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<form asp-action="Update" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImagePath">Event Image</label>
+        <input asp-for="ImagePath" type="file" class="form-control" />
+        <span asp-validation-for="ImagePath" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EventDate"></label>
+        <input asp-for="EventDate" type="date" class="form-control" />
+        <span asp-validation-for="EventDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PriceRange"></label>
+        <input asp-for="PriceRange" class="form-control" />
+        <span asp-validation-for="PriceRange" class="text-danger"></span>
+    </div>
+    @* Include dropdowns if needed *@
+    <button type="submit" class="btn btn-primary">Update Event</button>
+</form>

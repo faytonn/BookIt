@@ -1,18 +1,82 @@
-﻿@model IEnumerable<BookIt.Application.DTOs.SeatDTO.GetSeatDTO>
+﻿@model BookIt.Application.DTOs.SeatDTO.SeatFilterDTO
+
 @{
-    ViewBag.Title = "Configure Seats";
-    int hallId = (int)ViewBag.HallId;
+    ViewData["Title"] = "Seat Management";
 }
 <br>
 <br>
 <br>
 <br>
-<h2>Create Seat</h2>
+
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<h2>Seats for Hall @hallId</h2>
+<h2>Seat Management</h2>
 
-<table class="table table-bordered">
+<div class="mb-3">
+    @if (Model.SelectedHallId > 0)
+    {
+        <a asp-action="Create" asp-route-hallId="@Model.SelectedHallId" class="btn btn-success">Create Seat</a>
+        <a asp-action="BulkCreate" asp-route-hallId="@Model.SelectedHallId" class="btn btn-secondary">Bulk Create Seats</a>
+    }
+    else
+    {
+        <p>Please select a hall to enable seat creation.</p>
+    }
+</div>
+
+<br>
+
+<form id="filterForm" method="get" asp-action="Index">
+    <div class="form-group">
+        <label for="generalLocationId">General Location</label>
+        <select id="generalLocationId" name="generalLocationId" class="form-control">
+            <option value="0">-- Please select a general location --</option>
+            @foreach (var loc in Model.GeneralLocations)
+            {
+                var isSelected = loc.Value == Model.SelectedGeneralLocationId.ToString();
+                <option value="@loc.Value" selected="@(isSelected ? "selected" : null)">
+                    @loc.Text
+                </option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="hallId">Hall</label>
+        <select id="hallId" name="hallId" class="form-control">
+            <option value="0">-- Please select a hall--</option>
+            @foreach (var hall in Model.Halls)
+            {
+                var isSelected = hall.Value == Model.SelectedHallId.ToString();
+                <option value="@hall.Value" selected="@(isSelected ? "selected" : null)">
+                    @hall.Text
+                </option>
+            }
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label for="seatTypeId">Seat Type</label>
+        <select id="seatTypeId" name="seatTypeId" class="form-control">
+            <option value="0">-- Please select a seat type--</option>
+            @foreach (var seatType in Model.SeatTypes)
+            {
+                var isSelected = seatType.Value == Model.SelectedSeatTypeId.ToString();
+                <option value="@seatType.Value" selected="@(isSelected ? "selected" : null)">
+                    @seatType.Text
+                </option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+
+
+
+<hr />
+
+<h3>Seats</h3>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Seat Name</th>
@@ -24,29 +88,98 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var seat in Model)
+        @if (Model.Seats != null && Model.Seats.Any())
+        {
+            foreach (var seat in Model.Seats)
+            {
+                <tr>
+                    <td>@seat.SeatName</td>
+                    <td>@seat.SeatRow</td>
+                    <td>@seat.SeatColumn</td>
+                    <td>@seat.SeatTypeName</td>
+                    <td>@(seat.IsReserved ? "Yes" : "No")</td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@seat.Id" class="btn btn-sm btn-primary">Update</a>
+                        <form asp-action="Delete" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@seat.Id" />
+                            <input type="hidden" name="hallId" value="@Model.SelectedHallId" />
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this seat?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>@seat.SeatName</td>
-                <td>@seat.SeatRow</td>
-                <td>@seat.SeatColumn</td>
-                <td>@seat.SeatTypeId</td>
-                <td>@(seat.IsReserved ? "Yes" : "No")</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@seat.Id" class="btn btn-sm btn-primary">Edit</a>
-                    <form asp-action="Delete" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@seat.Id" />
-                        <input type="hidden" name="hallId" value="@seat.HallId" />
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this seat?');">Delete</button>
-                    </form>
-                </td>
+                <td colspan="6">No seats found.</td>
             </tr>
         }
     </tbody>
 </table>
 
-<a asp-action="Create" asp-route-hallId="@hallId" class="btn btn-success">Add Single Seat</a>
-<a asp-action="BulkCreate" asp-route-hallId="@hallId" class="btn btn-info">Bulk Create Seats</a>
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#generalLocationId').change(function () {
+                var locationId = $(this).val();
+                if (locationId == "0" || locationId == "") {
+                    $('#hallId').empty();
+                    $('#hallId').append($('<option>').val("0").text('-- Please select a hall --'));
+                    $('#seatTypeId').empty();
+                    $('#seatTypeId').append($('<option>').val("0").text('-- Please select a seat type --'));
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("GetHallsByLocation", "Seat", new { area = "Admin" })',
+                    data: { generalLocationId: locationId },
+                    success: function (data) {
+                        var $hallDropdown = $('#hallId');
+                        $hallDropdown.empty();
+                        $hallDropdown.append($('<option>').val("0").text('-- Please select a hall --'));
+                        $.each(data, function (index, hall) {
+                            $hallDropdown.append($('<option>', {
+                                value: hall.id,
+                                text: hall.name
+                            }));
+                        });
+                        var $seatTypeDropdown = $('#seatTypeId');
+                        $seatTypeDropdown.empty();
+                        $seatTypeDropdown.append($('<option>').val("0").text('-- Please select a seat type --'));
+                    },
+                    error: function () {
+                        alert('Error retrieving halls.');
+                    }
+                });
+            });
+
+            $('#hallId').change(function () {
+                var hallId = $(this).val();
+                if (hallId == "0" || hallId == "") {
+                    $('#seatTypeId').empty();
+                    $('#seatTypeId').append($('<option>').val("0").text('-- Please select a seat type --'));
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("GetSeatTypesByHall", "Seat", new { area = "Admin" })',
+                    data: { hallId: hallId },
+                    success: function (data) {
+                        var $seatTypeDropdown = $('#seatTypeId');
+                        $seatTypeDropdown.empty();
+                        $seatTypeDropdown.append($('<option>').val("0").text('-- Please select a seat type --'));
+                        $.each(data, function (index, st) {
+                            $seatTypeDropdown.append($('<option>', {
+                                value: st.id,
+                                text: st.name
+                            }));
+                        });
+                    },
+                    error: function () {
+                        alert('Error retrieving seat types.');
+                    }
+                });
+            });
+        });
+    </script>
 }

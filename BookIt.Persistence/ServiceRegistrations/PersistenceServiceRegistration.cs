@@ -1,7 +1,9 @@
 ﻿using BookIt.Application.Interfaces.Repositories;
 using BookIt.Application.Interfaces.Services;
+using BookIt.Application.Interfaces.Services.External;
 using BookIt.Application.Interfaces.Services.UI;
 using BookIt.Domain.Entities;
+using BookIt.Infrastracture.External;
 using BookIt.Infrastracture.Implementations.Services;
 using BookIt.Infrastracture.Localizers;
 using BookIt.Persistence.Contexts;
@@ -72,7 +74,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IEventDetailRepository, EventDetailRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
-        services.AddScoped<IEventDetailSeatTypeRepository, EventSeatTypeRepository>();
+        //services.AddScoped<IEventDetailSeatTypeRepository, EventSeatTypeRepository>();
         services.AddScoped<IGeneralLocationRepository, GeneralLocationRepository>();
         services.AddScoped<IHallRepository, HallRepository>();
         services.AddScoped<ILanguageRepository, LanguageRepository>();
@@ -96,6 +98,7 @@ public static class PersistenceServiceRegistration
     private static void _addServices(IServiceCollection services)
     {
         services.AddScoped<ICookieService, CookieService>();
+        services.AddScoped<ICloudinaryService, CloudinaryService>();
         services.AddScoped<ILanguageService, LanguageService>();
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<ILayoutService, LayoutService>();
@@ -104,7 +107,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IHallService, HallService>();
         services.AddScoped<IEventService, EventService>();
         services.AddScoped<IEventDetailService, EventDetailService>();
-        services.AddScoped<IEventDetailSeatTypeService, EventDetailSeatTypeService>();
+        //services.AddScoped<IEventDetailSeatTypeService, EventDetailSeatTypeService>();
         services.AddScoped<ISeatTypeService, SeatTypeService>();
         services.AddScoped<ISeatService, SeatService>();
     }

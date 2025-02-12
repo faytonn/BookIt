@@ -13,8 +13,9 @@ public class EventAutoMapper : Profile
         //CreateMap<Event, CreateEventDTO>().ReverseMap();
 
         CreateMap<Event, GetEventDTO>()
-            .ForMember(dest => dest.LocationName,
-                opt => opt.MapFrom(src => src.GeneralLocation != null ? src.GeneralLocation.Name : "N/A"));
+    .ForMember(dest => dest.LocationName, opt => opt.MapFrom(src => src.GeneralLocation.Name))
+    .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+
 
         CreateMap<CreateEventDTO, Event>();
         CreateMap<UpdateEventDTO, Event>();

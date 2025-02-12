@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BookIt.Application.DTOs.EventDTO.GetEventDTO>
+@* @model IEnumerable<BookIt.Application.DTOs.EventDetailDTO.GetEventDetailDTO> *@
+@{
+    ViewData["Title"] = "Events";
+}
+
+
+<br>
+<br>
+<br>
+<br>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<a asp-action="Create" class="btn btn-success mb-3">Create New Event</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Event Date</th>
+            <th>Price Range</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Sold Out?</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 1;
+        }
+        @foreach (var evt in Model)
+        {
+            <tr>
+                <td>@count</td>
+                <td>@evt.Title</td>
+                <td>@evt.EventDate.ToString("dd/MM/yyyy")</td>
+                <td>@evt.PriceRange</td>
+                <td>@evt.LocationName</td>
+                <td>@evt.CategoryName</td>
+                <td>@(evt.IsSoldOut ? "Yes" : "No")</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@evt.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <form asp-action="Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@evt.Id" />
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            count++;
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <!-- Additional scripts if needed -->
+}

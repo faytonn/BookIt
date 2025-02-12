@@ -1,156 +1,154 @@
-﻿using BookIt.Application.DTOs.EventDTO;
+﻿using AutoMapper;
+using BookIt.Application.DTOs.EventAndDetailsCombinedDTO;
+using BookIt.Application.DTOs.EventDTO;
 using BookIt.Application.Interfaces.Services;
+using BookIt.Application.Interfaces.Services.External;
+using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BookIt.Presentation.Areas.Admin.Controllers
+namespace BookIt.Presentation.Areas.Admin.Controllers;
+
+[Area("Admin")]
+public class EventController : Controller
 {
-    public class EventController: Controller
+    private readonly IEventService _eventService;
+    private readonly IGeneralLocationService _locationService;
+    private readonly ICategoryService _categoryService;
+    private readonly IHallService _hallService;
+    private readonly ICloudinaryService _cloudinaryService;
+
+
+    public EventController(IEventService eventService, IGeneralLocationService locationService, ICategoryService categoryService, IHallService hallService, ICloudinaryService cloudinaryService)
     {
-        private readonly IEventService _eventService;
-        private readonly IGeneralLocationService _locationService;
-        private readonly ICategoryService _categoryService;
-        private readonly IHallService _hallService;
+        _eventService = eventService;
+        _locationService = locationService;
+        _categoryService = categoryService;
+        _hallService = hallService;
+        _cloudinaryService = cloudinaryService;
+    }
 
-       
-        public EventController(IEventService eventService, IGeneralLocationService locationService, ICategoryService categoryService, IHallService hallService)
+    public IActionResult Index()
+    {
+        var events = _eventService.GetAll();
+        return View(events);
+    }
+
+    public IActionResult Create()
+    {
+        var model = new CreateEventDTO();
+        ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name");
+        ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name");
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(CreateEventDTO dto)
+    {
+        ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
+        ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
+
+        if (!ModelState.IsValid)
+            return View(dto);
+
+        if (dto.ImageFile != null)
         {
-            _eventService = eventService;
-            _locationService = locationService;
-            _categoryService = categoryService;
-            _hallService = hallService;
+            var uploadUrl = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
+            dto.ImagePath = uploadUrl;
         }
-
-        public IActionResult Index()
+        else
         {
-            var events =  _eventService.GetAll();
-            return View(events);
-        }
-
-        public IActionResult Create()
-        {
-            PopulateDropdowns();
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateEventDTO dto)
-        {
-            // Handle image upload if needed.
-            if (dto.ImagePath == null && Request.Form.Files.Count > 0)
-            {
-                var file = Request.Form.Files[0];
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-                Directory.CreateDirectory(uploadsFolder);
-                var fileName = Path.GetFileName(file.FileName);
-                var filePath = Path.Combine(uploadsFolder, fileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-                dto.ImagePath = "/uploads/" + fileName;
-            }
-
-            if (!ModelState.IsValid)
-            {
-                PopulateDropdowns();
-                return View(dto);
-            }
-
-            var result = await _eventService.CreateAsync(dto, ModelState);
-            if (!result)
-            {
-                PopulateDropdowns();
-                return View(dto);
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Update(int id)
-        {
-            var dto = await _eventService.GetUpdatedDtoAsync(id);
-            PopulateDropdowns();
+            ModelState.AddModelError("FormFile", "An image file is required.");
             return View(dto);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, UpdateEventDTO dto)
+        var result = await _eventService.CreateAsync(dto, ModelState);
+        if (!result)
+            return View(dto);
+
+        return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> Update(int id)
+    {
+
+
+        var dto = await _eventService.GetUpdatedDtoAsync(id);
+        if (dto == null)
+            return NotFound();
+
+        ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
+        ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
+
+        return View(dto);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(int id, UpdateEventDTO dto)
+    {
+        if (!ModelState.IsValid)
         {
-            // Handle image upload if needed.
-            if (Request.Form.Files.Count > 0)
-            {
-                var file = Request.Form.Files[0];
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-                Directory.CreateDirectory(uploadsFolder);
-                var fileName = Path.GetFileName(file.FileName);
-                var filePath = Path.Combine(uploadsFolder, fileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-                dto.ImagePath = "/uploads/" + fileName;
-            }
-
-            if (!ModelState.IsValid)
-            {
-                PopulateDropdowns();
-                return View(dto);
-            }
-
-            var result = await _eventService.UpdateAsync(dto, ModelState);
-            if (!result)
-            {
-                PopulateDropdowns();
-                return View(dto);
-            }
-
-            return RedirectToAction(nameof(Index));
+            ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
+            ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
+            return View(dto);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        if (dto.ImageFile != null)
         {
-            await _eventService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            var uploadUrl = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
+            dto.ImagePath = uploadUrl;
         }
 
-        public IActionResult Archived()
+        var result = await _eventService.UpdateAsync(dto, ModelState);
+        if (!result)
         {
-            var archived = _eventService.GetArchivedEvents();
-            return View(archived);
+            ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
+            ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
+            return View(dto);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Restore(int id)
-        {
-            await _eventService.RestoreAsync(id);
-            return RedirectToAction(nameof(Index));
-        }
+        return RedirectToAction("Index");
+    }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> HardDelete(int id)
-        {
-            await _eventService.HardDeleteAsync(id);
-            return RedirectToAction(nameof(Index));
-        }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _eventService.DeleteAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 
-        private void PopulateDropdowns()
-        {
-            // Populate General Locations.
-            var locations = _locationService.GetAll()
-                .Select(l => new SelectListItem { Value = l.Id.ToString(), Text = l.Name })
-                .ToList();
-            ViewBag.Locations = locations;
+    public IActionResult Archived()
+    {
+        var archived = _eventService.GetArchivedEvents();
+        return View(archived);
+    }
 
-            // Populate Categories, ParentCategories, etc.
-            // You would do similar calls to your ICategoryService.
-        }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Restore(int id)
+    {
+        await _eventService.RestoreAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> HardDelete(int id)
+    {
+        await _eventService.HardDeleteAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
+
+    private void PopulateDropdowns()
+    {
+        var locations = _locationService.GetAll()
+            .Select(l => new SelectListItem { Value = l.Id.ToString(), Text = l.Name })
+            .ToList();
+        ViewBag.Locations = locations;
+
     }
 }
 

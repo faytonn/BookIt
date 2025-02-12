@@ -203,30 +203,52 @@
                                 </ul>
                             </div>
                         </li>
-
-
-                        <!-- Event Seat Types (EventDetailSeatType) -->
+                        <!-- Events -->
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#eventSeatTypeDropdown" class="collapsed" aria-expanded="false">
-                                <i class="fas fa-dollar-sign"></i>
-                                <p>Event Seat Types</p>
+                            <a data-bs-toggle="collapse" href="#eventsDropdown" class="collapsed" aria-expanded="false">
+                                <i class="fas fa-calendar-alt"></i>
+                                <p>Events</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="eventSeatTypeDropdown">
+                            <div class="collapse" id="eventsDropdown">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a asp-area="Admin" asp-controller="EventSeatType" asp-action="Index">
-                                            <span class="sub-item">Active Event Seat Types</span>
+                                        <a asp-area="Admin" asp-controller="Event" asp-action="Index">
+                                            <span class="sub-item">Active Events</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a asp-area="Admin" asp-controller="EventSeatType" asp-action="Archived">
-                                            <span class="sub-item">Archived Event Seat Types</span>
+                                        <a asp-area="Admin" asp-controller="Event" asp-action="Archived">
+                                            <span class="sub-item">Archived Events</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+                        <!-- Event Details -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#eventDetailsDropdown" class="collapsed" aria-expanded="false">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Event Details</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="eventDetailsDropdown">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="EventDetail" asp-action="Index">
+                                            <span class="sub-item">Active Details</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="EventDetail" asp-action="Archived">
+                                            <span class="sub-item">Archived Details</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+
                     </ul>
                     </li>
                     </ul>
@@ -556,6 +578,10 @@
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="~/admin/assets/#">Logout</a>
                                     </li>
+
+
+
+                                 
                     </div>
                     </ul>
                     </li>
