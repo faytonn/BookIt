@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookIt.Presentation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9a585af7eefa75dcf44c4a5e2d39b7f9829381e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba6b3a6364c60b26896f93bc2158503519fd6873")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookIt.Presentation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BookIt.Presentation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

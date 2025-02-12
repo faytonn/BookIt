@@ -90,8 +90,6 @@ public class EventController : Controller
     {
         if (!ModelState.IsValid)
         {
-            ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
-            ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
             return View(dto);
         }
 
@@ -99,6 +97,11 @@ public class EventController : Controller
         {
             var uploadUrl = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
             dto.ImagePath = uploadUrl;
+        }
+        else
+        {
+            ModelState.AddModelError("FormFile", "An image file is required.");
+            return View(dto);
         }
 
         var result = await _eventService.UpdateAsync(dto, ModelState);
@@ -110,6 +113,7 @@ public class EventController : Controller
         }
 
         return RedirectToAction("Index");
+
     }
 
     [HttpPost]

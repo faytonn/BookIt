@@ -13,6 +13,9 @@ public class EventDetailAutoMapper : Profile
         CreateMap<EventDetail, UpdateEventDetailDTO>().ReverseMap();
         CreateMap<EventDetail, CreateEventDetailDTO>().ReverseMap();
 
+        CreateMap<UpdateEventDetailDTO, CreateEventDetailDTO>().ReverseMap();
+
+
         //CreateMap<EventDetail, GetEventDetailDTO>();
         //CreateMap<CreateEventDetailDTO, EventDetail>();
         //CreateMap<UpdateEventDetailDTO, EventDetail>();

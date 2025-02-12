@@ -1,0 +1,128 @@
+﻿@model BookIt.Application.DTOs.EventAndDetailsCombinedDTO.CreateEventCompositeDTO
+
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<h2>Create Event</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Event Information</legend>
+
+        <div class="form-group">
+            <label asp-for="Event.Title"></label>
+            <input asp-for="Event.Title" class="form-control" />
+            <span asp-validation-for="Event.Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Event.EventDate"></label>
+            <input asp-for="Event.EventDate" class="form-control" type="date" />
+            <span asp-validation-for="Event.EventDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Event.PriceRange"></label>
+            <input asp-for="Event.PriceRange" class="form-control" />
+            <span asp-validation-for="Event.PriceRange" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Event.GeneralLocationId"></label>
+            <select asp-for="Event.GeneralLocationId" asp-items="Model.GeneralLocations" class="form-control"></select>
+            <span asp-validation-for="Event.GeneralLocationId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Event.CategoryId"></label>
+            <select asp-for="Event.CategoryId" asp-items="Model.Categories" class="form-control"></select>
+            <span asp-validation-for="Event.CategoryId" class="text-danger"></span>
+        </div>
+    </fieldset>
+
+    <hr />
+
+    <fieldset>
+        <legend>Event Details (Multi-Language)</legend>
+
+        @for (int i = 0; i < Model.EventDetail.Count; i++)
+        {
+            <div class="border p-3 mb-3">
+                <h4>
+                    @* Display the language name from the dropdown if desired *@
+                    Language:
+                    @Model.Languages.FirstOrDefault(x => x.Value == Model.EventDetail[i].LanguageId.ToString())?.Text
+                </h4>
+
+                @* Ensure LanguageId is preserved by using a hidden field *@
+                <input type="hidden" asp-for="EventDetail[@i].LanguageId" />
+
+                <div class="form-group">
+                    <label asp-for="EventDetail[@i].Title"></label>
+                    <input asp-for="EventDetail[@i].Title" class="form-control" />
+                    <span asp-validation-for="EventDetail[@i].Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EventDetail[@i].Description"></label>
+                    <textarea asp-for="EventDetail[@i].Description" class="form-control"></textarea>
+                    <span asp-validation-for="EventDetail[@i].Description" class="text-danger"></span>
+                </div>
+
+                @* If your event detail requires a location dropdown, you can reuse the general locations or add a new one *@
+                <div class="form-group">
+                    <label asp-for="EventDetail[@i].LocationId"></label>
+                    <select asp-for="EventDetail[@i].LocationId"
+                            class="form-control"
+                            asp-items="Model.GeneralLocations"></select>
+                    <span asp-validation-for="EventDetail[@i].LocationId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EventDetail[@i].HallId"></label>
+                    <select asp-for="EventDetail[@i].HallId" asp-items="Model.Halls" class="form-control"></select>
+                    <span asp-validation-for="EventDetail[@i].HallId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EventDetail[@i].PriceRange"></label>
+                    <input asp-for="EventDetail[@i].PriceRange" class="form-control" />
+                    <span asp-validation-for="EventDetail[@i].PriceRange" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EventDetail[@i].TotalSeats"></label>
+                    <input asp-for="EventDetail[@i].TotalSeats" class="form-control" />
+                    <span asp-validation-for="EventDetail[@i].TotalSeats" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EventDetail[@i].AvailableSeats"></label>
+                    <input asp-for="EventDetail[@i].AvailableSeats" class="form-control" />
+                    <span asp-validation-for="EventDetail[@i].AvailableSeats" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EventDetail[@i].Price"></label>
+                    <input asp-for="EventDetail[@i].Price" class="form-control" />
+                    <span asp-validation-for="EventDetail[@i].Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <input asp-for="EventDetail[@i].IsSoldOut" class="form-check-input" type="checkbox" />
+                    <label asp-for="EventDetail[@i].IsSoldOut" class="form-check-label"></label>
+                    <span asp-validation-for="EventDetail[@i].IsSoldOut" class="text-danger"></span>
+                </div>
+            </div>
+        }
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary">Create Event</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -10,8 +10,8 @@ public class CreateEventDetailDTO : IDTO
     public string Title { get; set; } = null!;
     public string Description { get; set; } = null!;
 
-    public IFormFile FormFile { get; set; } = null!;
-    public string ImagePath { get; set; } = null!;
+    public IFormFile? FormFile { get; set; }
+    public string ImagePath { get; set; } = string.Empty;
 
     public DateTime EventDate { get; set; }
     public int LocationId { get; set; }
