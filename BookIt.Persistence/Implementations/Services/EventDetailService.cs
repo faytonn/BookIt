@@ -156,4 +156,11 @@ public class EventDetailService : IEventDetailService
     {
         return await _eventDetailRepository.IsExistAsync(x => x.Id == id);
     }
+
+    public List<GetEventDetailDTO> GetAllByEventId(int eventId)
+    {
+        var details = _eventDetailRepository.GetAll(x => x.EventId == eventId).ToList();
+
+        return _mapper.Map<List<GetEventDetailDTO>>(details);
+    }
 }

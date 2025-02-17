@@ -7,6 +7,8 @@ namespace BookIt.Application.Interfaces.Services;
 
 public interface IEventDetailService : IGetService<GetEventDetailDTO>, IModifyService<CreateEventDetailDTO, UpdateEventDetailDTO>
 {
+    List<GetEventDetailDTO> GetAllByEventId(int eventId);
+
     Task<GetEventDetailDTO> GetByEventAndLanguageAsync(int eventId, int languageId);
 
     Task RestoreAsync(int id);
