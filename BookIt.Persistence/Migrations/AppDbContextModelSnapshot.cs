@@ -354,19 +354,11 @@ namespace BookIt.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EventDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HallId")
+                    b.Property<int?>("HallId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -377,16 +369,8 @@ namespace BookIt.Persistence.Migrations
                     b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocationId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("PriceRange")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -409,61 +393,7 @@ namespace BookIt.Persistence.Migrations
 
                     b.HasIndex("HallId");
 
-                    b.HasIndex("LocationId");
-
                     b.ToTable("EventDetails", (string)null);
-                });
-
-            modelBuilder.Entity("BookIt.Domain.Entities.EventDetailSeatType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AdditionalDetails")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EventDetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SeatTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventDetailId");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("SeatTypeId");
-
-                    b.ToTable("EventSeatTypes", (string)null);
                 });
 
             modelBuilder.Entity("BookIt.Domain.Entities.GeneralLocation", b =>
@@ -695,7 +625,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 2, 12, 19, 17, 29, 260, DateTimeKind.Local).AddTicks(7751),
+                            CreatedAt = new DateTime(2025, 5, 17, 15, 23, 54, 934, DateTimeKind.Local).AddTicks(6389),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786112/bookit./HitMeHardAndSoft.jpg",
                             IsDeleted = false,
@@ -705,7 +635,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 2, 12, 19, 17, 29, 260, DateTimeKind.Local).AddTicks(7845),
+                            CreatedAt = new DateTime(2025, 5, 17, 15, 23, 54, 934, DateTimeKind.Local).AddTicks(6446),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786345/bookit./KendrickLamar.webp",
                             IsDeleted = false,
@@ -715,7 +645,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 2, 12, 19, 17, 29, 260, DateTimeKind.Local).AddTicks(7850),
+                            CreatedAt = new DateTime(2025, 5, 17, 15, 23, 54, 934, DateTimeKind.Local).AddTicks(6450),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786457/bookit./paddington3.jpg",
                             IsDeleted = false,
@@ -1736,46 +1666,11 @@ namespace BookIt.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookIt.Domain.Entities.Hall", "Hall")
+                    b.HasOne("BookIt.Domain.Entities.Hall", null)
                         .WithMany("EventDetails")
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BookIt.Domain.Entities.GeneralLocation", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("HallId");
 
                     b.Navigation("Event");
-
-                    b.Navigation("Hall");
-
-                    b.Navigation("Location");
-                });
-
-            modelBuilder.Entity("BookIt.Domain.Entities.EventDetailSeatType", b =>
-                {
-                    b.HasOne("BookIt.Domain.Entities.EventDetail", "EventDetail")
-                        .WithMany()
-                        .HasForeignKey("EventDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookIt.Domain.Entities.Event", null)
-                        .WithMany("EventSeatTypes")
-                        .HasForeignKey("EventId");
-
-                    b.HasOne("BookIt.Domain.Entities.SeatType", "SeatType")
-                        .WithMany("EventSeatTypes")
-                        .HasForeignKey("SeatTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("EventDetail");
-
-                    b.Navigation("SeatType");
                 });
 
             modelBuilder.Entity("BookIt.Domain.Entities.Hall", b =>
@@ -2055,8 +1950,6 @@ namespace BookIt.Persistence.Migrations
                 {
                     b.Navigation("EventDetail");
 
-                    b.Navigation("EventSeatTypes");
-
                     b.Navigation("Reservations");
 
                     b.Navigation("WaitlistEntries");
@@ -2099,11 +1992,6 @@ namespace BookIt.Persistence.Migrations
             modelBuilder.Entity("BookIt.Domain.Entities.Seat", b =>
                 {
                     b.Navigation("ReservationSeats");
-                });
-
-            modelBuilder.Entity("BookIt.Domain.Entities.SeatType", b =>
-                {
-                    b.Navigation("EventSeatTypes");
                 });
 
             modelBuilder.Entity("BookIt.Domain.Entities.Setting", b =>

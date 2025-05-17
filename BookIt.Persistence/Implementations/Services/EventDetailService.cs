@@ -128,10 +128,10 @@ public class EventDetailService : IEventDetailService
         await _eventDetailRepository.SaveChangesAsync();
     }
 
-    public List<GetEventDetailDTO> GetArchivedEventDetails(int eventId, LanguageType language = LanguageType.English)
+    public List<GetEventDetailDTO> GetArchivedEventDetails(int eventId)
     {
         var archived = _eventDetailRepository.GetAll(ignoreFilter: true)
-                       .Where(x => x.IsDeleted && x.EventId == eventId && x.LanguageId == (int)language)
+                       .Where(x => x.IsDeleted && x.EventId == eventId)
                        .ToList();
         return _mapper.Map<List<GetEventDetailDTO>>(archived);
     }
@@ -157,10 +157,17 @@ public class EventDetailService : IEventDetailService
         return await _eventDetailRepository.IsExistAsync(x => x.Id == id);
     }
 
-    public List<GetEventDetailDTO> GetAllByEventId(int eventId)
+    public async Task<List<GetEventDetailDTO>> GetAllByEventId(int eventId)
     {
-        var details = _eventDetailRepository.GetAll(x => x.EventId == eventId).ToList();
-
+        var details = await _eventDetailRepository.GetAll(x => x.EventId == eventId).ToListAsync();
         return _mapper.Map<List<GetEventDetailDTO>>(details);
+    }
+
+    public List<GetEventDetailDTO> GetAllArchivedEventDetails()
+    {
+        var archived = _eventDetailRepository.GetAll(ignoreFilter: true)
+                       .Where(x => x.IsDeleted)
+                       .ToList();
+        return _mapper.Map<List<GetEventDetailDTO>>(archived);
     }
 }

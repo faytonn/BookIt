@@ -2450,14 +2450,7 @@
           }
         }
       },
-      "System.Formats.Asn1/8.0.1": {
-        "runtime": {
-          "lib/net8.0/System.Formats.Asn1.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.724.31311"
-          }
-        }
-      },
+      "System.Formats.Asn1/8.0.1": {},
       "System.Globalization/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0",
@@ -2927,7 +2920,10 @@
           "Microsoft.Extensions.Localization.Abstractions": "9.0.1"
         },
         "runtime": {
-          "BookIt.Application.dll": {}
+          "BookIt.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "BookIt.Domain/1.0.0": {
@@ -2938,7 +2934,10 @@
           "Microsoft.Extensions.Identity.Core": "8.0.12"
         },
         "runtime": {
-          "BookIt.Domain.dll": {}
+          "BookIt.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "BookIt.Infrastracture/1.0.0": {
@@ -2953,7 +2952,10 @@
           "Microsoft.Extensions.Localization.Abstractions": "9.0.1"
         },
         "runtime": {
-          "BookIt.Infrastracture.dll": {}
+          "BookIt.Infrastracture.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "BookIt.Persistence/1.0.0": {
@@ -2969,7 +2971,10 @@
           "Microsoft.Extensions.Http": "8.0.1"
         },
         "runtime": {
-          "BookIt.Persistence.dll": {}
+          "BookIt.Persistence.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

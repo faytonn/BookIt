@@ -134,11 +134,15 @@ namespace BookIt.Presentation.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> HardDeleteConfirmed(int id)
         {
-            if (!await _eventCompositeService.HardDeleteAsync(id, ModelState))
+            try
+            {
+                await _eventCompositeService.HardDeleteAsync(id, ModelState);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
             {
                 return RedirectToAction(nameof(HardDelete), new { id });
             }
-            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]

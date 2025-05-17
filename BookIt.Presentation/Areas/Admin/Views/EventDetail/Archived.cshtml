@@ -1,5 +1,9 @@
 ﻿@using BookIt.Application.DTOs.EventDetailDTO
 @model List<GetEventDetailDTO>
+@{
+    var debugCount = Model?.Count ?? 0;
+}
+<div>DEBUG: Archived count = @debugCount</div>
 <br>
 <br>
 <br>
@@ -14,10 +18,11 @@
             <th>#</th>
             <th>Title</th>
             <th>Description</th>
-            <th>Date</th>
-            <th>Price Range</th>
+            <th>Language</th>
+            @* <th>Date</th> *@
+            @* <th>Price Range</th> *@
             <th>Seats</th>
-            <th>Hall</th>
+            @* <th>Hall</th> *@
             <th>Price</th>
             <th>Sold Out?</th>
             <th>Actions</th>
@@ -26,6 +31,13 @@
     <tbody>
         @{
             int count = 1;
+            Func<int, string> getLanguageName = id => id switch
+            {
+                1 => "English",
+                2 => "Azerbaijani",
+                3 => "Czech",
+                _ => "Unknown"
+            };
         }
         @foreach (var detail in Model)
         {
@@ -33,10 +45,11 @@
                 <td>@(count++)</td>
                 <td>@detail.Title</td>
                 <td>@detail.Description</td>
-                <td>@detail.EventDate.ToShortDateString()</td>
-                <td>@detail.PriceRange</td>
+                <td>@getLanguageName(detail.LanguageId)</td>
+                @* <td>@detail.EventDate.ToShortDateString()</td> *@
+                @* <td>@detail.PriceRange</td> *@
                 <td>@detail.AvailableSeats / @detail.TotalSeats</td>
-                <td>@detail.HallId</td>
+                @* <td>@detail.HallId</td> *@
                 <td>@detail.Price</td>
                 <td>@(detail.IsSoldOut ? "Yes" : "No")</td>
                 <td>

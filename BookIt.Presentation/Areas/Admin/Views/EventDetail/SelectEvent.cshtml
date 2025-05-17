@@ -1,0 +1,48 @@
+@model IEnumerable<BookIt.Application.DTOs.EventDTO.GetEventDTO>
+@{
+    ViewData["Title"] = "Select Event for Details";
+}
+
+<br>
+<br>
+<br>
+<br>
+
+<h2>Select an Event to Manage Details</h2>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+    @foreach (var evt in Model.Take(15))
+    {
+        <div class="col">
+            <div class="card h-100">
+                @if (!string.IsNullOrEmpty(evt.ImagePath))
+                {
+                    <img src="@evt.ImagePath" class="card-img-top" alt="@evt.Title" style="height: 200px; object-fit: cover;">
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@evt.Title</h5>
+                    <p class="card-text">
+                        <strong>Date:</strong> @evt.EventDate.ToString("dd/MM/yyyy")<br>
+                        <strong>Location:</strong> @evt.LocationName<br>
+                        <strong>Category:</strong> @evt.CategoryName
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" asp-route-eventId="@evt.Id" class="btn btn-primary">View Details</a>
+                        <a asp-action="Create" asp-route-eventId="@evt.Id" class="btn btn-success">Create Detail</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No events found. Please create an event first.
+    </div>
+}
+
+<div class="mt-3">
+    <a asp-action="Index" asp-controller="Event" class="btn btn-secondary">Back to Events</a>
+</div> 

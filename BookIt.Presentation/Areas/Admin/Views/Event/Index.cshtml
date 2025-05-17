@@ -42,10 +42,10 @@
                 <td>@(evt.IsSoldOut ? "Yes" : "No")</td>
                 <td>
                     <a asp-action="Update" asp-route-id="@evt.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <form asp-action="Delete" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@evt.Id" />
+                    <a asp-action="Index" asp-controller="EventDetail" asp-route-eventId="@evt.Id" class="btn btn-sm btn-info">Event Details</a>
+                    <form id="deleteForm-@evt.Id" asp-action="Delete" asp-route-id="@evt.Id" method="post">
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete('deleteForm-@evt.Id')">Delete</button>
                     </form>
                 </td>
             </tr>

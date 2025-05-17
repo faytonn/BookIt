@@ -15,6 +15,7 @@
 <form asp-action="Update" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="EventId" />
 
     <div class="form-group">
         <label asp-for="Title"></label>
@@ -23,28 +24,9 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="ImagePath">Image</label>
-        <input class="form-control" type="file" name="ImageFile" />
-        <span asp-validation-for="ImagePath" class="text-danger"></span>
-        <small>Current Image: <img src="@Model.ImagePath" alt="Current Image" style="max-height:50px;" /></small>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="EventDate"></label>
-        <input asp-for="EventDate" class="form-control" type="date" />
-        <span asp-validation-for="EventDate" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
         <label asp-for="Description"></label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PriceRange"></label>
-        <input asp-for="PriceRange" class="form-control" />
-        <span asp-validation-for="PriceRange" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -57,14 +39,6 @@
         <label asp-for="AvailableSeats"></label>
         <input asp-for="AvailableSeats" class="form-control" />
         <span asp-validation-for="AvailableSeats" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HallId">Hall</label>
-        <select asp-for="HallId" class="form-control" asp-items="ViewBag.Halls">
-            <option value="">Select a hall</option>
-        </select>
-        <span asp-validation-for="HallId" class="text-danger"></span>
     </div>
 
     <div class="form-group">

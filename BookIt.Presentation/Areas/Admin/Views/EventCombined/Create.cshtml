@@ -70,7 +70,7 @@
                     <span asp-validation-for="EventDetail[@i].Description" class="text-danger"></span>
                 </div>
 
-                @* If your event detail requires a location dropdown, you can reuse the general locations or add a new one *@
+                
                 <div class="form-group">
                     <label asp-for="EventDetail[@i].LocationId"></label>
                     <select asp-for="EventDetail[@i].LocationId"
@@ -79,17 +79,7 @@
                     <span asp-validation-for="EventDetail[@i].LocationId" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="EventDetail[@i].HallId"></label>
-                    <select asp-for="EventDetail[@i].HallId" asp-items="Model.Halls" class="form-control"></select>
-                    <span asp-validation-for="EventDetail[@i].HallId" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="EventDetail[@i].PriceRange"></label>
-                    <input asp-for="EventDetail[@i].PriceRange" class="form-control" />
-                    <span asp-validation-for="EventDetail[@i].PriceRange" class="text-danger"></span>
-                </div>
+               
 
                 <div class="form-group">
                     <label asp-for="EventDetail[@i].TotalSeats"></label>

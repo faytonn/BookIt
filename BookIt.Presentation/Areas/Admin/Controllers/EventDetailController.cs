@@ -11,51 +11,84 @@ public class EventDetailController : Controller
 {
     private readonly IEventDetailService _eventDetailService;
     private readonly IHallService _hallService;
+    private readonly IEventService _eventService;
 
-    public EventDetailController(IEventDetailService eventDetailService, IHallService hallService)
+    public EventDetailController(IEventDetailService eventDetailService, IHallService hallService, IEventService eventService)
     {
         _eventDetailService = eventDetailService;
         _hallService = hallService;
+        _eventService = eventService;
     }
 
-    public IActionResult Index(int eventId, int languageId = 1)
+    public async Task<IActionResult> Index(int? eventId = null, int languageId = 1)
     {
-        var details =  _eventDetailService.GetAll();
-        details = details.Where(d => d.LanguageId == languageId).ToList();
+        if (!eventId.HasValue)
+        {
+            var events = _eventService.GetAll();
+            return View("SelectEvent", events);
+        }
 
-        ViewBag.EventId = eventId;
-        ViewBag.LanguageId = languageId;
-        return View(details);
+        try
+        {
+            var details = await _eventDetailService.GetAllByEventId(eventId.Value);
+            var filteredDetails = details.Where(d => d.LanguageId == languageId).ToList();
+
+            ViewBag.EventId = eventId;
+            ViewBag.LanguageId = languageId;
+            var eventData = await _eventService.GetAsync(eventId.Value);
+            ViewBag.EventTitle = eventData?.Title ?? "Unknown Event";
+            ViewBag.Languages = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "1", Text = "English", Selected = languageId == 1 },
+                new SelectListItem { Value = "2", Text = "Azerbaijani", Selected = languageId == 2 },
+                new SelectListItem { Value = "3", Text = "Czech", Selected = languageId == 3 }
+            };
+
+            //TempData["DebugInfo"] = $"Found {filteredDetails.Count} details for event {eventId} in language {languageId}";
+            
+            return View("Index", filteredDetails);
+        }
+        catch (Exception ex)
+        {
+            TempData["Error"] = $"Error: {ex.Message}";
+            return RedirectToAction("Index", "Event");
+        }
     }
 
     public IActionResult Create(int eventId, int languageId = 1)
     {
-        ViewBag.EventId = eventId;
-        ViewBag.LanguageId = languageId;
-        PopulateDropdowns(); 
-        return View();
+        try
+        {
+            var eventTitle = _eventService.GetAsync(eventId).Result?.Title ?? "Unknown Event";
+            ViewBag.EventId = eventId;
+            ViewBag.LanguageId = languageId;
+            ViewBag.EventTitle = eventTitle;
+            ViewBag.Languages = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "1", Text = "English" },
+                new SelectListItem { Value = "2", Text = "Azerbaijani" },
+                new SelectListItem { Value = "3", Text = "Czech" }
+            };
+            PopulateDropdowns(); 
+            return View();
+        }
+        catch (Exception)
+        {
+            TempData["Error"] = "The specified event could not be found.";
+            return RedirectToAction("Index", "Event");
+        }
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreateEventDetailDTO dto)
     {
-        if (Request.Form.Files.Count > 0)
-        {
-            var file = Request.Form.Files[0];
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-            Directory.CreateDirectory(uploadsFolder);
-            var fileName = Path.GetFileName(file.FileName);
-            var filePath = Path.Combine(uploadsFolder, fileName);
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-            dto.ImagePath = "/uploads/" + fileName;
-        }
-
         if (!ModelState.IsValid)
         {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                TempData["Error"] = error.ErrorMessage;
+            }
             PopulateDropdowns();
             return View(dto);
         }
@@ -63,9 +96,15 @@ public class EventDetailController : Controller
         var result = await _eventDetailService.CreateAsync(dto, ModelState);
         if (!result)
         {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                TempData["Error"] = error.ErrorMessage;
+            }
             PopulateDropdowns();
             return View(dto);
         }
+
+        TempData["Success"] = "Event detail created successfully.";
         return RedirectToAction("Index", new { eventId = dto.EventId, languageId = dto.LanguageId });
     }
 
@@ -80,20 +119,6 @@ public class EventDetailController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Update(int id, UpdateEventDetailDTO dto)
     {
-        if (Request.Form.Files.Count > 0)
-        {
-            var file = Request.Form.Files[0];
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-            Directory.CreateDirectory(uploadsFolder);
-            var fileName = Path.GetFileName(file.FileName);
-            var filePath = Path.Combine(uploadsFolder, fileName);
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-            dto.ImagePath = "/uploads/" + fileName;
-        }
-
         if (!ModelState.IsValid)
         {
             PopulateDropdowns();
@@ -118,12 +143,15 @@ public class EventDetailController : Controller
         return RedirectToAction("Index", new { eventId, languageId });
     }
 
-    public IActionResult Archived(int eventId, int languageId = 1)
+    public IActionResult Archived(int eventId)
     {
-        var archived = _eventDetailService.GetArchivedEventDetails(eventId, (Domain.Enums.LanguageType)languageId);
-        ViewBag.EventId = eventId;
-        ViewBag.LanguageId = languageId;
-        return View(archived);
+        //var archived = _eventDetailService.GetArchivedEventDetails(eventId);
+        //ViewBag.EventId = eventId;
+        //return View(archived);
+        var archived = _eventDetailService.GetAllArchivedEventDetails();
+        return View("Archived", archived);
+
+
     }
 
     [HttpPost]
@@ -141,6 +169,12 @@ public class EventDetailController : Controller
         await _eventDetailService.HardDeleteAsync(id);
         return RedirectToAction("Archived", new { eventId, languageId });
     }
+
+    //public IActionResult AllArchived()
+    //{
+    //    var archived = _eventDetailService.GetAllArchivedEventDetails();
+    //    return View("Archived", archived);
+    //}
 
     private void PopulateDropdowns()
     {

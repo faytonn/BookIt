@@ -151,14 +151,14 @@ public class EventCompositeService : IEventCompositeService
         return _eventService.IsExistAsync(id);
     }
 
-    public List<GetEventCompositeDTO> GetArchivedEvents(LanguageType language = LanguageType.English)
+    public async Task<List<GetEventCompositeDTO>> GetArchivedEvents(LanguageType language = LanguageType.English)
     {
         var archivedEvents = _eventService.GetArchivedEvents(language);
         var list = new List<GetEventCompositeDTO>();
 
         foreach (var ev in archivedEvents)
         {
-            var details = _eventDetailService.GetAllByEventId(ev.Id);
+            var details = await _eventDetailService.GetAllByEventId(ev.Id);
             list.Add(new GetEventCompositeDTO
             {
                 Event = ev,
@@ -191,7 +191,7 @@ public class EventCompositeService : IEventCompositeService
         foreach (var detailDto in dto.EventDetail)
         {
             detailDto.EventId = createdEvent.Id;
-            detailDto.EventDate = dto.Event.EventDate;
+            //detailDto.EventDate = dto.Event.EventDate;
 
             var existingDetail = await _eventDetailService.GetByEventAndLanguageAsync(createdEvent.Id, detailDto.LanguageId);
             if (existingDetail != null)
@@ -210,7 +210,7 @@ public class EventCompositeService : IEventCompositeService
     }
 
 
-    private async Task<bool> UpdateEventWithDetailsAsync(UpdateEventCompositeDTO dto, ModelStateDictionary modelState)
+    public async Task<bool> UpdateEventWithDetailsAsync(UpdateEventCompositeDTO dto, ModelStateDictionary modelState)
     {
         if (!modelState.IsValid)
             return false;
@@ -229,7 +229,7 @@ public class EventCompositeService : IEventCompositeService
             {
                 var createDetailDto = _mapper.Map<CreateEventDetailDTO>(detailDto);
                 createDetailDto.EventId = dto.Event.Id;
-                createDetailDto.EventDate = dto.Event.EventDate;
+                //createDetailDto.EventDate = dto.Event.EventDate;
                 if (!await _eventDetailService.CreateAsync(createDetailDto, modelState))
                     return false;
             }
@@ -237,6 +237,9 @@ public class EventCompositeService : IEventCompositeService
         return true;
     }
 
-
+    public async Task<GetEventCompositeDTO> GetByIdAsync(int id)
+    {
+        return await GetAsync(id);
+    }
 
 }

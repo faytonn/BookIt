@@ -5,6 +5,8 @@
     ViewData["Title"] = "Create Event Detail";
     var eventId = ViewBag.EventId;
     var languageId = ViewBag.LanguageId;
+    var eventTitle = ViewBag.EventTitle;
+    var languages = ViewBag.Languages as List<SelectListItem>;
 }
 <br>
 <br>
@@ -12,12 +14,19 @@
 <br>
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<h2>Create Event Detail for Event @eventId (Language: @languageId)</h2>
+<h2>Create Event Detail for "@eventTitle"</h2>
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="EventId" value="@eventId" />
-    <input type="hidden" asp-for="LanguageId" value="@languageId" />
+    
+    <div class="form-group">
+        <label asp-for="LanguageId">Language</label>
+        <select asp-for="LanguageId" class="form-control" asp-items="languages">
+            <option value="">Select a language</option>
+        </select>
+        <span asp-validation-for="LanguageId" class="text-danger"></span>
+    </div>
 
     <div class="form-group">
         <label asp-for="Title"></label>
@@ -26,27 +35,9 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="ImagePath">Image</label>
-        <input class="form-control" type="file" name="ImageFile" />
-        <span asp-validation-for="ImagePath" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="EventDate"></label>
-        <input asp-for="EventDate" class="form-control" type="date" />
-        <span asp-validation-for="EventDate" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
         <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
+        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PriceRange"></label>
-        <input asp-for="PriceRange" class="form-control" />
-        <span asp-validation-for="PriceRange" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -62,14 +53,6 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="HallId">Hall</label>
-        <select asp-for="HallId" class="form-control" asp-items="ViewBag.Halls">
-            <option value="">Select a hall</option>
-        </select>
-        <span asp-validation-for="HallId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
         <label asp-for="Price"></label>
         <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
@@ -81,6 +64,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" asp-route-eventId="@eventId" asp-route-languageId="@languageId" class="btn btn-secondary">Back to List</a>
 </form>
 
 @section Scripts {

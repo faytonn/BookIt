@@ -1688,14 +1688,7 @@
           }
         }
       },
-      "System.Formats.Asn1/8.0.1": {
-        "runtime": {
-          "lib/net8.0/System.Formats.Asn1.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.724.31311"
-          }
-        }
-      },
+      "System.Formats.Asn1/8.0.1": {},
       "System.Globalization/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.1",
@@ -2150,7 +2143,10 @@
           "Microsoft.Extensions.Localization.Abstractions": "9.0.1"
         },
         "runtime": {
-          "BookIt.Application.dll": {}
+          "BookIt.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "BookIt.Domain/1.0.0": {
@@ -2161,7 +2157,10 @@
           "Microsoft.Extensions.Identity.Core": "8.0.12"
         },
         "runtime": {
-          "BookIt.Domain.dll": {}
+          "BookIt.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

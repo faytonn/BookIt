@@ -50,7 +50,13 @@ public class EventController : Controller
         ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
 
         if (!ModelState.IsValid)
+        {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                TempData["Error"] = error.ErrorMessage;
+            }
             return View(dto);
+        }
 
         if (dto.ImageFile != null)
         {
@@ -59,14 +65,22 @@ public class EventController : Controller
         }
         else
         {
-            ModelState.AddModelError("FormFile", "An image file is required.");
+            ModelState.AddModelError("ImageFile", "An image file is required.");
+            TempData["Error"] = "An image file is required.";
             return View(dto);
         }
 
         var result = await _eventService.CreateAsync(dto, ModelState);
         if (!result)
+        {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                TempData["Error"] = error.ErrorMessage;
+            }
             return View(dto);
+        }
 
+        TempData["Success"] = "Event created successfully.";
         return RedirectToAction("Index");
     }
 

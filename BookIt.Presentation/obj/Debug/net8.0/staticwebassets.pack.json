@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BookIt.Presentation.bundle.scp.css",
-      "PackagePath": "staticwebassets\\BookIt.Presentation.bundle.scp.css"
+      "PackagePath": "staticwebassets\\BookIt.Presentation.o0n9tvr1xb.bundle.scp.css"
     },
     {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\admin\\assets\\charts\\charts.html",
@@ -1681,6 +1681,10 @@
       "PackagePath": "staticwebassets\\admin\\assets\\tables\\tables.html"
     },
     {
+      "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\uploads\\KendrickLamar.jpg",
       "PackagePath": "staticwebassets\\uploads\\KendrickLamar.jpg"
     },
@@ -2615,6 +2619,10 @@
     {
       "Id": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\wwwroot\\user\\assets\\webfonts\\fa-solid-900d41d.eot",
       "PackagePath": "staticwebassets\\user\\assets\\webfonts\\fa-solid-900d41d.eot"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookIt.Presentation.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookIt.Presentation.Microsoft.AspNetCore.StaticWebAssets.props",

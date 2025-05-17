@@ -13,14 +13,11 @@ public interface IEventCompositeService : IGetService<GetEventCompositeDTO>, IMo
 
     //Task<UpdateEventCompositeDTO?> GetByIdForUpdateAsync(int id, LanguageType language = LanguageType.English);
 
-    //Task<bool> UpdateEventWithDetailsAsync(UpdateEventCompositeDTO dto, ModelStateDictionary modelState);
-
     Task HardDeleteAsync(int id, ModelStateDictionary modelState);
 
     Task RestoreAsync(int id, ModelStateDictionary modelState);
-    public List<GetEventCompositeDTO> GetArchivedEvents(LanguageType languageType = LanguageType.English);
+    Task<List<GetEventCompositeDTO>> GetArchivedEvents(LanguageType languageType = LanguageType.English);
 
-
-
-
+    Task<bool> UpdateEventWithDetailsAsync(UpdateEventCompositeDTO dto, ModelStateDictionary modelState);
+    Task<GetEventCompositeDTO> GetByIdAsync(int id);
 }

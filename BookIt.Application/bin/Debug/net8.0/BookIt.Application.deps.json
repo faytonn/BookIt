@@ -1734,7 +1734,10 @@
           "Microsoft.Extensions.Identity.Core": "8.0.12"
         },
         "runtime": {
-          "BookIt.Domain.dll": {}
+          "BookIt.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

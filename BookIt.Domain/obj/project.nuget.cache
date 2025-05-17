@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CwohsdQCr6Ho1GpOGECVUkgPDvEArE0G3+8YhyCnlWUPOmRo870/UGnZH33UC4An9b+QZmDN9UpszT6oAbMrZA==",
+  "dgSpecHash": "kcdKNWgCT84=",
   "success": true,
   "projectFilePath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Domain\\BookIt.Domain.csproj",
   "expectedPackageFiles": [
@@ -102,5 +102,16 @@
     "C:\\Users\\Fatima\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\Fatima\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNetCore.Identity' 2.3.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-2865-hh9g-w894",
+      "libraryId": "Microsoft.AspNetCore.Identity",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

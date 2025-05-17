@@ -1,0 +1,58 @@
+@model IEnumerable<BookIt.Application.DTOs.SeatTypeDTO.GetSeatTypeDTO>
+@{
+    ViewData["Title"] = "Archived Seat Types";
+}
+
+<br>
+<br>
+<br>
+<br>
+
+<h2>Archived Seat Types</h2>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Hall</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 1;
+        }
+        @foreach (var seatType in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@seatType.Name</td>
+                <td>@seatType.Description</td>
+                <td>@seatType.DefaultPrice</td>
+                <td>@seatType.HallName</td>
+                <td>
+                    <form asp-action="Restore" asp-route-id="@seatType.Id" method="post" style="display: inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-success btn-sm">Restore</button>
+                    </form>
+                    <form id="deleteForm-@seatType.Id" asp-action="HardDelete" asp-route-id="@seatType.Id" method="post" style="display: inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('deleteForm-@seatType.Id')">Delete Permanently</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No archived seat types found.
+    </div>
+}
+
+<a asp-action="Index" class="btn btn-secondary">Back to Active Seat Types</a> 
