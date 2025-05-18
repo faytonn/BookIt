@@ -6,6 +6,7 @@ using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookIt.Persistence.Implementations.Services;
 
@@ -52,17 +53,30 @@ public class ReservationService : IReservationService
 
     public async Task<PaginateDTO<GetReservationDTO>> GetPagesAsync(LanguageType language = LanguageType.English, int page = 1, int limit = 10)
     {
+        var reservations = await _reservationRepository.GetPageAsync(page, limit);
+        var totalCount = await _reservationRepository.CountAsync();
+        
+        var dtos = new List<GetReservationDTO>();
+        foreach (var r in reservations)
+        {
+            var dto = _mapper.Map<GetReservationDTO>(r);
+            dto.Seats = await MapReservationSeats(r.Id);
+            dtos.Add(dto);
+        }
 
-        throw new NotImplementedException();
-
+        return new PaginateDTO<GetReservationDTO>
+        {
+            Items = dtos,
+            TotalCount = totalCount,
+            CurrentPage = page,
+            PageSize = limit
+        };
     }
 
     public async Task<bool> IsExistAsync(int id)
     {
         return await _reservationRepository.IsExistAsync(r => r.Id == id);
     }
-
-
 
     public async Task<bool> CreateAsync(CreateReservationDTO dto, ModelStateDictionary modelState)
     {
@@ -135,7 +149,7 @@ public class ReservationService : IReservationService
             return false;
         }
         reservation.EventId = dto.EventId;
-        reservation.Status = dto.ReservationStatus;
+        reservation.Status = dto.Status;
         _reservationRepository.Update(reservation);
         return true;
     }
@@ -148,7 +162,7 @@ public class ReservationService : IReservationService
         {
             Id = reservation.Id,
             EventId = reservation.EventId,
-            ReservationStatus = reservation.Status,
+            Status = reservation.Status,
             SeatIds = await _reservationSeatRepository.GetSeatIdsByReservationAsync(reservation.Id)
         };
         return dto;
@@ -161,13 +175,11 @@ public class ReservationService : IReservationService
         //my softdelete is cancel here, because hard deleting does not sound ethical in this case
         reservation.Status = ReservationStatus.Cancelled;
         _reservationRepository.Update(reservation);
-      
     }
 
-
-    public async Task<bool> ConfirmReservationAsync(int reservationId, string paymentTxId)
+    public async Task<bool> ConfirmReservationAsync(int id, string? note)
     {
-        var reservation = await _reservationRepository.GetAsync(reservationId);
+        var reservation = await _reservationRepository.GetAsync(id);
         if (reservation == null) return false;
         if (reservation.Status != ReservationStatus.Pending) return false;
         reservation.Status = ReservationStatus.Confirmed;
@@ -175,9 +187,9 @@ public class ReservationService : IReservationService
         return true;
     }
 
-    public async Task<bool> CancelReservationAsync(int reservationId)
+    public async Task<bool> CancelReservationAsync(int id)
     {
-        var reservation = await _reservationRepository.GetAsync(reservationId);
+        var reservation = await _reservationRepository.GetAsync(id);
         if (reservation == null) return false;
         reservation.Status = ReservationStatus.Cancelled;
         _reservationRepository.Update(reservation);
@@ -221,13 +233,9 @@ public class ReservationService : IReservationService
         }
 
         reservation.TotalAmount += additionalCost;
-
         reservation.NumberOfTickets += seatIds.Count;
-        
         _reservationRepository.Update(reservation);
-        
         await _reservationSeatRepository.CreateRangeAsync(newBridgingRecords);
-        
         return true;
     }
 
@@ -242,15 +250,13 @@ public class ReservationService : IReservationService
         decimal refund = toRemove.Sum(x => x.Price);
         foreach (var rec in toRemove)
         {
-            _reservationSeatRepository.HardDelete(rec); // If you want to soft delete, add an IsDeleted flag
+            _reservationSeatRepository.HardDelete(rec);
         }
         reservation.TotalAmount -= refund;
         reservation.NumberOfTickets -= toRemove.Count;
         _reservationRepository.Update(reservation);
         return true;
     }
-
- 
 
     private async Task<List<GetReservationSeatDTO>> MapReservationSeats(int reservationId)
     {
@@ -282,8 +288,4 @@ public class ReservationService : IReservationService
     {
         return seat.SeatType?.DefaultPrice ?? 0m;
     }
-
-  
-
-    
 }

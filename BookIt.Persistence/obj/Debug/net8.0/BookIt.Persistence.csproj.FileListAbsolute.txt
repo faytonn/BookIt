@@ -20,3 +20,5 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\refint\B
 C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\BookIt.Persistence.genruntimeconfig.cache
 C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\obj\Debug\net8.0\ref\BookIt.Persistence.dll
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\bin\Debug\net8.0\StaticFiles\ConfirmEmailBody.html
+C:\Users\Fatima\source\repos\BookIt\BookIt.Persistence\bin\Debug\net8.0\StaticFiles\NotificationBody.html

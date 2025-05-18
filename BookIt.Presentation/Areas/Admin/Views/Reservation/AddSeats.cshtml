@@ -27,7 +27,7 @@
 
                         <dt class="col-sm-4">Status</dt>
                         <dd class="col-sm-8">
-                            <span class="badge @(Model.ReservationStatus switch {
+                            <span class="badge @(Model.Status switch {
                                 ReservationStatus.Confirmed => "badge-success",
                                 ReservationStatus.Cancelled => "badge-danger",
                                 ReservationStatus.Pending => "badge-warning",
@@ -35,7 +35,7 @@
                                 ReservationStatus.Refunded => "badge-secondary",
                                 _ => "badge-secondary"
                             })">
-                                @Model.ReservationStatus
+                                @Model.Status
                             </span>
                         </dd>
 

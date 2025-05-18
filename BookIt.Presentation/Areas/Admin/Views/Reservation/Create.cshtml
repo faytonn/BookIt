@@ -1,9 +1,9 @@
 @using BookIt.Application.DTOs.ReservationDTO
 @model CreateReservationDTO
 
-@* @{
+@{
     ViewData["Title"] = "Create Reservation";
-} *@
+}
 
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -21,6 +21,8 @@
             <form asp-action="Create" method="post" id="reservationForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                <input type="hidden" asp-for="UserId" />
+
                 <div class="form-group">
                     <label asp-for="EventId" class="control-label">Event</label>
                     <select asp-for="EventId" class="form-control" asp-items="@(new SelectList(ViewBag.Events, "Id", "Title"))">
@@ -30,18 +32,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="UserId" class="control-label">User ID</label>
-                    <input asp-for="UserId" class="form-control" />
-                    <span asp-validation-for="UserId" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="SeatIds" class="control-label">Seats</label>
-                    <select asp-for="SeatIds" class="form-control" asp-items="@ViewBag.Seats" multiple>
+                    <label asp-for="SeatIds" class="control-label">Select Seats</label>
+                    <select asp-for="SeatIds" class="form-control" multiple size="5" id="seatSelect">
                         <option value="">-- Select Seats --</option>
                     </select>
+                    <small class="form-text text-muted">Hold Ctrl (Windows) or Command (Mac) to select multiple seats</small>
                     <span asp-validation-for="SeatIds" class="text-danger"></span>
-                    <small class="form-text text-muted">Hold Ctrl (or Cmd) to select multiple seats.</small>
                 </div>
 
                 <div class="form-group">
@@ -62,7 +58,7 @@
                 var eventId = $(this).val();
                 if (eventId) {
                     $.get('/Admin/Reservation/GetAvailableSeats', { eventId: eventId }, function (seats) {
-                        var seatSelect = $('#SeatIds');
+                        var seatSelect = $('#seatSelect');
                         seatSelect.empty();
                         seatSelect.append($('<option></option>').val('').text('-- Select Seats --'));
                         seats.forEach(function (seat) {
@@ -72,14 +68,55 @@
                         });
                     });
                 } else {
-                    $('#SeatIds').empty();
-                    $('#SeatIds').append($('<option></option>').val('').text('-- Select Seats --'));
+                    $('#seatSelect').empty();
+                    $('#seatSelect').append($('<option></option>').val('').text('-- Select Seats --'));
                 }
             });
 
             $('#reservationForm').submit(function (e) {
-                var selectedSeats = $('#SeatIds').val() || [];
-                $('#SelectedSeatIds').val(JSON.stringify(selectedSeats));
+                e.preventDefault();
+                
+                // Get selected seat IDs
+                var selectedSeats = $('#seatSelect').val();
+                if (!selectedSeats || selectedSeats.length === 0) {
+                    alert('Please select at least one seat.');
+                    return;
+                }
+
+                // Create form data
+                var formData = new FormData(this);
+                formData.delete('SeatIds'); // Remove existing SeatIds
+                
+                // Add each selected seat ID
+                selectedSeats.forEach(function(seatId) {
+                    formData.append('SeatIds', seatId);
+                });
+
+                // Submit the form
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        window.location.href = '/Admin/Reservation/Index';
+                    },
+                    error: function(xhr) {
+                        if (xhr.responseJSON) {
+                            var errors = xhr.responseJSON;
+                            var errorMessage = '';
+                            for (var key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    errorMessage += errors[key].join('\n') + '\n';
+                                }
+                            }
+                            alert(errorMessage);
+                        } else {
+                            alert('An error occurred while creating the reservation.');
+                        }
+                    }
+                });
             });
         });
     </script>

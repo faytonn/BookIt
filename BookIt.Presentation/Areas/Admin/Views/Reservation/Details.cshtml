@@ -38,7 +38,7 @@
 
                         <dt class="col-sm-4">Status</dt>
                         <dd class="col-sm-8">
-                            <span class="badge @(Model.ReservationStatus switch {
+                            <span class="badge @(Model.Status switch {
                                 ReservationStatus.Confirmed => "badge-success",
                                 ReservationStatus.Cancelled => "badge-danger",
                                 ReservationStatus.Pending => "badge-warning",
@@ -46,7 +46,7 @@
                                 ReservationStatus.Refunded => "badge-secondary",
                                 _ => "badge-secondary"
                             })">
-                                @Model.ReservationStatus
+                                @Model.Status
                             </span>
                         </dd>
 
@@ -73,7 +73,7 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <h6 class="m-0 font-weight-bold text-primary">Reserved Seats</h6>
-                    @if (Model.ReservationStatus != ReservationStatus.Cancelled)
+                    @if (Model.Status != ReservationStatus.Cancelled)
                     {
                         <a asp-action="AddSeats" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Add Seats
@@ -101,7 +101,7 @@
                                         <td>@seat.Column</td>
                                         <td>@seat.Price.ToString("C")</td>
                                         <td>
-                                            @if (Model.ReservationStatus != ReservationStatus.Cancelled)
+                                            @if (Model.Status != ReservationStatus.Cancelled)
                                             {
                                                 <form asp-action="RemoveSeats" asp-route-id="@Model.Id" method="post" class="d-inline">
                                                     @Html.AntiForgeryToken()
@@ -130,7 +130,7 @@
                 </div>
                 <div class="card-body">
                     <div class="btn-group" role="group">
-                        @if (Model.ReservationStatus == ReservationStatus.Pending)
+                        @if (Model.Status == ReservationStatus.Pending)
                         {
                             <form asp-action="Confirm" asp-route-id="@Model.Id" method="post" class="d-inline">
                                 @Html.AntiForgeryToken()
@@ -139,7 +139,7 @@
                                 </button>
                             </form>
                         }
-                        @if (Model.ReservationStatus != ReservationStatus.Cancelled)
+                        @if (Model.Status != ReservationStatus.Cancelled)
                         {
                             <form asp-action="Cancel" asp-route-id="@Model.Id" method="post" class="d-inline">
                                 @Html.AntiForgeryToken()

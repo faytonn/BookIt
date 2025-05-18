@@ -157,4 +157,18 @@ public class EventService : IEventService
                         .ToList();
         return _mapper.Map<List<GetEventDTO>>(archived);
     }
+
+    public async Task<List<GetEventDTO>> GetUpcomingEventsAsync(LanguageType language = LanguageType.English)
+    {
+        var currentDate = DateTime.UtcNow;
+        var upcomingEvents = await _eventRepository.GetAll(
+            include: q => q.Include(e => e.GeneralLocation)
+                          .Include(e => e.Category))
+            .Where(e => e.EventDate > currentDate && !e.IsDeleted)
+            .OrderBy(e => e.EventDate)
+            .Take(6)
+            .ToListAsync();
+
+        return _mapper.Map<List<GetEventDTO>>(upcomingEvents);
+    }
 }

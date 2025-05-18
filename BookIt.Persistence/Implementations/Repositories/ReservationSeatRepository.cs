@@ -20,9 +20,7 @@ public class ReservationSeatRepository : Repository<ReservationSeat>, IReservati
 
     public async Task<List<ReservationSeat>> GetActiveBySeatAndEventAsync(int seatId, int eventId)
     {
-        // 
-        // checking if the reservation is not cancelled + assuming Reservation.Status != ReservationStatus.Cancelled
-        // or something similar. Let's do an example:
+       
 
         return await GetAll(
             rs => rs.SeatId == seatId

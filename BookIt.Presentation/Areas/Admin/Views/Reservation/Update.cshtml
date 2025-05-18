@@ -30,18 +30,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="ReservationStatus" class="control-label">Status</label>
-                    <select asp-for="ReservationStatus" class="form-control" asp-items="@(new SelectList(ViewBag.Statuses, "Id", "Name"))">
+                    <label asp-for="Status" class="control-label">Status</label>
+                    <select asp-for="Status" class="form-control" asp-items="@(new SelectList(ViewBag.Statuses, "Id", "Name"))">
                         <option value="">-- Select Status --</option>
                     </select>
-                    <span asp-validation-for="ReservationStatus" class="text-danger"></span>
+                    <span asp-validation-for="Status" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
+               @*  <div class="form-group">
                     <label asp-for="NumberOfTickets" class="control-label">Number of Tickets</label>
                     <input asp-for="NumberOfTickets" class="form-control" />
                     <span asp-validation-for="NumberOfTickets" class="text-danger"></span>
-                </div>
+                </div> *@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">

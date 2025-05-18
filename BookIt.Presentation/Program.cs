@@ -60,17 +60,20 @@ public class Program
 
         app.UseRouting();
 
+        // Add authentication and authorization middleware
+        app.UseAuthentication();
         app.UseAuthorization();
 
 
         app.MapControllerRoute(
             name: "areas",
-            pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
         );
 
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+            pattern: "{controller=Home}/{action=Index}/{id?}"
+        );
 
         await app.RunAsync();
     }

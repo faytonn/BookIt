@@ -55,7 +55,7 @@ public class CloudinaryService : ICloudinaryService
     {
         try
         {
-            string publicIdWithExtension = filePath.Substring(filePath.LastIndexOf("limakaz"));
+            string publicIdWithExtension = filePath.Substring(filePath.LastIndexOf("bookit."));
             string publicId = publicIdWithExtension.Substring(0, publicIdWithExtension.LastIndexOf('.'));
 
             var deleteParams = new DelResParams()

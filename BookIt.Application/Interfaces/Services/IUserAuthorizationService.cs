@@ -1,10 +1,11 @@
-﻿using BookIt.Application.DTOs.AuthorizationDTO;
+using BookIt.Application.DTOs.AuthorizationDTO;
 using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 namespace BookIt.Application.Interfaces.Services;
 
-public interface IAuthorizationService
+public interface IUserAuthorizationService
 {
     Task<bool> RegisterAsync(RegisterDTO dto, ModelStateDictionary ModelState);
     RegisterDTO GetRegisterDto(RegisterDTO dto, LanguageType language = LanguageType.Azerbaijani);
@@ -17,4 +18,4 @@ public interface IAuthorizationService
     Task<List<string>> GetUserRolesAsync(string userId);
     Task<List<ApplicationUser>> GetAllMembersAsync();
     Task<string> GetRedirectUrlAsync(string email);
-}
+} 

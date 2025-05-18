@@ -11,4 +11,5 @@ public interface IEventService : IGetService<GetEventDTO>,IModifyService<CreateE
     public Task RestoreAsync(int id);
     public Task HardDeleteAsync(int id);
     public List<GetEventDTO> GetArchivedEvents(LanguageType language = LanguageType.English);
+    public Task<List<GetEventDTO>> GetUpcomingEventsAsync(LanguageType language = LanguageType.English);
 }

@@ -10,7 +10,7 @@ public class GetReservationDTO : IDTO
     public string EventTitle { get; set; } = null!;
     public string UserId { get; set; } = null!;
     public decimal TotalAmount { get; set; }
-    public ReservationStatus ReservationStatus { get; set; }
+    public ReservationStatus Status { get; set; }
     public int? PaymentTransactionId { get; set; }
     public int NumberOfTickets { get; set; }
     public DateTime ReservationDate { get; set; }

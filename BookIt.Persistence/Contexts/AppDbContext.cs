@@ -54,6 +54,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<CancellationRefund>().HasQueryFilter(x => !x.IsRefunded);
         modelBuilder.Entity<SeatType>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => !x.IsDeleted);
 
 
     }

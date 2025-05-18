@@ -31,12 +31,14 @@ namespace BookIt.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -50,6 +52,9 @@ namespace BookIt.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsSubscribed")
@@ -90,6 +95,9 @@ namespace BookIt.Persistence.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -630,7 +638,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 5, 17, 23, 12, 50, 142, DateTimeKind.Local).AddTicks(5861),
+                            CreatedAt = new DateTime(2025, 5, 18, 23, 4, 26, 627, DateTimeKind.Local).AddTicks(3721),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786112/bookit./HitMeHardAndSoft.jpg",
                             IsDeleted = false,
@@ -640,7 +648,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 5, 17, 23, 12, 50, 142, DateTimeKind.Local).AddTicks(5948),
+                            CreatedAt = new DateTime(2025, 5, 18, 23, 4, 26, 627, DateTimeKind.Local).AddTicks(3808),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786345/bookit./KendrickLamar.webp",
                             IsDeleted = false,
@@ -650,7 +658,7 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 5, 17, 23, 12, 50, 142, DateTimeKind.Local).AddTicks(5952),
+                            CreatedAt = new DateTime(2025, 5, 18, 23, 4, 26, 627, DateTimeKind.Local).AddTicks(3811),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786457/bookit./paddington3.jpg",
                             IsDeleted = false,

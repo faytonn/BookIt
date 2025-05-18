@@ -3,56 +3,88 @@ using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
+using BookIt.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using BookIt.Domain.Enums;
 
 namespace BookIt.Presentation.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize]
 public class ReservationController : Controller
 {
     private readonly IReservationService _reservationService;
     private readonly IEventService _eventService;
     private readonly ISeatService _seatService;
     private readonly ISeatTypeService _seatTypeService;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     public ReservationController(
         IReservationService reservationService, 
         IEventService eventService,
         ISeatService seatService,
-        ISeatTypeService seatTypeService)
+        ISeatTypeService seatTypeService,
+        UserManager<ApplicationUser> userManager)
     {
         _reservationService = reservationService;
         _eventService = eventService;
         _seatService = seatService;
         _seatTypeService = seatTypeService;
+        _userManager = userManager;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var reservations = _reservationService.GetAll()
-            .Where(r => r.ReservationStatus != ReservationStatus.Cancelled)
-            .ToList();
+        var currentUser = await _userManager.GetUserAsync(User);
+        if (currentUser == null)
+        {
+            return RedirectToAction("Login", "Account", new { area = "" });
+        }
+
+        var reservations = _reservationService.GetAll();
         return View(reservations);
     }
 
     public IActionResult Cancelled()
     {
         var reservations = _reservationService.GetAll()
-            .Where(r => r.ReservationStatus == ReservationStatus.Cancelled)
+            .Where(r => r.Status == ReservationStatus.Cancelled)
             .ToList();
         return View("Index", reservations);
     }
 
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+        var currentUser = await _userManager.GetUserAsync(User);
+        if (currentUser == null)
+        {
+            return RedirectToAction("Login", "Account", new { area = "" });
+        }
+
+        var model = new CreateReservationDTO
+        {
+            UserId = currentUser.Id
+        };
+
         PopulateEventsViewBag();
         PopulateSeatsViewBag();
-        return View(new CreateReservationDTO());
+        return View(model);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreateReservationDTO model)
     {
+        var currentUser = await _userManager.GetUserAsync(User);
+        if (currentUser == null)
+        {
+            return RedirectToAction("Login", "Account", new { area = "" });
+        }
+
+        // Ensure the UserId matches the current user
+        model.UserId = currentUser.Id;
+
         if (!ModelState.IsValid)
         {
             PopulateEventsViewBag();
@@ -183,7 +215,7 @@ public class ReservationController : Controller
 
     private void PopulateSeatsViewBag()
     {
-        ViewBag.Seats = new SelectList(Enumerable.Empty<object>(), "Id", "Name");
+        ViewBag.Seats = new SelectList(new List<object>());
     }
 
     private void PopulateStatusesViewBag()

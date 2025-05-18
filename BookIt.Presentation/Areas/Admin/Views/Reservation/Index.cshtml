@@ -39,7 +39,7 @@
                                 <td>@item.EventTitle</td>
                                 <td>@item.UserId</td>
                                 <td>
-                                    <span class="badge @(item.ReservationStatus switch {
+                                    <span class="badge @(item.Status switch {
                                         ReservationStatus.Confirmed => "badge-success",
                                         ReservationStatus.Cancelled => "badge-danger",
                                         ReservationStatus.Pending => "badge-warning",
@@ -47,7 +47,7 @@
                                         ReservationStatus.Refunded => "badge-secondary",
                                         _ => "badge-secondary"
                                     })">
-                                        @item.ReservationStatus
+                                        @item.Status
                                     </span>
                                 </td>
                                 <td>@item.ReservationDate.ToString("g")</td>
@@ -61,7 +61,7 @@
                                         <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        @if (item.ReservationStatus == ReservationStatus.Pending)
+                                        @if (item.Status == ReservationStatus.Pending)
                                         {
                                             <form asp-action="Confirm" asp-route-id="@item.Id" method="post" class="d-inline">
                                                 @Html.AntiForgeryToken()
@@ -70,7 +70,7 @@
                                                 </button>
                                             </form>
                                         }
-                                        @if (item.ReservationStatus != ReservationStatus.Cancelled)
+                                        @if (item.Status != ReservationStatus.Cancelled)
                                         {
                                             <form asp-action="Cancel" asp-route-id="@item.Id" method="post" class="d-inline">
                                                 @Html.AntiForgeryToken()

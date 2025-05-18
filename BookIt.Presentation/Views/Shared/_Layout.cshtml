@@ -1,9 +1,10 @@
 ﻿@using BookIt.Application.Interfaces.Services.UI
+@using Microsoft.AspNetCore.Identity
+@using BookIt.Domain.Entities
 
-
-@inject ILayoutService _layoutService;
-
-
+@inject ILayoutService _layoutService
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +28,9 @@
     <link rel="stylesheet" href="~/user/assets/css/jquery.animatedheadline.css">
     <link rel="stylesheet" href="~/user/assets/css/main.css">
 
-    <link rel="shortcut icon" href="~/user/assets/images/favicon.png" type="image/x-icon">
-
-    <title>Boleto  - Online Ticket Booking Website HTML Template</title>
+@*     <link rel="shortcut icon" href="https://res.cloudinary.com/di3ourpee/image/upload/v1738766959/bookit./ev0nyzhntlkho22k7bd3.png" type="image/x-icon">
+ *@
+    <title>BookIt.</title>
 
 
 </head>
@@ -173,7 +174,29 @@
                         <a href="contact.html">contact</a>
                     </li>
                     <li class="header-button pr-0">
-                        <a href="sign-up.html">Log in/Register</a>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <div class="dropdown" style="display: inline-block;">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle"></i> @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Settings">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form asp-controller="Account" asp-action="Logout" method="post" style="margin: 0;">
+                                            <button type="submit" class="dropdown-item">Log out</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Log in</a>
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-secondary">Register</a>
+                        }
                     </li>
                 </ul>
                 <div class="header-bar d-lg-none">
@@ -241,7 +264,7 @@
             <div class="footer-bottom">
                 <div class="footer-bottom-area">
                     <div class="left">
-                        <p>Copyright © 2020.All Rights Reserved By <a href="#0">Boleto </a></p>
+                        <p>Copyright © 2025.All Rights Reserved By <a href="#0">BookIt. </a></p>
                     </div>
                     <ul class="links">
                         <li>
@@ -298,6 +321,7 @@
             });
         });
     </script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 

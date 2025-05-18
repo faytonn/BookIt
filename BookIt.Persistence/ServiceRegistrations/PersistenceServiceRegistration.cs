@@ -74,7 +74,6 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IEventDetailRepository, EventDetailRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
-        //services.AddScoped<IEventDetailSeatTypeRepository, EventSeatTypeRepository>();
         services.AddScoped<IGeneralLocationRepository, GeneralLocationRepository>();
         services.AddScoped<IHallRepository, HallRepository>();
         services.AddScoped<ILanguageRepository, LanguageRepository>();
@@ -107,9 +106,9 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IHallService, HallService>();
         services.AddScoped<IEventService, EventService>();
         services.AddScoped<IEventDetailService, EventDetailService>();
-        //services.AddScoped<IEventDetailSeatTypeService, EventDetailSeatTypeService>();
         services.AddScoped<ISeatTypeService, SeatTypeService>();
         services.AddScoped<ISeatService, SeatService>();
         services.AddScoped<IReservationService, ReservationService>();
+        services.AddScoped<IEmailService, EmailService>();
     }
 }

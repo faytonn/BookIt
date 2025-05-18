@@ -28,4 +28,10 @@
     <ProjectReference Include="..\BookIt.Application\BookIt.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="StaticFiles\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
