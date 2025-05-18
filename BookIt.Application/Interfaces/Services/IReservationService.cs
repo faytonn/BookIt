@@ -9,7 +9,7 @@ public interface IReservationService : IGetService<GetReservationDTO>, IModifySe
     Task<bool> ConfirmReservationAsync(int reservationId, string paymentTxId);
     Task<bool> CancelReservationAsync(int reservationId);
     //Task<bool> CancelReservationAsync(int reservationId, string paymentTxId);
-    Task<bool> AddSeatsToReservationsAsync(int reservationId, List<int> seatIds);
+    Task<bool> AddSeatsToReservationAsync(int reservationId, List<int> seatIds);
     Task<bool> RemoveSeatsFromReservationAsync(int reservationId, List<int> seatIds);
 
 }

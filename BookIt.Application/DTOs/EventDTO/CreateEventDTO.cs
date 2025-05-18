@@ -14,6 +14,7 @@ public class CreateEventDTO : IDTO
     public string PriceRange { get; set; } = null!;
     public bool IsSoldOut { get; set; }
     public int GeneralLocationId { get; set; }
+    public int HallId { get; set; }
     public int? ParentCategoryId { get; set; }
     public int CategoryId { get; set; }
 }

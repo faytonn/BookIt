@@ -1,7 +1,10 @@
-﻿@model BookIt.Application.DTOs.EventDTO.UpdateEventDTO
+﻿@using BookIt.Application.DTOs.HallDTO
+@model BookIt.Application.DTOs.EventDTO.UpdateEventDTO
 
 @{
     ViewData["Title"] = "Update Event";
+    var generalLocations = ViewData["GeneralLocations"] as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var categories = ViewData["Categories"] as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
 }
 
 <br>
@@ -23,9 +26,9 @@
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="ImagePath">Event Image</label>
-        <input asp-for="ImagePath" type="file" class="form-control" />
-        <span asp-validation-for="ImagePath" class="text-danger"></span>
+        <label asp-for="ImageFile">Event Image</label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="EventDate"></label>
@@ -37,6 +40,49 @@
         <input asp-for="PriceRange" class="form-control" />
         <span asp-validation-for="PriceRange" class="text-danger"></span>
     </div>
-    @* Include dropdowns if needed *@
-    <button type="submit" class="btn btn-primary">Update Event</button>
+    <div class="form-group">
+        <label asp-for="GeneralLocationId">General Location</label>
+        <select asp-for="GeneralLocationId" class="form-control" asp-items="generalLocations"></select>
+        <span asp-validation-for="GeneralLocationId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="HallId">Hall</label>
+        @{
+            var halls = ViewBag.Halls as List<GetHallDTO> ?? new List<GetHallDTO>();
+            var filteredHalls = halls.Where(h => h.LocationId == Model.GeneralLocationId).ToList();
+        }
+        <select asp-for="HallId" class="form-control" id="hallDropdown" asp-items="@(new SelectList(filteredHalls, "Id", "Name", Model.HallId))">
+            <option value="">-- Select Hall --</option>
+        </select>
+        <span asp-validation-for="HallId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="categories"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Update Event</button>
 </form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#GeneralLocationId').change(function () {
+                var locationId = $(this).val();
+                if (locationId) {
+                    $.get('/Admin/Event/GetHallsByLocation', { generalLocationId: locationId }, function (halls) {
+                        var hallDropdown = $('#hallDropdown');
+                        hallDropdown.empty();
+                        hallDropdown.append($('<option></option>').val('').text('-- Select Hall --'));
+                        $.each(halls, function (i, hall) {
+                            hallDropdown.append($('<option></option>').val(hall.id).text(hall.name));
+                        });
+                    });
+                } else {
+                    $('#hallDropdown').empty().append($('<option></option>').val('').text('-- Select Hall --'));
+                }
+            });
+        });
+    </script>
+}

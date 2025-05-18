@@ -1,0 +1,86 @@
+@using BookIt.Application.DTOs.ReservationDTO
+@model CreateReservationDTO
+
+@* @{
+    ViewData["Title"] = "Create Reservation";
+} *@
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 text-gray-800">Create Reservation</h1>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Reservation Information</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" id="reservationForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="EventId" class="control-label">Event</label>
+                    <select asp-for="EventId" class="form-control" asp-items="@(new SelectList(ViewBag.Events, "Id", "Title"))">
+                        <option value="">-- Select Event --</option>
+                    </select>
+                    <span asp-validation-for="EventId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UserId" class="control-label">User ID</label>
+                    <input asp-for="UserId" class="form-control" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SeatIds" class="control-label">Seats</label>
+                    <select asp-for="SeatIds" class="form-control" asp-items="@ViewBag.Seats" multiple>
+                        <option value="">-- Select Seats --</option>
+                    </select>
+                    <span asp-validation-for="SeatIds" class="text-danger"></span>
+                    <small class="form-text text-muted">Hold Ctrl (or Cmd) to select multiple seats.</small>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#EventId').change(function () {
+                var eventId = $(this).val();
+                if (eventId) {
+                    $.get('/Admin/Reservation/GetAvailableSeats', { eventId: eventId }, function (seats) {
+                        var seatSelect = $('#SeatIds');
+                        seatSelect.empty();
+                        seatSelect.append($('<option></option>').val('').text('-- Select Seats --'));
+                        seats.forEach(function (seat) {
+                            seatSelect.append($('<option></option>')
+                                .val(seat.id)
+                                .text(seat.name + ' (Row ' + seat.row + ', Column ' + seat.column + ') - $' + seat.price));
+                        });
+                    });
+                } else {
+                    $('#SeatIds').empty();
+                    $('#SeatIds').append($('<option></option>').val('').text('-- Select Seats --'));
+                }
+            });
+
+            $('#reservationForm').submit(function (e) {
+                var selectedSeats = $('#SeatIds').val() || [];
+                $('#SelectedSeatIds').val(JSON.stringify(selectedSeats));
+            });
+        });
+    </script>
+} 

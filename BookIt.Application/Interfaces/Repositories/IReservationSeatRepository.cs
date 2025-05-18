@@ -8,4 +8,5 @@ public interface IReservationSeatRepository : IRepository<ReservationSeat>
     Task<List<ReservationSeat>> GetByReservationIdAsync(int reservationId);
     Task<List<ReservationSeat>> GetActiveBySeatAndEventAsync(int seatId, int eventId);
     Task<List<int>> GetSeatIdsByReservationAsync(int reservationId);
+    Task<List<ReservationSeat>> GetActiveByEventIdAsync(int eventId);
 }

@@ -12,6 +12,7 @@ public class GetEventDTO : IDTO
     public string PriceRange { get; set; } = null!;
     public bool IsSoldOut { get; set; }
     public int GeneralLocationId { get; set; }
+    public int HallId { get; set; }
     public string LocationName { get; set; } = null!;
     public int CategoryId { get; set; }
     public string CategoryName { get; set; } = null!;

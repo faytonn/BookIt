@@ -169,5 +169,15 @@ namespace BookIt.Presentation.Areas.Admin.Controllers
             var languages = _languageService.GetAll();
             model.Languages = new SelectList(languages, "Id", "Name").ToList();
         }
+
+        [HttpGet]
+        public IActionResult GetHallsByLocation(int generalLocationId)
+        {
+            var halls = _hallService.GetAll()
+                .Where(h => h.LocationId == generalLocationId)
+                .Select(h => new { id = h.Id, name = h.Name })
+                .ToList();
+            return Json(halls);
+        }
     }
 }

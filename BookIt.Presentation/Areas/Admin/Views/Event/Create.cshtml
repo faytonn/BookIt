@@ -42,8 +42,16 @@
     *@
     <div class="form-group">
         <label asp-for="GeneralLocationId">General Location</label>
-        <select asp-for="GeneralLocationId" class="form-control" asp-items="generalLocations"></select>
+        <select asp-for="GeneralLocationId" class="form-control" asp-items="generalLocations" id="generalLocationDropdown"></select>
         <span asp-validation-for="GeneralLocationId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="HallId">Hall</label>
+        <select asp-for="HallId" class="form-control" id="eventHallDropdown">
+            <option value="">-- Select Hall --</option>
+        </select>
+        <span asp-validation-for="HallId" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -52,5 +60,65 @@
         <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
 
+
     <button type="submit" class="btn btn-primary">Create Event</button>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('#generalLocationDropdown').change(function () {
+                var locationId = $(this).val();
+                console.log('Selected location ID:', locationId);
+                
+                if (locationId) {
+                    var url = '@Url.Action("GetHallsByLocation", "Event", new { area = "Admin" })';
+                    console.log('Making fetch call to:', url);
+                    
+                    fetch(url + '?generalLocationId=' + locationId)
+                        .then(response => {
+                            console.log('Response status:', response.status);
+                            return response.json();
+                        })
+                        .then(halls => {
+                            console.log('Received halls:', halls);
+                            
+                            const hallDropdown = document.getElementById('eventHallDropdown');
+                            console.log('Found dropdown:', hallDropdown);
+                            
+                            // Clear existing options
+                            hallDropdown.innerHTML = '';
+                            
+                            // Add default option
+                            const defaultOption = document.createElement('option');
+                            defaultOption.value = '';
+                            defaultOption.text = '-- Select Hall --';
+                            hallDropdown.appendChild(defaultOption);
+                            
+                            // Add hall options
+                            if (halls && halls.length > 0) {
+                                halls.forEach(hall => {
+                                    console.log('Adding hall:', hall);
+                                    const option = document.createElement('option');
+                                    option.value = hall.id;
+                                    option.text = hall.name;
+                                    hallDropdown.appendChild(option);
+                                });
+                            }
+                            
+                            console.log('Final dropdown HTML:', hallDropdown.innerHTML);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                } else {
+                    const hallDropdown = document.getElementById('eventHallDropdown');
+                    hallDropdown.innerHTML = '<option value="">-- Select Hall --</option>';
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,89 @@
+@using BookIt.Application.DTOs.ReservationDTO
+@using BookIt.Domain.Enums
+@model GetReservationDTO
+
+@{
+    ViewData["Title"] = "Add Seats";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 text-gray-800">Add Seats to Reservation #@Model.Id</h1>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Details
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Reservation Information</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Event</dt>
+                        <dd class="col-sm-8">@Model.EventTitle</dd>
+
+                        <dt class="col-sm-4">Status</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge @(Model.ReservationStatus switch {
+                                ReservationStatus.Confirmed => "badge-success",
+                                ReservationStatus.Cancelled => "badge-danger",
+                                ReservationStatus.Pending => "badge-warning",
+                                ReservationStatus.Waitlisted => "badge-info",
+                                ReservationStatus.Refunded => "badge-secondary",
+                                _ => "badge-secondary"
+                            })">
+                                @Model.ReservationStatus
+                            </span>
+                        </dd>
+
+                        <dt class="col-sm-4">Current Seats</dt>
+                        <dd class="col-sm-8">@Model.NumberOfTickets</dd>
+
+                        <dt class="col-sm-4">Total Amount</dt>
+                        <dd class="col-sm-8">@Model.TotalAmount.ToString("C")</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Available Seats</h6>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddSeats" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label class="control-label">Select Seats</label>
+                            <select name="seatIds" class="form-control" multiple>
+                                @foreach (var seat in ViewBag.AvailableSeats)
+                                {
+                                    <option value="@seat.Id">
+                                        @seat.SeatName (Row @seat.SeatRow, Column @seat.SeatColumn) - @seat.SeatType.DefaultPrice.ToString("C")
+                                    </option>
+                                }
+                            </select>
+                            <small class="form-text text-muted">Hold Ctrl (or Cmd) to select multiple seats.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Selected Seats
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

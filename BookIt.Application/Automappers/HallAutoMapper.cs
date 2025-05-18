@@ -9,7 +9,8 @@ public class HallAutoMapper : Profile
     public HallAutoMapper()
     {
         CreateMap<Hall, GetHallDTO>()
-             .ForMember(dest => dest.LocationName, opt => opt.MapFrom(src => src.Location != null ? src.Location.Name : "N/A"));
+             .ForMember(dest => dest.LocationName, opt => opt.MapFrom(src => src.Location != null ? src.Location.Name : "N/A"))
+             .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => src.IsDeleted));
 
         CreateMap<CreateHallDTO, Hall>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.HallDetails.FirstOrDefault(d => d.LanguageId == 1).Name));
@@ -19,7 +20,5 @@ public class HallAutoMapper : Profile
 
         CreateMap<Hall, UpdateHallDTO>()
             .ForMember(dest => dest.HallDetails, opt => opt.Ignore()); 
-
-
     }
 }

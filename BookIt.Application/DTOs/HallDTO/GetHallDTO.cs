@@ -8,4 +8,5 @@ public class GetHallDTO : IDTO
     public string Name { get; set; } = null!;
     public int LocationId { get; set; }
     public string LocationName { get; set; } = null!;
+    public bool IsDeleted { get; set; }
 }

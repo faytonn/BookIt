@@ -248,6 +248,28 @@
                             </div>
                         </li>
 
+                        <!-- Reservations -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#reservationDropdown" class="collapsed" aria-expanded="false">
+                                <i class="fas fa-ticket-alt"></i>
+                                <p>Reservations</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="reservationDropdown">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Index">
+                                            <span class="sub-item">Active Reservations</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Admin" asp-controller="Reservation" asp-action="Cancelled">
+                                            <span class="sub-item">Cancelled Reservations</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
 
                     </ul>
                     </li>

@@ -15,11 +15,15 @@ public class SeatService : ISeatService
 {
     private readonly ISeatRepository _seatRepository;
     private readonly IMapper _mapper;
+    private readonly IEventRepository _eventRepository;
+    private readonly IReservationSeatRepository _reservationSeatRepository;
 
-    public SeatService(ISeatRepository seatRepository, IMapper mapper)
+    public SeatService(ISeatRepository seatRepository, IMapper mapper, IEventRepository eventRepository, IReservationSeatRepository reservationSeatRepository)
     {
         _seatRepository = seatRepository;
         _mapper = mapper;
+        _eventRepository = eventRepository;
+        _reservationSeatRepository = reservationSeatRepository;
     }
 
     public async Task<bool> CreateAsync(CreateSeatDTO dto, ModelStateDictionary modelState)
@@ -225,7 +229,22 @@ public class SeatService : ISeatService
         return _mapper.Map<UpdateSeatDTO>(seat);
     }
 
-   
+    public async Task<List<GetSeatDTO>> GetAvailableSeatsForEventAsync(int eventId)
+    {
+        var ev = await _eventRepository.GetAsync(eventId);
+        if (ev == null) throw new NotFoundException("Event not found.");
+
+        var allSeats = await _seatRepository.GetAll(s => s.HallId == ev.HallId && !s.IsDeleted).ToListAsync();
+
+        var reservedSeatIds = (await _reservationSeatRepository.GetActiveByEventIdAsync(eventId))
+            .Select(rs => rs.SeatId)
+            .ToHashSet();
+
+        var availableSeats = allSeats.Where(s => !reservedSeatIds.Contains(s.Id)).ToList();
+
+        return _mapper.Map<List<GetSeatDTO>>(availableSeats);
+    }
+
     
 
     

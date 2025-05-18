@@ -14,4 +14,5 @@ public interface ISeatService : IGetService<GetSeatDTO>, IModifyService<CreateSe
     Task RestoreAsync(int id);
     Task HardDeleteAsync(int id);
     List<GetSeatDTO> GetArchivedSeats(LanguageType language = LanguageType.English);
+    Task<List<GetSeatDTO>> GetAvailableSeatsForEventAsync(int eventId);
 }

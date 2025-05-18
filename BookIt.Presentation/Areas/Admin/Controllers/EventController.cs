@@ -86,14 +86,13 @@ public class EventController : Controller
 
     public async Task<IActionResult> Update(int id)
     {
-
-
         var dto = await _eventService.GetUpdatedDtoAsync(id);
         if (dto == null)
             return NotFound();
 
         ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
         ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
+        ViewBag.Halls = _hallService.GetAll().Where(h => h.LocationId == dto.GeneralLocationId).ToList();
 
         return View(dto);
     }
@@ -104,6 +103,9 @@ public class EventController : Controller
     {
         if (!ModelState.IsValid)
         {
+            ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
+            ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
+            ViewBag.Halls = _hallService.GetAll().Where(h => h.LocationId == dto.GeneralLocationId).ToList();
             return View(dto);
         }
 
@@ -112,22 +114,17 @@ public class EventController : Controller
             var uploadUrl = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
             dto.ImagePath = uploadUrl;
         }
-        else
-        {
-            ModelState.AddModelError("FormFile", "An image file is required.");
-            return View(dto);
-        }
 
         var result = await _eventService.UpdateAsync(dto, ModelState);
         if (!result)
         {
             ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
             ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
+            ViewBag.Halls = _hallService.GetAll().Where(h => h.LocationId == dto.GeneralLocationId).ToList();
             return View(dto);
         }
 
         return RedirectToAction("Index");
-
     }
 
     [HttpPost]
@@ -158,6 +155,18 @@ public class EventController : Controller
     {
         await _eventService.HardDeleteAsync(id);
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public IActionResult GetHallsByLocation(int generalLocationId)
+    {
+        var halls = _hallService.GetAll()
+            .Where(h => h.LocationId == generalLocationId && !h.IsDeleted)
+            .Select(h => new { id = h.Id, name = h.Name })
+            .ToList();
+        
+        Console.WriteLine($"Found {halls.Count} halls for location {generalLocationId}");
+        return Json(halls);
     }
 
     private void PopulateDropdowns()

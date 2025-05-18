@@ -38,4 +38,13 @@ public class ReservationSeatRepository : Repository<ReservationSeat>, IReservati
             .Select(rs => rs.SeatId)
             .ToListAsync();
     }
+
+    public async Task<List<ReservationSeat>> GetActiveByEventIdAsync(int eventId)
+    {
+        return await GetAll(
+            rs => rs.Reservation!.EventId == eventId
+                  && rs.Reservation.Status != Domain.Enums.ReservationStatus.Cancelled)
+            .Include(rs => rs.Reservation)
+            .ToListAsync();
+    }
 }

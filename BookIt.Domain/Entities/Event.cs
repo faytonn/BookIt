@@ -16,8 +16,8 @@ public class Event : BaseAuditableEntity
     public Category Category { get; set; } = null!;
     public int GeneralLocationId { get; set; }
     public GeneralLocation GeneralLocation { get; set; } = null!;
-    //public int HallId { get; set; }
-    //public Hall Hall { get; set; } = null!;
+    public int HallId { get; set; }
+    public Hall Hall { get; set; } = null!;
     //public int TotalSeats { get; set; }
     //public int AvailableSeats { get; set; }
     //public decimal Price { get; set; }

@@ -1,0 +1,110 @@
+@using BookIt.Application.DTOs.ReservationDTO
+@using BookIt.Domain.Enums
+@model List<GetReservationDTO>
+
+@{
+    ViewData["Title"] = "Reservations";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Reservations</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">All Reservations</h6>
+            <a asp-action="Create" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> Create New
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Event</th>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Tickets</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.EventTitle</td>
+                                <td>@item.UserId</td>
+                                <td>
+                                    <span class="badge @(item.ReservationStatus switch {
+                                        ReservationStatus.Confirmed => "badge-success",
+                                        ReservationStatus.Cancelled => "badge-danger",
+                                        ReservationStatus.Pending => "badge-warning",
+                                        ReservationStatus.Waitlisted => "badge-info",
+                                        ReservationStatus.Refunded => "badge-secondary",
+                                        _ => "badge-secondary"
+                                    })">
+                                        @item.ReservationStatus
+                                    </span>
+                                </td>
+                                <td>@item.ReservationDate.ToString("g")</td>
+                                <td>@item.NumberOfTickets</td>
+                                <td>@item.TotalAmount.ToString("C")</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        @if (item.ReservationStatus == ReservationStatus.Pending)
+                                        {
+                                            <form asp-action="Confirm" asp-route-id="@item.Id" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Are you sure you want to confirm this reservation?')">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        @if (item.ReservationStatus != ReservationStatus.Cancelled)
+                                        {
+                                            <form asp-action="Cancel" asp-route-id="@item.Id" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Are you sure you want to cancel this reservation?')">
+                                                    <i class="fas fa-ban"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this reservation?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "paging": false,
+                "ordering": true,
+                "info": false,
+                "searching": true
+            });
+        });
+    </script>
+} 
