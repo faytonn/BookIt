@@ -11,4 +11,6 @@ public interface IReservationService : IGetService<GetReservationDTO>, IModifySe
     Task<bool> CancelReservationAsync(int id);
     Task<bool> AddSeatsToReservationAsync(int reservationId, List<int> seatIds);
     Task<bool> RemoveSeatsFromReservationAsync(int reservationId, List<int> seatIds);
+    Task<List<GetReservationDTO>> GetByUserAsync(string userId);
+
 }

@@ -1,15 +1,53 @@
+@model BookIt.Presentation.Models.ProfileViewModel
 @{
     ViewData["Title"] = "My Profile";
 }
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body text-center">
-                    <h2 class="card-title mb-4">My Profile</h2>
-                    <p class="card-text">This is your profile page. You can add your profile details here later.</p>
+ 
+                    <h2 class="card-title mb-2">@Model.FirstName @Model.LastName</h2>
+                    <p class="card-text">@Model.Email</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">My Reservations</h5>
+                </div>
+                <div class="card-body p-0">
+                    @if (Model.Reservations.Any())
+                    {
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in Model.Reservations)
+                                {
+                                    <tr>
+                                        <td>@r.EventTitle</td>
+                                        <td>@r.ReservationDate.ToString("g")</td>
+                                        <td>@r.Status</td>
+                                        <td>@r.TotalAmount.ToString("C")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="p-3">You have no reservations.</p>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div> 
+

@@ -13165,23 +13165,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Fatima\\.nuget\\packages\\": {},
+    "C:\\Users\\VaFa285\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\BookIt.Presentation.csproj",
+      "projectUniqueName": "C:\\Users\\VaFa285\\Desktop\\BookIt\\BookIt.Presentation\\BookIt.Presentation.csproj",
       "projectName": "BookIt.Presentation",
-      "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\BookIt.Presentation.csproj",
-      "packagesPath": "C:\\Users\\Fatima\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Presentation\\obj\\",
+      "projectPath": "C:\\Users\\VaFa285\\Desktop\\BookIt\\BookIt.Presentation\\BookIt.Presentation.csproj",
+      "packagesPath": "C:\\Users\\VaFa285\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\VaFa285\\Desktop\\BookIt\\BookIt.Presentation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Fatima\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\VaFa285\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -13190,17 +13190,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj": {
-              "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj"
+            "C:\\Users\\VaFa285\\Desktop\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj": {
+              "projectPath": "C:\\Users\\VaFa285\\Desktop\\BookIt\\BookIt.Infrastracture\\BookIt.Infrastracture.csproj"
             },
-            "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Persistence\\BookIt.Persistence.csproj": {
-              "projectPath": "C:\\Users\\Fatima\\source\\repos\\BookIt\\BookIt.Persistence\\BookIt.Persistence.csproj"
+            "C:\\Users\\VaFa285\\Desktop\\BookIt\\BookIt.Persistence\\BookIt.Persistence.csproj": {
+              "projectPath": "C:\\Users\\VaFa285\\Desktop\\BookIt\\BookIt.Persistence\\BookIt.Persistence.csproj"
             }
           }
         }
@@ -13251,7 +13252,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

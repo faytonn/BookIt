@@ -15,7 +15,6 @@
 <form asp-action="Create" method="post">
     @Html.AntiForgeryToken()
 
-    <!-- General Location Dropdown -->
     <div class="form-group">
         <label asp-for="LocationId">General Location</label>
         <select asp-for="LocationId" class="form-control" asp-items="ViewBag.Locations">
@@ -24,21 +23,17 @@
         <span asp-validation-for="LocationId" class="text-danger"></span>
     </div>
 
-    <!-- Multi-Language Hall Name Inputs -->
     <div class="row">
-        <!-- English -->
         <div class="col-md-4">
             <label class="form-label">English Name</label>
             <input type="hidden" name="HallDetails[0].LanguageId" value="1" />
             <input type="text" name="HallDetails[0].Name" class="form-control" placeholder="Enter hall name in English" />
         </div>
-        <!-- Azerbaijani -->
         <div class="col-md-4">
             <label class="form-label">Azerbaijani Name</label>
             <input type="hidden" name="HallDetails[1].LanguageId" value="2" />
             <input type="text" name="HallDetails[1].Name" class="form-control" placeholder="Enter hall name in Azerbaijani" />
         </div>
-        <!-- Czech -->
         <div class="col-md-4">
             <label class="form-label">Czech Name</label>
             <input type="hidden" name="HallDetails[2].LanguageId" value="3" />

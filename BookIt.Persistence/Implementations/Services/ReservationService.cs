@@ -72,6 +72,19 @@ public class ReservationService : IReservationService
             PageSize = limit
         };
     }
+    public async Task<List<GetReservationDTO>> GetByUserAsync(string userId)
+    {
+        var reservations = await _reservationRepository.GetByUserAsync(userId);
+        var dtos = new List<GetReservationDTO>();
+        foreach (var r in reservations)
+        {
+            var dto = _mapper.Map<GetReservationDTO>(r);
+            dto.Seats = await MapReservationSeats(r.Id);
+            dtos.Add(dto);
+        }
+        return dtos;
+    }
+
 
     public async Task<bool> IsExistAsync(int id)
     {

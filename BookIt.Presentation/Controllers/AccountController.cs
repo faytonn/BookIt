@@ -1,6 +1,7 @@
 using BookIt.Application.DTOs.AuthorizationDTO;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Entities;
+using BookIt.Presentation.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,15 +13,18 @@ public class AccountController : Controller
     private readonly IUserAuthorizationService _userAuthorizationService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly IReservationService _reservationService;
 
     public AccountController(
         IUserAuthorizationService userAuthorizationService,
         UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager)
+        SignInManager<ApplicationUser> signInManager,
+        IReservationService reservationService)
     {
         _userAuthorizationService = userAuthorizationService;
         _userManager = userManager;
         _signInManager = signInManager;
+        _reservationService = reservationService;
     }
 
     [HttpGet]
@@ -152,10 +156,25 @@ public class AccountController : Controller
         return View(model);
     }
 
+    [Authorize]
     [HttpGet]
-    public IActionResult Profile()
+    public async Task<IActionResult> Profile()
     {
-        return View();
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return RedirectToAction("Login");
+        }
+
+        var reservations = await _reservationService.GetByUserAsync(user.Id);
+        var model = new ProfileViewModel
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email!,
+            Reservations = reservations
+        };
+        return View(model);
     }
 
     [HttpGet]

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create Event";
+    // ViewData["GeneralLocations"] = new SelectList()
     var generalLocations = ViewData["GeneralLocations"] as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
     var categories = ViewData["Categories"] as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
 }
@@ -40,10 +41,17 @@
     </div>
     @*
     *@
+
     <div class="form-group">
-        <label asp-for="GeneralLocationId">General Location</label>
-        <select asp-for="GeneralLocationId" class="form-control" asp-items="generalLocations" id="generalLocationDropdown"></select>
-        <span asp-validation-for="GeneralLocationId" class="text-danger"></span>
+        <label asp-for="GeneralLocationId"></label>
+        <select id="generalLocationDropdown"
+                asp-for="GeneralLocationId"
+                class="form-control"
+                asp-items="generalLocations">
+            <option value="">Select a location</option>
+        </select>
+        <span asp-validation-for="GeneralLocationId"
+              class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -89,16 +97,13 @@
                             const hallDropdown = document.getElementById('eventHallDropdown');
                             console.log('Found dropdown:', hallDropdown);
                             
-                            // Clear existing options
                             hallDropdown.innerHTML = '';
                             
-                            // Add default option
                             const defaultOption = document.createElement('option');
                             defaultOption.value = '';
                             defaultOption.text = '-- Select Hall --';
                             hallDropdown.appendChild(defaultOption);
                             
-                            // Add hall options
                             if (halls && halls.length > 0) {
                                 halls.forEach(hall => {
                                     console.log('Adding hall:', hall);

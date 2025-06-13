@@ -11,3 +11,16 @@ C:\Users\Fatima\source\repos\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain
 C:\Users\Fatima\source\repos\BookIt\BookIt.Domain\obj\Debug\net8.0\refint\BookIt.Domain.dll
 C:\Users\Fatima\source\repos\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.pdb
 C:\Users\Fatima\source\repos\BookIt\BookIt.Domain\obj\Debug\net8.0\ref\BookIt.Domain.dll
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\bin\Debug\net8.0\BookIt.Domain.deps.json
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\bin\Debug\net8.0\BookIt.Domain.dll
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\bin\Debug\net8.0\BookIt.Domain.pdb
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.csproj.AssemblyReference.cache
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.AssemblyInfoInputs.cache
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.AssemblyInfo.cs
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.csproj.CoreCompileInputs.cache
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.sourcelink.json
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.dll
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\refint\BookIt.Domain.dll
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\BookIt.Domain.pdb
+C:\Users\VaFa285\Desktop\BookIt\BookIt.Domain\obj\Debug\net8.0\ref\BookIt.Domain.dll

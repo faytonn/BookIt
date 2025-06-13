@@ -42,6 +42,13 @@ public class UserAuthorizationService : IUserAuthorizationService
         if (!ModelState.IsValid)
             return false;
 
+        if (dto.Password != dto.ConfirmPassword)
+        {
+            ModelState.AddModelError(string.Empty, "Passwords do not match.");
+            return false;
+        }
+
+
         if (await IsEmailUniqueAsync(dto.Email))
         {
             var user = new ApplicationUser
@@ -58,10 +65,8 @@ public class UserAuthorizationService : IUserAuthorizationService
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (result.Succeeded)
             {
-                // Add user to role based on RegistrationRole
                 await _userManager.AddToRoleAsync(user, dto.RegistrationRole.ToString());
                 
-                // Send email verification
                 await _sendConfirmEmailTokenAsync(user);
                 return true;
             }
@@ -116,7 +121,6 @@ public class UserAuthorizationService : IUserAuthorizationService
 
     public RegisterDTO GetRegisterDto(RegisterDTO dto, LanguageType language = LanguageType.Azerbaijani)
     {
-        // Implement localization logic here if needed
         return dto;
     }
 
@@ -145,6 +149,13 @@ public class UserAuthorizationService : IUserAuthorizationService
             return false;
         }
 
+        if (!await _userManager.CheckPasswordAsync(user, dto.Password))
+        {
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return false;
+        }
+
+
         var result = await _signInManager.PasswordSignInAsync(user, dto.Password, dto.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
         {
@@ -171,7 +182,6 @@ public class UserAuthorizationService : IUserAuthorizationService
         var user = await _userManager.FindByEmailAsync(dto.Email);
         if (user == null)
         {
-            // Don't reveal that the user does not exist
             return true;
         }
 
