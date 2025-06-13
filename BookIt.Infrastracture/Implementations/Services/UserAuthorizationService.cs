@@ -42,6 +42,12 @@ public class UserAuthorizationService : IUserAuthorizationService
         if (!ModelState.IsValid)
             return false;
 
+        if (dto.Password != dto.ConfirmPassword)
+        {
+            ModelState.AddModelError(string.Empty, "Passwords do not match.");
+            return false;
+        }
+
         if (await IsEmailUniqueAsync(dto.Email))
         {
             var user = new ApplicationUser
@@ -142,6 +148,12 @@ public class UserAuthorizationService : IUserAuthorizationService
         if (!user.IsActive)
         {
             ModelState.AddModelError(string.Empty, "Your account has been deactivated.");
+            return false;
+        }
+
+        if (!await _userManager.CheckPasswordAsync(user, dto.Password))
+        {
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return false;
         }
 
