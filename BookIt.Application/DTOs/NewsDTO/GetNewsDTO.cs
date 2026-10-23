@@ -6,9 +6,7 @@ public class GetNewsDTO : IDTO
 {
     public int Id { get; set; }
     public string? ImagePath { get; set; }
-    public bool IsDeleted { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set;} = DateTime.MinValue;
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public DateTime CreatedAt { get; set; }
 }
-
-

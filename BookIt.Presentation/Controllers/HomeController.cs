@@ -1,4 +1,4 @@
-using BookIt.Application.Interfaces.Services;
+﻿using BookIt.Application.Interfaces.Services;
 using BookIt.Presentation.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +13,8 @@ namespace BookIt.Presentation.Controllers
         private readonly IEventService _eventService;
         private readonly IGeneralLocationService _locationService;
         private readonly ICategoryService _categoryService;
+        private readonly INewsService _newsService;
+        private readonly ICookieService _cookieService;
         private readonly RequestLocalizationOptions _localizationOptions;
 
         public HomeController(
@@ -20,8 +22,12 @@ namespace BookIt.Presentation.Controllers
             IEventService eventService,
             IGeneralLocationService locationService,
             ICategoryService categoryService,
+            INewsService newsService,
+            ICookieService cookieService,
             IOptions<RequestLocalizationOptions> localizationOptions)
         {
+            _newsService = newsService;
+            _cookieService = cookieService;
             _logger = logger;
             _eventService = eventService;
             _locationService = locationService;
@@ -34,6 +40,9 @@ namespace BookIt.Presentation.Controllers
             ViewBag.Locations =  _locationService.GetAll();
             ViewBag.Categories =  _categoryService.GetAll();
             ViewBag.UpcomingEvents = await _eventService.GetUpcomingEventsAsync();
+
+            var language = await _cookieService.GetSelectedLanguageTypeAsync();
+            ViewBag.News = await _newsService.GetLatestAsync(language);
             return View();
         }
 

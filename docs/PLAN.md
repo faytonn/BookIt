@@ -36,7 +36,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 
 - [x] 23. Public `EventController` (`Index` with filters, `Details`) + Boleto views; wire `Home/Index` search form.
 - [x] 24. `Account/Settings`: profile edit + change password.
-- [ ] 25. News on home page.
+- [x] 25. News on home page.
 - [ ] 26. Seat-map + booking page on `Event/Details` (placeholder until API).
 
 ## M4 — Seat availability redesign

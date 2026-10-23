@@ -157,3 +157,34 @@
     </div>
 </section>
 <!-- ==========Event-Section========== -->
+
+<!-- ==========News-Section========== -->
+<section class="blog-section padding-top padding-bottom">
+    <div class="container">
+        <div class="section-header-2">
+            <div class="left">
+                <h2 class="title">Latest News</h2>
+                <p>What's happening in the world of live entertainment</p>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-30-none">
+            @foreach (var item in ViewBag.News ?? new List<object>())
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="event-grid">
+                        <div class="movie-thumb c-thumb">
+                            <img src="@item.ImagePath" alt="@item.Title">
+                        </div>
+                        <div class="movie-content bg-one">
+                            <h5 class="title m-0">@item.Title</h5>
+                            <p class="mt-2 mb-0">
+                                @(item.Description.Length > 160 ? item.Description.Substring(0, 160) + "…" : item.Description)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- ==========News-Section========== -->
