@@ -55,10 +55,11 @@ public class DbContextInitializer
 
         if (existUser != null)
         {
-            // Older seeds created the admin without a confirmed email, which blocks login.
-            if (!existUser.EmailConfirmed)
+            // Older seeds created the admin without a confirmed email (blocks login) and without lockout.
+            if (!existUser.EmailConfirmed || !existUser.LockoutEnabled)
             {
                 existUser.EmailConfirmed = true;
+                existUser.LockoutEnabled = true;
                 await _userManager.UpdateAsync(existUser);
             }
             return;

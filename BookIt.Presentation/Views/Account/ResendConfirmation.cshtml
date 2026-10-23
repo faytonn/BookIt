@@ -1,0 +1,35 @@
+@model BookIt.Application.DTOs.AuthorizationDTO.ForgotPasswordDTO
+@{
+    ViewData["Title"] = "Resend Confirmation";
+}
+
+<section class="account-section bg_img" data-background="assets/images/account/account-bg.jpg">
+    <div class="container">
+        <div class="padding-top padding-bottom">
+            <div class="account-area">
+                <div class="section-header-3">
+                    <span class="cate">verify</span>
+                    <h2 class="title">resend confirmation email</h2>
+                </div>
+                <form class="account-form" asp-action="ResendConfirmation" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email">Email<span>*</span></label>
+                        <input asp-for="Email" type="email" placeholder="Enter Your Email" required>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="submit" value="resend email">
+                    </div>
+                </form>
+                <div class="option">
+                    Already confirmed? <a asp-action="Login">log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -14,6 +14,7 @@ public interface IUserAuthorizationService
     Task<bool> ResetPasswordAsync(ResetPasswordDTO dto, ModelStateDictionary ModelState);
     Task<bool> LogoutAsync();
     Task<bool> EmailVerificationAsync(string token, string email);
+    Task ResendConfirmationEmailAsync(string email);
     Task<ApplicationUser> GetAuthenticatedUserAsync();
     Task<List<string>> GetUserRolesAsync(string userId);
     Task<List<ApplicationUser>> GetAllMembersAsync();

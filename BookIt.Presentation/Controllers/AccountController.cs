@@ -104,6 +104,27 @@ public class AccountController : Controller
 
     [HttpGet]
     [AllowAnonymous]
+    public IActionResult ResendConfirmation()
+    {
+        return View(new ForgotPasswordDTO());
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ResendConfirmation(ForgotPasswordDTO model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        await _userAuthorizationService.ResendConfirmationEmailAsync(model.Email!);
+        return View("ConfirmEmail");
+    }
+
+    [HttpGet]
+    [AllowAnonymous]
     public IActionResult ForgotPassword()
     {
         return View();

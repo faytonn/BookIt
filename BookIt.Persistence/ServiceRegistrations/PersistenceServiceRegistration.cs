@@ -46,7 +46,7 @@ public static class PersistenceServiceRegistration
             options.Password.RequireUppercase = true;
             options.Password.RequireLowercase = true;
 
-            options.Lockout.AllowedForNewUsers = false;
+            options.Lockout.AllowedForNewUsers = true;
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
 

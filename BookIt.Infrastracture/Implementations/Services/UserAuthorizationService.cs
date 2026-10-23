@@ -65,10 +65,13 @@ public class UserAuthorizationService : IUserAuthorizationService
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, dto.RegistrationRole.ToString());
-                
-                await _sendConfirmEmailTokenAsync(user);
-                return true;
+                // Everyone self-registers as a plain user; other roles are granted by an admin.
+                result = await _userManager.AddToRoleAsync(user, Role.User.ToString());
+                if (result.Succeeded)
+                {
+                    await _sendConfirmEmailTokenAsync(user);
+                    return true;
+                }
             }
 
             foreach (var error in result.Errors)
@@ -139,7 +142,6 @@ public class UserAuthorizationService : IUserAuthorizationService
         if (!user.EmailConfirmed)
         {
             ModelState.AddModelError(string.Empty, "Please confirm your email first.");
-            await _sendConfirmEmailTokenAsync(user);
             return false;
         }
 
@@ -148,13 +150,6 @@ public class UserAuthorizationService : IUserAuthorizationService
             ModelState.AddModelError(string.Empty, "Your account has been deactivated.");
             return false;
         }
-
-        if (!await _userManager.CheckPasswordAsync(user, dto.Password))
-        {
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return false;
-        }
-
 
         var result = await _signInManager.PasswordSignInAsync(user, dto.Password, dto.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
@@ -172,6 +167,17 @@ public class UserAuthorizationService : IUserAuthorizationService
         }
 
         return false;
+    }
+
+    public async Task ResendConfirmationEmailAsync(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        // Silently ignore unknown or already-confirmed addresses so the form cannot be used to probe accounts.
+        if (user == null || user.EmailConfirmed)
+            return;
+
+        await _sendConfirmEmailTokenAsync(user);
     }
 
     public async Task<bool> ResetPasswordConfirmationAsync(ForgotPasswordDTO dto, ModelStateDictionary ModelState)
