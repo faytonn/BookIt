@@ -49,7 +49,6 @@ public class SeatService : ISeatService
         }
 
         var seat = _mapper.Map<Seat>(dto);
-        seat.IsReserved = false;
 
         await _seatRepository.CreateAsync(seat);
         await _seatRepository.SaveChangesAsync();
@@ -90,8 +89,7 @@ public class SeatService : ISeatService
                     SeatRow = row,
                     SeatColumn = col,
                     SeatName = seatName,
-                    SeatTypeId = dto.SeatTypeId,
-                    IsReserved = false
+                    SeatTypeId = dto.SeatTypeId
                 };
 
                await _seatRepository.CreateAsync(seat);

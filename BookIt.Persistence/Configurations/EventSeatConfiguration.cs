@@ -1,4 +1,4 @@
-using BookIt.Domain.Entities;
+﻿using BookIt.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -36,10 +36,12 @@ public class EventSeatConfiguration : IEntityTypeConfiguration<EventSeat>
                .HasForeignKey(es => es.HeldByUserId)
                .OnDelete(DeleteBehavior.SetNull);
 
+        // NoAction: Event already cascades to both Reservations and EventSeats, and SQL Server
+        // refuses a second cascade path. Reservations are never hard-deleted anyway.
         builder.HasOne(es => es.Reservation)
                .WithMany()
                .HasForeignKey(es => es.ReservationId)
-               .OnDelete(DeleteBehavior.SetNull);
+               .OnDelete(DeleteBehavior.NoAction);
 
         // a seat exists once per event
         builder.HasIndex(es => new { es.EventId, es.SeatId })

@@ -35,7 +35,6 @@
                     <td>@seat.SeatRow</td>
                     <td>@seat.SeatColumn</td>
                     <td>@seat.SeatTypeName</td>
-                    <td>@(seat.IsReserved ? "Yes" : "No")</td>
                     <td>
                         <form asp-action="Restore" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@seat.Id" />

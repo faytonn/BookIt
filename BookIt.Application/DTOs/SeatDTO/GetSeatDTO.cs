@@ -11,7 +11,6 @@ public class GetSeatDTO : IDTO
     public int SeatTypeId { get; set; }
     public int HallId { get; set; }
     //public string HallName { get; set; }
-    public bool IsReserved { get; set; }
 
     public string SeatTypeName { get; set; } = string.Empty; //or null!;, idk yet
 }

@@ -22,10 +22,6 @@ public class SeatConfiguration : IEntityTypeConfiguration<Seat>
         builder.Property(s => s.SeatRow)
                .IsRequired();
 
-        //builder.Property(s => s.IsReserved)
-        //       .IsRequired()
-        //       .HasDefaultValue(false);
-
         builder.HasOne(s => s.SeatType)
                .WithMany() // if SeatType has a Seats collection change it but i dont know
                .HasForeignKey(s => s.SeatTypeId)

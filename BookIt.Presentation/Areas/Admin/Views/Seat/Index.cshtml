@@ -97,7 +97,6 @@
                     <td>@seat.SeatRow</td>
                     <td>@seat.SeatColumn</td>
                     <td>@seat.SeatTypeName</td>
-                    <td>@(seat.IsReserved ? "Yes" : "No")</td>
                     <td>
                         <a asp-action="Update" asp-route-id="@seat.Id" class="btn btn-sm btn-primary">Update</a>
                         <form asp-action="Delete" method="post" style="display:inline;">

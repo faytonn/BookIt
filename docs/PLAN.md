@@ -42,7 +42,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 ## M4 — Seat availability redesign
 
 - [x] 27. `EventSeat` entity (`EventId`, `SeatId`, `Status`, `HeldUntil`, `HeldByUserId?`, `RowVersion`), config with unique `(EventId, SeatId)`, DbSet, repo.
-- [ ] 28. Migration: create table, backfill per (event, seat in hall), drop `Seat.IsReserved`.
+- [x] 28. Migration: create table, backfill per (event, seat in hall), drop `Seat.IsReserved`.
 - [ ] 29. `EventSeatService`: `HoldAsync` / `ConfirmAsync` / `ReleaseAsync`; `DbUpdateConcurrencyException` → Conflict.
 - [ ] 30. `HoldExpiryService : BackgroundService`, every minute.
 - [ ] 31. Admin reservation flow + `EventController.Create` use `EventSeat`.

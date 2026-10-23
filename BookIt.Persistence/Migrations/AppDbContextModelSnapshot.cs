@@ -409,6 +409,58 @@ namespace BookIt.Persistence.Migrations
                     b.ToTable("EventDetails", (string)null);
                 });
 
+            modelBuilder.Entity("BookIt.Domain.Entities.EventSeat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HeldByUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("HeldUntil")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HeldByUserId");
+
+                    b.HasIndex("HeldUntil")
+                        .HasFilter("[Status] = 1");
+
+                    b.HasIndex("ReservationId");
+
+                    b.HasIndex("SeatId");
+
+                    b.HasIndex("EventId", "SeatId")
+                        .IsUnique();
+
+                    b.HasIndex("EventId", "Status");
+
+                    b.ToTable("EventSeats", (string)null);
+                });
+
             modelBuilder.Entity("BookIt.Domain.Entities.GeneralLocation", b =>
                 {
                     b.Property<int>("Id")
@@ -1066,9 +1118,6 @@ namespace BookIt.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsReserved")
-                        .HasColumnType("bit");
-
                     b.Property<int>("SeatColumn")
                         .HasColumnType("int");
 
@@ -1685,6 +1734,39 @@ namespace BookIt.Persistence.Migrations
                     b.Navigation("Event");
                 });
 
+            modelBuilder.Entity("BookIt.Domain.Entities.EventSeat", b =>
+                {
+                    b.HasOne("BookIt.Domain.Entities.Event", "Event")
+                        .WithMany("EventSeats")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookIt.Domain.Entities.ApplicationUser", "HeldBy")
+                        .WithMany()
+                        .HasForeignKey("HeldByUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("BookIt.Domain.Entities.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("BookIt.Domain.Entities.Seat", "Seat")
+                        .WithMany("EventSeats")
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("HeldBy");
+
+                    b.Navigation("Reservation");
+
+                    b.Navigation("Seat");
+                });
+
             modelBuilder.Entity("BookIt.Domain.Entities.Hall", b =>
                 {
                     b.HasOne("BookIt.Domain.Entities.GeneralLocation", "Location")
@@ -1954,6 +2036,8 @@ namespace BookIt.Persistence.Migrations
                 {
                     b.Navigation("EventDetail");
 
+                    b.Navigation("EventSeats");
+
                     b.Navigation("Reservations");
 
                     b.Navigation("WaitlistEntries");
@@ -1995,6 +2079,8 @@ namespace BookIt.Persistence.Migrations
 
             modelBuilder.Entity("BookIt.Domain.Entities.Seat", b =>
                 {
+                    b.Navigation("EventSeats");
+
                     b.Navigation("ReservationSeats");
                 });
 
