@@ -16,20 +16,20 @@ public class ReservationController : Controller
     private readonly IReservationService _reservationService;
     private readonly IEventService _eventService;
     private readonly ISeatService _seatService;
-    private readonly ISeatTypeService _seatTypeService;
+    private readonly IEventSeatService _eventSeatService;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public ReservationController(
-        IReservationService reservationService, 
+        IReservationService reservationService,
         IEventService eventService,
         ISeatService seatService,
-        ISeatTypeService seatTypeService,
+        IEventSeatService eventSeatService,
         UserManager<ApplicationUser> userManager)
     {
         _reservationService = reservationService;
         _eventService = eventService;
         _seatService = seatService;
-        _seatTypeService = seatTypeService;
+        _eventSeatService = eventSeatService;
         _userManager = userManager;
     }
 
@@ -181,30 +181,18 @@ public class ReservationController : Controller
         if (eventEntity == null)
             return NotFound("Event not found.");
 
-        var availableSeats = await _seatService.GetAvailableSeatsForEventAsync(eventId);
-        if (availableSeats == null || !availableSeats.Any())
-        {
-            return Json(new List<object>());
-        }
+        var seatMap = await _eventSeatService.GetSeatMapAsync(eventId);
 
-        var seatTypes = _seatTypeService.GetAll();
-        var seatTypeDictionary = seatTypes?
-            .ToDictionary(st => st.Id, st => st);
-
-        return Json(availableSeats.Select(s => {
-            decimal price = 0;
-            if (seatTypeDictionary != null && seatTypeDictionary.TryGetValue(s.SeatTypeId, out var seatType))
+        return Json(seatMap
+            .Where(s => s.Status == EventSeatStatus.Available)
+            .Select(s => new
             {
-                price = seatType.DefaultPrice;
-            }
-            return new { 
-                id = s.Id, 
+                id = s.SeatId,
                 name = s.SeatName,
-                row = s.SeatRow,
-                column = s.SeatColumn,
-                price = price
-            };
-        }));
+                row = s.Row,
+                column = s.Column,
+                price = s.Price
+            }));
     }
 
     private void PopulateEventsViewBag()

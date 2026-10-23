@@ -66,8 +66,16 @@ public class EventController : Controller
                 _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
                 return View(dto);
             }
-            var uploadUrl = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
-            dto.ImagePath = uploadUrl;
+            try
+            {
+                dto.ImagePath = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError("ImageFile", ex.Message);
+                _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
+                return View(dto);
+            }
         }
         else
         {
@@ -118,8 +126,16 @@ public class EventController : Controller
                 _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
                 return View(dto);
             }
-            var uploadUrl = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
-            dto.ImagePath = uploadUrl;
+            try
+            {
+                dto.ImagePath = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError("ImageFile", ex.Message);
+                _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
+                return View(dto);
+            }
         }
 
         var result = await _eventService.UpdateAsync(dto, ModelState);

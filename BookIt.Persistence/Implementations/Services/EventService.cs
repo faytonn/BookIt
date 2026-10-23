@@ -15,11 +15,13 @@ namespace BookIt.Persistence.Implementations.Services;
 public class EventService : IEventService
 {
     private readonly IEventRepository _eventRepository;
+    private readonly IEventSeatService _eventSeatService;
     private readonly IMapper _mapper;
 
-    public EventService(IEventRepository eventRepository, IMapper mapper)
+    public EventService(IEventRepository eventRepository, IEventSeatService eventSeatService, IMapper mapper)
     {
         _eventRepository = eventRepository;
+        _eventSeatService = eventSeatService;
         _mapper = mapper;
     }
 
@@ -87,6 +89,9 @@ public class EventService : IEventService
         var newEvent = _mapper.Map<Event>(dto);
         await _eventRepository.CreateAsync(newEvent);
         await _eventRepository.SaveChangesAsync();
+
+        // every seat in the hall becomes sellable for this event
+        await _eventSeatService.EnsureSeatsForEventAsync(newEvent.Id);
         return true;
     }
 
@@ -111,9 +116,14 @@ public class EventService : IEventService
             return false;
         }
 
+        var hallChanged = ev.HallId != dto.HallId;
+
         ev = _mapper.Map(dto, ev);
         _eventRepository.Update(ev);
         await _eventRepository.SaveChangesAsync();
+
+        if (hallChanged)
+            await _eventSeatService.EnsureSeatsForEventAsync(ev.Id);
         return true;
     }
 

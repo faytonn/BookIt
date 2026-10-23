@@ -45,9 +45,11 @@ public class CloudinaryService : ICloudinaryService
             AssetFolder = "bookit."
         };
         var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-        string url = uploadResult.SecureUrl.ToString();
 
-        return url;
+        if (uploadResult.Error != null || uploadResult.SecureUrl == null)
+            throw new InvalidOperationException($"Image upload failed: {uploadResult.Error?.Message ?? "no URL returned"}");
+
+        return uploadResult.SecureUrl.ToString();
     }
 
     public async Task<bool> FileDeleteAsync(string filePath)

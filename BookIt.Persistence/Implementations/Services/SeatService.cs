@@ -17,14 +17,14 @@ public class SeatService : ISeatService
     private readonly ISeatRepository _seatRepository;
     private readonly IMapper _mapper;
     private readonly IEventRepository _eventRepository;
-    private readonly IReservationSeatRepository _reservationSeatRepository;
+    private readonly IEventSeatRepository _eventSeatRepository;
 
-    public SeatService(ISeatRepository seatRepository, IMapper mapper, IEventRepository eventRepository, IReservationSeatRepository reservationSeatRepository)
+    public SeatService(ISeatRepository seatRepository, IMapper mapper, IEventRepository eventRepository, IEventSeatRepository eventSeatRepository)
     {
         _seatRepository = seatRepository;
         _mapper = mapper;
         _eventRepository = eventRepository;
-        _reservationSeatRepository = reservationSeatRepository;
+        _eventSeatRepository = eventSeatRepository;
     }
 
     public async Task<bool> CreateAsync(CreateSeatDTO dto, ModelStateDictionary modelState)
@@ -241,13 +241,15 @@ public class SeatService : ISeatService
         var ev = await _eventRepository.GetAsync(eventId);
         if (ev == null) throw new NotFoundException("Event not found.");
 
-        var allSeats = await _seatRepository.GetAll(s => s.HallId == ev.HallId, include: _withSeatType()).ToListAsync();
-
-        var reservedSeatIds = (await _reservationSeatRepository.GetActiveByEventIdAsync(eventId))
-            .Select(rs => rs.SeatId)
-            .ToHashSet();
-
-        var availableSeats = allSeats.Where(s => !reservedSeatIds.Contains(s.Id)).ToList();
+        var now = DateTime.UtcNow;
+        var availableSeats = await _eventSeatRepository
+            .GetAll(es => es.EventId == eventId
+                          && (es.Status == EventSeatStatus.Available
+                              || (es.Status == EventSeatStatus.Held && es.HeldUntil != null && es.HeldUntil < now)),
+                    include: q => q.Include(es => es.Seat).ThenInclude(s => s.SeatType))
+            .OrderBy(es => es.Seat.SeatRow).ThenBy(es => es.Seat.SeatColumn)
+            .Select(es => es.Seat)
+            .ToListAsync();
 
         return _mapper.Map<List<GetSeatDTO>>(availableSeats);
     }

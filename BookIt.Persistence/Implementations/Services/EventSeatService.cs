@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using BookIt.Application.DTOs.EventSeatDTO;
 using BookIt.Application.Exceptions;
 using BookIt.Application.Interfaces.Repositories;
@@ -184,23 +184,28 @@ public class EventSeatService : IEventSeatService
         if (ev == null)
             throw new NotFoundException("Event not found.");
 
-        var existing = await _eventSeatRepository.GetAll(es => es.EventId == eventId)
-            .Select(es => es.SeatId)
-            .ToListAsync();
-        var existingSet = existing.ToHashSet();
+        var existing = await _eventSeatRepository.GetAll(es => es.EventId == eventId, include: q => q.Include(es => es.Seat)).ToListAsync();
+        var existingSet = existing.Select(es => es.SeatId).ToHashSet();
 
-        var missing = await _seatRepository.GetAll(s => s.HallId == ev.HallId)
+        // rows left over from a previous hall that were never sold
+        foreach (var stale in existing.Where(es => es.Seat.HallId != ev.HallId && es.Status != EventSeatStatus.Sold))
+        {
+            _eventSeatRepository.HardDelete(stale);
+        }
+
+        var hallSeatIds = await _seatRepository.GetAll(s => s.HallId == ev.HallId)
             .Select(s => s.Id)
             .ToListAsync();
 
-        var rows = missing
+        var rows = hallSeatIds
             .Where(seatId => !existingSet.Contains(seatId))
             .Select(seatId => new EventSeat { EventId = eventId, SeatId = seatId, Status = EventSeatStatus.Available })
             .ToList();
 
-        if (rows.Count > 0)
-            await _eventSeatRepository.CreateRangeAsync(rows);
+        foreach (var row in rows)
+            await _eventSeatRepository.CreateAsync(row);
 
+        await _eventSeatRepository.SaveChangesAsync();
         return rows.Count;
     }
 

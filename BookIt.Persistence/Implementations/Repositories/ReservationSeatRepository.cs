@@ -18,17 +18,6 @@ public class ReservationSeatRepository : Repository<ReservationSeat>, IReservati
             .ToListAsync();
     }
 
-    public async Task<List<ReservationSeat>> GetActiveBySeatAndEventAsync(int seatId, int eventId)
-    {
-       
-
-        return await GetAll(
-            rs => rs.SeatId == seatId
-                  && rs.Reservation!.EventId == eventId
-                  && rs.Reservation.Status != Domain.Enums.ReservationStatus.Cancelled)
-            .Include(rs => rs.Reservation)  
-            .ToListAsync();
-    }
 
     public async Task<List<int>> GetSeatIdsByReservationAsync(int reservationId)
     {
@@ -37,12 +26,4 @@ public class ReservationSeatRepository : Repository<ReservationSeat>, IReservati
             .ToListAsync();
     }
 
-    public async Task<List<ReservationSeat>> GetActiveByEventIdAsync(int eventId)
-    {
-        return await GetAll(
-            rs => rs.Reservation!.EventId == eventId
-                  && rs.Reservation.Status != Domain.Enums.ReservationStatus.Cancelled)
-            .Include(rs => rs.Reservation)
-            .ToListAsync();
-    }
 }

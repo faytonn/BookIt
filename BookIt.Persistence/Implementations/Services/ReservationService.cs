@@ -17,14 +17,16 @@ public class ReservationService : IReservationService
     private readonly ISeatRepository _seatRepository;
     private readonly IReservationSeatRepository _reservationSeatRepository;
     private readonly IEventRepository _eventRepository;
+    private readonly IEventSeatRepository _eventSeatRepository;
     private readonly IMapper _mapper;
 
-    public ReservationService(IReservationRepository reservationRepository, ISeatRepository seatRepository, IReservationSeatRepository reservationSeatRepository, IEventRepository eventRepository, IMapper mapper)
+    public ReservationService(IReservationRepository reservationRepository, ISeatRepository seatRepository, IReservationSeatRepository reservationSeatRepository, IEventRepository eventRepository, IEventSeatRepository eventSeatRepository, IMapper mapper)
     {
         _reservationRepository = reservationRepository;
         _seatRepository = seatRepository;
         _reservationSeatRepository = reservationSeatRepository;
         _eventRepository = eventRepository;
+        _eventSeatRepository = eventSeatRepository;
         _mapper = mapper;
     }
 
@@ -86,52 +88,60 @@ public class ReservationService : IReservationService
             return false;
         }
 
-        foreach (var seatId in dto.SeatIds)
-        {
-            bool isAvailable = await IsSeatFreeForEventAsync(seatId, ev.Id);
-            if (!isAvailable)
-            {
-                modelState.AddModelError("SeatIds", $"SeatId {seatId} is not available.");
-                return false;
-            }
-        }
-
+        var now = DateTime.UtcNow;
         var reservation = new Reservation
         {
             EventId = ev.Id,
             UserId = dto.UserId,
-            ReservationDate = DateTime.UtcNow,
+            ReservationDate = now,
             Status = ReservationStatus.Pending,
             NumberOfTickets = dto.SeatIds.Count,
             ReservationSeats = new List<ReservationSeat>()
         };
 
         decimal totalAmount = 0;
-        foreach (var seatId in dto.SeatIds)
+        foreach (var seatId in dto.SeatIds.Distinct())
         {
-            var seat = await _getSeatWithTypeAsync(seatId);
-            if (seat == null)
+            // the EventSeat row (with its rowversion) is what we claim, not the Seat
+            var eventSeat = await _eventSeatRepository.GetByEventAndSeatAsync(ev.Id, seatId);
+            if (eventSeat == null)
             {
-                modelState.AddModelError("SeatIds", $"SeatId {seatId} not found.");
+                modelState.AddModelError("SeatIds", $"SeatId {seatId} does not belong to this event.");
                 return false;
             }
-            if (seat.HallId != ev.HallId)
+            if (!_isTakeable(eventSeat, dto.UserId, now))
             {
-                modelState.AddModelError("SeatIds", $"SeatId {seatId} does not belong to the event's hall.");
+                modelState.AddModelError("SeatIds", $"SeatId {seatId} is not available.");
                 return false;
             }
-            decimal seatPrice = await GetSeatPriceForEventAsync(seat, ev);
+
+            decimal seatPrice = eventSeat.Seat.SeatType.DefaultPrice;
             totalAmount += seatPrice;
             reservation.ReservationSeats.Add(new ReservationSeat
             {
-                SeatId = seat.Id,
+                SeatId = seatId,
                 Price = seatPrice
             });
+
+            eventSeat.Status = EventSeatStatus.Sold;
+            eventSeat.HeldUntil = null;
+            eventSeat.HeldByUserId = null;
+            eventSeat.Reservation = reservation;
+            _eventSeatRepository.Update(eventSeat);
         }
         reservation.TotalAmount = totalAmount;
 
         await _reservationRepository.CreateAsync(reservation);
-        await _reservationRepository.SaveChangesAsync();
+
+        try
+        {
+            await _reservationRepository.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            modelState.AddModelError("SeatIds", "One of the seats was taken by someone else a moment ago. Please pick again.");
+            return false;
+        }
         return true;
     }
 
@@ -175,6 +185,7 @@ public class ReservationService : IReservationService
         //my softdelete is cancel here, because hard deleting does not sound ethical in this case
         reservation.Status = ReservationStatus.Cancelled;
         _reservationRepository.Update(reservation);
+        await _releaseSeatsAsync(reservation.Id);
         await _reservationRepository.SaveChangesAsync();
     }
 
@@ -195,6 +206,7 @@ public class ReservationService : IReservationService
         if (reservation == null) return false;
         reservation.Status = ReservationStatus.Cancelled;
         _reservationRepository.Update(reservation);
+        await _releaseSeatsAsync(reservation.Id);
         await _reservationRepository.SaveChangesAsync();
         return true;
     }
@@ -210,35 +222,44 @@ public class ReservationService : IReservationService
         if (ev == null)
             return false;
 
-        foreach (var seatId in seatIds)
-        {
-            bool isAvailable = await IsSeatFreeForEventAsync(seatId, ev.Id);
-            if (!isAvailable) return false;
-        }
-
+        var now = DateTime.UtcNow;
         decimal additionalCost = 0;
         var newBridgingRecords = new List<ReservationSeat>();
 
-        foreach (var seatId in seatIds)
+        foreach (var seatId in seatIds.Distinct())
         {
-            var seat = await _getSeatWithTypeAsync(seatId);
-            if (seat == null || seat.HallId != ev.HallId)
+            var eventSeat = await _eventSeatRepository.GetByEventAndSeatAsync(ev.Id, seatId);
+            if (eventSeat == null || !_isTakeable(eventSeat, reservation.UserId, now))
                 return false;
-            decimal seatPrice = await GetSeatPriceForEventAsync(seat, ev);
-            additionalCost += seatPrice;
 
+            decimal seatPrice = eventSeat.Seat.SeatType.DefaultPrice;
+            additionalCost += seatPrice;
             newBridgingRecords.Add(new ReservationSeat
             {
                 ReservationId = reservationId,
                 SeatId = seatId,
                 Price = seatPrice
             });
+
+            eventSeat.Status = EventSeatStatus.Sold;
+            eventSeat.HeldUntil = null;
+            eventSeat.HeldByUserId = null;
+            eventSeat.ReservationId = reservationId;
+            _eventSeatRepository.Update(eventSeat);
         }
 
         reservation.TotalAmount += additionalCost;
-        reservation.NumberOfTickets += seatIds.Count;
+        reservation.NumberOfTickets += newBridgingRecords.Count;
         _reservationRepository.Update(reservation);
-        await _reservationSeatRepository.CreateRangeAsync(newBridgingRecords);
+
+        try
+        {
+            await _reservationSeatRepository.CreateRangeAsync(newBridgingRecords);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return false;
+        }
         return true;
     }
 
@@ -254,6 +275,12 @@ public class ReservationService : IReservationService
         foreach (var rec in toRemove)
         {
             _reservationSeatRepository.HardDelete(rec);
+            var eventSeat = await _eventSeatRepository.GetByEventAndSeatAsync(reservation.EventId, rec.SeatId);
+            if (eventSeat != null && eventSeat.ReservationId == reservation.Id)
+            {
+                _free(eventSeat);
+                _eventSeatRepository.Update(eventSeat);
+            }
         }
         reservation.TotalAmount -= refund;
         reservation.NumberOfTickets -= toRemove.Count;
@@ -262,20 +289,31 @@ public class ReservationService : IReservationService
         return true;
     }
 
-    private async Task<bool> IsSeatFreeForEventAsync(int seatId, int eventId)
+    /// <summary>Available, expired hold, or held by the same user.</summary>
+    private static bool _isTakeable(EventSeat eventSeat, string userId, DateTime now)
     {
-        var activeBridges = await _reservationSeatRepository.GetActiveBySeatAndEventAsync(seatId, eventId);
-        return !activeBridges.Any();
+        if (eventSeat.Status == EventSeatStatus.Sold)
+            return false;
+        if (eventSeat.Status == EventSeatStatus.Available)
+            return true;
+        return eventSeat.HeldByUserId == userId || !eventSeat.HeldUntil.HasValue || eventSeat.HeldUntil.Value <= now;
     }
 
-    private async Task<decimal> GetSeatPriceForEventAsync(Seat seat, Event ev)
+    private static void _free(EventSeat eventSeat)
     {
-        return seat.SeatType?.DefaultPrice ?? 0m;
+        eventSeat.Status = EventSeatStatus.Available;
+        eventSeat.HeldUntil = null;
+        eventSeat.HeldByUserId = null;
+        eventSeat.ReservationId = null;
     }
 
-    private async Task<Seat?> _getSeatWithTypeAsync(int seatId)
+    private async Task _releaseSeatsAsync(int reservationId)
     {
-        return await _seatRepository.GetAsync(s => s.Id == seatId,
-            include: q => q.Include(s => s.SeatType));
+        var seats = await _eventSeatRepository.GetAll(es => es.ReservationId == reservationId).ToListAsync();
+        foreach (var eventSeat in seats)
+        {
+            _free(eventSeat);
+            _eventSeatRepository.Update(eventSeat);
+        }
     }
 }
