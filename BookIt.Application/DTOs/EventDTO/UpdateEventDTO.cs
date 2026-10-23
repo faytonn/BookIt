@@ -9,7 +9,7 @@ public class UpdateEventDTO : IDTO
     public string Title { get; set; } = null!;
 
     public IFormFile? ImageFile { get; set; }
-    public string ImagePath { get; set; } = string.Empty;
+    public string? ImagePath { get; set; }
 
     public DateTime EventDate { get; set; }
 

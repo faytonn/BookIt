@@ -18,7 +18,9 @@ public class EventAutoMapper : Profile
 
 
         CreateMap<CreateEventDTO, Event>();
-        CreateMap<UpdateEventDTO, Event>();
+        CreateMap<UpdateEventDTO, Event>()
+            // keep the stored image when the admin did not upload a new one
+            .ForMember(dest => dest.ImagePath, opt => opt.Condition(src => !string.IsNullOrWhiteSpace(src.ImagePath)));
         CreateMap<Event, UpdateEventDTO>(); // For editing
     }
 }

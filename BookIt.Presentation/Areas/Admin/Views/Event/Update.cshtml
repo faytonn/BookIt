@@ -27,6 +27,13 @@
     </div>
     <div class="form-group">
         <label asp-for="ImageFile">Event Image</label>
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <div class="mb-2">
+                <img src="@Model.ImagePath" alt="Current event image" style="max-height: 120px;" />
+            </div>
+        }
+        <input type="hidden" asp-for="ImagePath" />
         <input asp-for="ImageFile" type="file" class="form-control" />
         <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>

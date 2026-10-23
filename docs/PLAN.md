@@ -10,7 +10,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 - [x] 2. `[Authorize(Roles = "Admin")]` on all Admin controllers; `[Authorize]` on `Account/Settings`; admin redirect → `/Admin/Dashboard/Index`. (1, 8)
 - [x] 3. `ReservationService`: missing `SaveChangesAsync`; include `SeatType` when pricing; link seats via navigation; single save. (2, 5, 6)
 - [x] 4. `Reservation/Create.cshtml`: plain form post + validation summary. (7)
-- [ ] 5. Keep existing event image when no new file uploaded. (11)
+- [x] 5. Keep existing event image when no new file uploaded. (11)
 - [ ] 6. Localization: align ISO codes (`en`/`az`/`cs`) in seed, cultures, `CookieService`; add `Home/SetLanguage`; migration. (9)
 - [ ] 7. Missing Account views: `ForgotPassword`, `ResetPassword`, `ResetPasswordConfirmation`, `ResetPasswordSuccess`, `EmailVerificationFailure`. (10)
 - [ ] 8. Delete EventComposite controller/service/DTOs/mapper/repo interface. (12)
