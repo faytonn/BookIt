@@ -19,7 +19,7 @@ public static class SeedDataService
         modelBuilder.Entity<Language>().HasData(
             new Language { Id = 1, LangaugeName = "EN", IsoCode = "en", ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738784159/bookit./UK%20Flag.svg" },
             new Language { Id = 2, LangaugeName = "AZE", IsoCode = "az", ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738784159/bookit./AZE%20Flag.png" },
-            new Language { Id = 3, LangaugeName = "CS", IsoCode = "cze", ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738783701/bookit./CZE%20Flag.svg" }
+            new Language { Id = 3, LangaugeName = "CS", IsoCode = "cs", ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738783701/bookit./CZE%20Flag.svg" }
             );
     }
 

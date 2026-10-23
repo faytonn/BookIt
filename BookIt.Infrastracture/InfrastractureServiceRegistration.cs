@@ -38,7 +38,7 @@ public static class InfrastractureServiceRegistration
               var supportedCultures = new List<CultureInfo>
                   {
                         new CultureInfo("en"),
-                        new CultureInfo("aze"),
+                        new CultureInfo("az"),
                         new CultureInfo("cs")
                   };
 

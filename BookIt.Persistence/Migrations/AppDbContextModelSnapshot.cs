@@ -550,7 +550,7 @@ namespace BookIt.Persistence.Migrations
                         {
                             Id = 3,
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738783701/bookit./CZE%20Flag.svg",
-                            IsoCode = "cze",
+                            IsoCode = "cs",
                             LangaugeName = "CS"
                         });
                 });

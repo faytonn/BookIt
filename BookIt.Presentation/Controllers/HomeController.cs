@@ -1,8 +1,9 @@
 using BookIt.Application.Interfaces.Services;
 using BookIt.Presentation.Models;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace BookIt.Presentation.Controllers
 {
@@ -12,17 +13,20 @@ namespace BookIt.Presentation.Controllers
         private readonly IEventService _eventService;
         private readonly IGeneralLocationService _locationService;
         private readonly ICategoryService _categoryService;
+        private readonly RequestLocalizationOptions _localizationOptions;
 
         public HomeController(
             ILogger<HomeController> logger,
             IEventService eventService,
             IGeneralLocationService locationService,
-            ICategoryService categoryService)
+            ICategoryService categoryService,
+            IOptions<RequestLocalizationOptions> localizationOptions)
         {
             _logger = logger;
             _eventService = eventService;
             _locationService = locationService;
             _categoryService = categoryService;
+            _localizationOptions = localizationOptions.Value;
         }
 
         public async Task<IActionResult> Index()
@@ -36,6 +40,27 @@ namespace BookIt.Presentation.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult SetLanguage(string culture, string? returnUrl = null)
+        {
+            var supported = _localizationOptions.SupportedUICultures?.Select(c => c.Name) ?? Enumerable.Empty<string>();
+            if (!supported.Contains(culture))
+            {
+                culture = _localizationOptions.DefaultRequestCulture.UICulture.Name;
+            }
+
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1), IsEssential = true });
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return LocalRedirect(returnUrl);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="~/user/assets/css/nice-select.css">
     <link rel="stylesheet" href="~/user/assets/css/jquery.animatedheadline.css">
     <link rel="stylesheet" href="~/user/assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
+          integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
 
 @*     <link rel="shortcut icon" href="https://res.cloudinary.com/di3ourpee/image/upload/v1738766959/bookit./ev0nyzhntlkho22k7bd3.png" type="image/x-icon">
  *@
@@ -174,6 +177,7 @@
                         <a href="contact.html">contact</a>
                     </li>
                     <li class="header-button pr-0">
+                        <partial name="_LanguageChooser" />
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <div class="dropdown" style="display: inline-block;">

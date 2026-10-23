@@ -2,7 +2,7 @@
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 using System.Security.Claims;
 
 namespace BookIt.Persistence.Services;
@@ -20,9 +20,10 @@ public class CookieService : ICookieService
 
     public async Task<GetLanguageDTO> GetSelectedLanguageAsync()
     {
-        var culture = _contextAccessor.HttpContext?.Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-        var isoCode = culture?.Substring(culture.LastIndexOf('=') + 1) ?? "en";
-        var selectedLanguage = await _languageService.GetLanguageAsync(x => x.IsoCode == isoCode);
+        // The request localization middleware has already resolved the cookie / default culture.
+        var isoCode = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        var selectedLanguage = await _languageService.GetLanguageAsync(x => x.IsoCode == isoCode)
+                               ?? await _languageService.GetLanguageAsync(x => x.IsoCode == "en");
 
         return selectedLanguage;
     }
@@ -31,16 +32,12 @@ public class CookieService : ICookieService
     {
         var language = await GetSelectedLanguageAsync();
 
-        var type = LanguageType.English;
-
-        if (language.IsoCode == "en")
-            type = LanguageType.English;
-        if (language.IsoCode == "aze")
-            type = LanguageType.Azerbaijani;
-        if (language.IsoCode == "cs")
-            type = LanguageType.Czech;
-
-        return type;
+        return language.IsoCode switch
+        {
+            "az" => LanguageType.Azerbaijani,
+            "cs" => LanguageType.Czech,
+            _ => LanguageType.English
+        };
     }
 
     public string GetUserId()
