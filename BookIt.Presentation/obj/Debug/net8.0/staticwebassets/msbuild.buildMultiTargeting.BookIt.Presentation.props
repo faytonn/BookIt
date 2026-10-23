@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\BookIt.Presentation.props" />
-</Project>
