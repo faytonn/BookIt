@@ -15,7 +15,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 - [x] 7. Missing Account views: `ForgotPassword`, `ResetPassword`, `ResetPasswordConfirmation`, `ResetPasswordSuccess`, `EmailVerificationFailure`. (10)
 - [x] 8. Delete EventComposite controller/service/DTOs/mapper/repo interface. (12)
 - [x] 9. Login hardening: drop `CheckPasswordAsync` pre-check, enable lockout, explicit resend-confirmation action; hardcode `Role.User` at registration; check `IdentityResult`. (13, 14)
-- [ ] 10. Replace 2.3.0 `Microsoft.AspNetCore.*` package refs with `FrameworkReference`; bump AutoMapper, MailKit; align Localization.Abstractions to 8.x. (19)
+- [x] 10. Replace 2.3.0 `Microsoft.AspNetCore.*` package refs with `FrameworkReference`; bump AutoMapper, MailKit; align Localization.Abstractions to 8.x. (19)
 
 ## M2 — Medium fixes
 

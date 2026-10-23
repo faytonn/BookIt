@@ -7,7 +7,7 @@ public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
 
         //services.AddFluentValidationAutoValidation();
         //services.AddValidatorsFromAssemblyContaining(typeof(SettingUpdateDtoValidator));
