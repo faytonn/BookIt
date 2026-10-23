@@ -55,6 +55,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<Seat>().HasQueryFilter(x => !x.IsDeleted && !x.Hall.IsDeleted);
         modelBuilder.Entity<Reservation>().HasQueryFilter(x => !x.IsDeleted && !x.Event!.IsDeleted);
         modelBuilder.Entity<ReservationSeat>().HasQueryFilter(x => !x.IsDeleted && !x.Reservation!.IsDeleted && !x.Reservation.Event!.IsDeleted);
+        modelBuilder.Entity<EventSeat>().HasQueryFilter(x => !x.Event.IsDeleted && !x.Seat.IsDeleted && !x.Seat.Hall.IsDeleted);
         modelBuilder.Entity<CategoryDetail>().HasQueryFilter(x => !x.Category.IsDeleted);
         modelBuilder.Entity<NewsDetail>().HasQueryFilter(x => !x.News!.IsDeleted);
         modelBuilder.Entity<NotificationDetail>().HasQueryFilter(x => !x.Notification!.IsDeleted);
@@ -79,6 +80,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Chat> Chats { get; set; } = null!;
     public DbSet<Event> Events { get; set; } = null!;
     public DbSet<EventDetail> EventDetails { get; set; } = null!;
+    public DbSet<EventSeat> EventSeats { get; set; } = null!;
     public DbSet<GeneralLocation> GeneralLocations { get; set; } = null!;
     public DbSet<Hall> Halls { get; set; } = null!;
     public DbSet<Language> Languages { get; set; } = null!;

@@ -17,4 +17,5 @@ public class Seat : BaseAuditableEntity
     public Hall Hall { get; set; } = null!;
 
     public ICollection<ReservationSeat>? ReservationSeats { get; set; } = [];
+    public ICollection<EventSeat> EventSeats { get; set; } = [];
 }

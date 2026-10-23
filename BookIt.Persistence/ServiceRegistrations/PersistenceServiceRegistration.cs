@@ -74,6 +74,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IEventDetailRepository, EventDetailRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
+        services.AddScoped<IEventSeatRepository, EventSeatRepository>();
         services.AddScoped<IGeneralLocationRepository, GeneralLocationRepository>();
         services.AddScoped<IHallRepository, HallRepository>();
         services.AddScoped<ILanguageRepository, LanguageRepository>();

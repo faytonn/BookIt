@@ -24,6 +24,7 @@ public class Event : BaseAuditableEntity
     //public bool isSoldOut { get; set; }
     public ICollection<EventDetail> EventDetail { get; set; } = [];
     public ICollection<Reservation> Reservations { get; set; } = [];
+    public ICollection<EventSeat> EventSeats { get; set; } = [];
     public ICollection<WaitlistEntry>? WaitlistEntries { get; set; }
 
 }

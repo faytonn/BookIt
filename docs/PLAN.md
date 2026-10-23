@@ -37,11 +37,11 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 - [x] 23. Public `EventController` (`Index` with filters, `Details`) + Boleto views; wire `Home/Index` search form.
 - [x] 24. `Account/Settings`: profile edit + change password.
 - [x] 25. News on home page.
-- [ ] 26. Seat-map + booking page on `Event/Details` (placeholder until API).
+- [x] 26. Folded into 37 (booking page built directly on the API; no throw-away placeholder).
 
 ## M4 — Seat availability redesign
 
-- [ ] 27. `EventSeat` entity (`EventId`, `SeatId`, `Status`, `HeldUntil`, `HeldByUserId?`, `RowVersion`), config with unique `(EventId, SeatId)`, DbSet, repo.
+- [x] 27. `EventSeat` entity (`EventId`, `SeatId`, `Status`, `HeldUntil`, `HeldByUserId?`, `RowVersion`), config with unique `(EventId, SeatId)`, DbSet, repo.
 - [ ] 28. Migration: create table, backfill per (event, seat in hall), drop `Seat.IsReserved`.
 - [ ] 29. `EventSeatService`: `HoldAsync` / `ConfirmAsync` / `ReleaseAsync`; `DbUpdateConcurrencyException` → Conflict.
 - [ ] 30. `HoldExpiryService : BackgroundService`, every minute.
