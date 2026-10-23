@@ -72,14 +72,7 @@ public class HallService : IHallService
         if (!modelState.IsValid)
             return false;
 
-        var englishHallName = dto.HallDetails.FirstOrDefault(d => d.LanguageId == 1)?.Name;
-        if (string.IsNullOrWhiteSpace(englishHallName))
-        {
-            modelState.AddModelError("HallDetails", "The hall name in English is required.");
-            return false;
-        }
-
-        var existing = await _hallRepository.GetAsync(x => x.Name.ToLower() == englishHallName.ToLower());
+        var existing = await _hallRepository.GetAsync(x => x.Name.ToLower() == dto.Name.ToLower() && x.LocationId == dto.LocationId);
         if (existing != null)
         {
             modelState.AddModelError("", "A hall with this name already exists.");
@@ -113,14 +106,7 @@ public class HallService : IHallService
             return false;
         }
 
-        var englishName = dto.HallDetails.FirstOrDefault(d => d.LanguageId == 1)?.Name;
-        if (string.IsNullOrWhiteSpace(englishName))
-        {
-            modelState.AddModelError("HallDetails", "The hall name in English is required.");
-            return false;
-        }
-
-        var existing = await _hallRepository.GetAsync(x => x.Name.ToLower() == englishName.ToLower() && x.Id != dto.Id);
+        var existing = await _hallRepository.GetAsync(x => x.Name.ToLower() == dto.Name.ToLower() && x.LocationId == dto.LocationId && x.Id != dto.Id);
         if (existing != null)
         {
             modelState.AddModelError("", "A hall with this name already exists.");
