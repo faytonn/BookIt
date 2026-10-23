@@ -94,7 +94,7 @@ public class CategoryService : ICategoryService
         if (!modelState.IsValid)
             return false;
 
-        var extsingCategoryName = await _categoryRepository.GetAsync(x => x.CategoryDetails.FirstOrDefault()!.Name.ToLower() == dto.CategoryDetails.FirstOrDefault()!.Name!.ToLower());
+        var extsingCategoryName = await _categoryRepository.GetAsync(x => x.Name.ToLower() == dto.Name.ToLower());
 
         if (extsingCategoryName != null)
         {
@@ -132,7 +132,7 @@ public class CategoryService : ICategoryService
         if (category == null)
             throw new NotFoundException();
 
-        var existingCategory = await _categoryRepository.GetAsync(x => x.CategoryDetails.FirstOrDefault().Name.ToLower() == dto.CategoryDetails.FirstOrDefault()!.Name!.ToLower() && x.Id != dto.Id);
+        var existingCategory = await _categoryRepository.GetAsync(x => x.Name.ToLower() == dto.Name.ToLower() && x.Id != dto.Id);
 
         if(existingCategory != null)
         {
