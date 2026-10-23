@@ -177,6 +177,7 @@ public class AccountController : Controller
         return View(model);
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Settings()
     {

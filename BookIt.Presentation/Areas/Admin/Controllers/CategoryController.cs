@@ -1,4 +1,5 @@
 ﻿using BookIt.Application.DTOs.CategoryDTO;
+using Microsoft.AspNetCore.Authorization;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace BookIt.Presentation.Areas.Admin.Controllers;
 
 [Area("Admin")]
-//[Authorize(Roles = "Admin, Moderator")]
+[Authorize(Roles = "Admin")]
 public class CategoryController : Controller
 {
     private readonly ICategoryService _categoryService;

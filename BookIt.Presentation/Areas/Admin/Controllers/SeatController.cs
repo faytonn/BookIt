@@ -1,4 +1,5 @@
 ﻿using BookIt.Application.DTOs.HallDTO;
+using Microsoft.AspNetCore.Authorization;
 using BookIt.Application.DTOs.SeatDTO;
 using BookIt.Application.DTOs.SeatTypeDTO;
 using BookIt.Application.Interfaces.Services;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace BookIt.Web.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class SeatController : Controller
 {
     private readonly ISeatService _seatService;

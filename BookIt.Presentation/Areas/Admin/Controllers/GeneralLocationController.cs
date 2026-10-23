@@ -1,4 +1,5 @@
 ﻿using BookIt.Application.DTOs.GeneralLocationDTO;
+using Microsoft.AspNetCore.Authorization;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Enums;
 using BookIt.Persistence.Implementations.Services;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace BookIt.Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class GeneralLocationController : Controller
     {
         private readonly IGeneralLocationService _locationService;

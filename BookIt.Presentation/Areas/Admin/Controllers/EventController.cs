@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using BookIt.Application.DTOs.EventAndDetailsCombinedDTO;
 using BookIt.Application.DTOs.EventDTO;
 using BookIt.Application.Interfaces.Services;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace BookIt.Presentation.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class EventController : Controller
 {
     private readonly IEventService _eventService;

@@ -289,7 +289,7 @@ public class UserAuthorizationService : IUserAuthorizationService
         var roles = await _userManager.GetRolesAsync(user);
         if (roles.Contains("Admin"))
         {
-            return "/Admin/Home/Index";
+            return "/Admin/Dashboard/Index";
         }
 
         return "/";

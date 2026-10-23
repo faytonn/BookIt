@@ -1,4 +1,5 @@
 ﻿using BookIt.Application.DTOs.HallDTO;
+using Microsoft.AspNetCore.Authorization;
 using BookIt.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace BookIt.Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class HallController : Controller
     {
         private readonly IHallService _hallService;

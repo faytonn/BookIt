@@ -1,4 +1,5 @@
 ﻿using BookIt.Application.DTOs.EventAndDetailsCombinedDTO;
+using Microsoft.AspNetCore.Authorization;
 using BookIt.Application.DTOs.EventDetailDTO;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Enums;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace BookIt.Presentation.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class EventCompositeController : Controller
     {
         private readonly IEventCompositeService _eventCompositeService;

@@ -1,4 +1,5 @@
 ﻿using BookIt.Application.DTOs.EventDetailDTO;
+using Microsoft.AspNetCore.Authorization;
 using BookIt.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +8,7 @@ namespace BookIt.Presentation.Areas.Admin.Controllers;
 
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class EventDetailController : Controller
 {
     private readonly IEventDetailService _eventDetailService;

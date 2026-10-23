@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 using BookIt.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using BookIt.Domain.Enums;
 
 namespace BookIt.Presentation.Areas.Admin.Controllers;
 
 [Area("Admin")]
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class ReservationController : Controller
 {
     private readonly IReservationService _reservationService;
