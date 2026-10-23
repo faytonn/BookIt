@@ -24,7 +24,7 @@ public class WaitlistEntryConfiguration : IEntityTypeConfiguration<WaitlistEntry
                .HasDefaultValue(false);
 
         builder.HasOne(w => w.Event)
-               .WithMany() // Adjust if Event has a WaitlistEntries collection
+               .WithMany(e => e.WaitlistEntries)
                .HasForeignKey(w => w.EventId)
                .OnDelete(DeleteBehavior.Cascade);
 

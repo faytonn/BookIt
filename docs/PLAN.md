@@ -19,7 +19,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 
 ## M2 — Medium fixes
 
-- [ ] 11. Wire `.WithMany(u => u.Reservations)` / `.WithMany(e => e.WaitlistEntries)`; migration drops shadow `ApplicationUserId`, `EventId1`. (15)
+- [x] 11. Wire `.WithMany(u => u.Reservations)` / `.WithMany(e => e.WaitlistEntries)`; migration drops shadow `ApplicationUserId`, `EventId1`. (15)
 - [ ] 12. `ReservationSeatConfiguration` (`decimal(18,2)`, FK indexes). (4)
 - [ ] 13. Matching query filters for `Seat`, `Reservation`, `CategoryDetail`, `NewsDetail`, `NotificationDetail`; remove duplicate `Review` filter. (16)
 - [ ] 14. Hall: plain `Name` on Create/Update DTOs + views; delete empty `HallDetail` (migration). (17)

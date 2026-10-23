@@ -17,7 +17,7 @@ namespace BookIt.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.12")
+                .HasAnnotation("ProductVersion", "8.0.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -895,9 +895,6 @@ namespace BookIt.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -939,8 +936,6 @@ namespace BookIt.Persistence.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("EventId");
 
@@ -1424,9 +1419,6 @@ namespace BookIt.Persistence.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EventId1")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1453,8 +1445,6 @@ namespace BookIt.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
-
-                    b.HasIndex("EventId1");
 
                     b.HasIndex("UserId");
 
@@ -1764,10 +1754,6 @@ namespace BookIt.Persistence.Migrations
 
             modelBuilder.Entity("BookIt.Domain.Entities.Reservation", b =>
                 {
-                    b.HasOne("BookIt.Domain.Entities.ApplicationUser", null)
-                        .WithMany("Reservations")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("BookIt.Domain.Entities.Event", "Event")
                         .WithMany("Reservations")
                         .HasForeignKey("EventId")
@@ -1780,7 +1766,7 @@ namespace BookIt.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BookIt.Domain.Entities.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1873,14 +1859,10 @@ namespace BookIt.Persistence.Migrations
             modelBuilder.Entity("BookIt.Domain.Entities.WaitlistEntry", b =>
                 {
                     b.HasOne("BookIt.Domain.Entities.Event", "Event")
-                        .WithMany()
+                        .WithMany("WaitlistEntries")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BookIt.Domain.Entities.Event", null)
-                        .WithMany("WaitlistEntries")
-                        .HasForeignKey("EventId1");
 
                     b.HasOne("BookIt.Domain.Entities.ApplicationUser", "User")
                         .WithMany()

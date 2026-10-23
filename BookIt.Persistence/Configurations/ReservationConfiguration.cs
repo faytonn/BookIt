@@ -32,7 +32,7 @@ public class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
                .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(r => r.User)
-               .WithMany() 
+               .WithMany(u => u.Reservations)
                .HasForeignKey(r => r.UserId)
                .OnDelete(DeleteBehavior.Restrict);
 
