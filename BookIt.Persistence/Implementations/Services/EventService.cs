@@ -8,6 +8,7 @@ using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace BookIt.Persistence.Implementations.Services;
 
@@ -25,8 +26,7 @@ public class EventService : IEventService
     public async Task<GetEventDTO> GetAsync(int id, LanguageType language = LanguageType.English)
     {
         var ev = await _eventRepository.GetAsync(x => x.Id == id,
-                    include: q => q.Include(e => e.GeneralLocation)
-                                    .Include(e => e.Category));
+                    include: _withRelations());
         if (ev == null)
             throw new NotFoundException("Event not found.");
         return _mapper.Map<GetEventDTO>(ev);
@@ -39,8 +39,7 @@ public class EventService : IEventService
 
         var ev = await _eventRepository.GetAsync(
             x => x.Title.Trim().ToLower() == title.Trim().ToLower(),
-            include: q => q.Include(e => e.GeneralLocation)
-                          .Include(e => e.Category)
+            include: _withRelations()
         );
 
         if (ev == null)
@@ -52,15 +51,13 @@ public class EventService : IEventService
 
     public List<GetEventDTO> GetAll(LanguageType language = LanguageType.English)
     {
-        var query = _eventRepository.GetAll(include: q => q.Include(e => e.GeneralLocation)
-                                                           .Include(e => e.Category));
+        var query = _eventRepository.GetAll(include: _withRelations());
         return _mapper.Map<List<GetEventDTO>>(query.ToList());
     }
 
     public async Task<PaginateDTO<GetEventDTO>> GetPagesAsync(LanguageType language = LanguageType.English, int page = 1, int limit = 10)
     {
-        var query = _eventRepository.GetAll(include: q => q.Include(e => e.GeneralLocation)
-                                                           .Include(e => e.Category));
+        var query = _eventRepository.GetAll(include: _withRelations());
         var count = await query.CountAsync();
         var pageCount = (int)Math.Ceiling((decimal)count / limit);
         if (page > pageCount) page = pageCount;
@@ -96,8 +93,7 @@ public class EventService : IEventService
     public async Task<UpdateEventDTO> GetUpdatedDtoAsync(int id)
     {
         var ev = await _eventRepository.GetAsync(x => x.Id == id,
-                    include: q => q.Include(e => e.GeneralLocation)
-                                    .Include(e => e.Category));
+                    include: _withRelations());
         if (ev == null)
             throw new NotFoundException("Event not found.");
         return _mapper.Map<UpdateEventDTO>(ev);
@@ -158,12 +154,58 @@ public class EventService : IEventService
         return _mapper.Map<List<GetEventDTO>>(archived);
     }
 
+    public async Task<PaginateDTO<GetEventDTO>> SearchAsync(EventFilterDTO filter, LanguageType language = LanguageType.English, int limit = 12)
+    {
+        var now = DateTime.UtcNow;
+        var query = _eventRepository.GetAll(e => e.EventDate >= now, include: _withRelations());
+
+        if (!string.IsNullOrWhiteSpace(filter.SearchTerm))
+        {
+            var term = filter.SearchTerm.Trim();
+            query = query.Where(e => e.Title.Contains(term));
+        }
+        if (filter.LocationId is > 0)
+            query = query.Where(e => e.GeneralLocationId == filter.LocationId);
+        if (filter.CategoryId is > 0)
+            query = query.Where(e => e.CategoryId == filter.CategoryId);
+        if (filter.Date.HasValue)
+        {
+            var day = filter.Date.Value.Date;
+            query = query.Where(e => e.EventDate >= day && e.EventDate < day.AddDays(1));
+        }
+
+        var count = await query.CountAsync();
+        var pageCount = (int)Math.Ceiling((decimal)count / limit);
+        var page = filter.Page;
+        if (page > pageCount) page = pageCount;
+        if (page < 1) page = 1;
+
+        var events = await _eventRepository
+            .Paginate(query.OrderBy(e => e.EventDate), limit, page)
+            .ToListAsync();
+
+        return new PaginateDTO<GetEventDTO>
+        {
+            Items = _mapper.Map<List<GetEventDTO>>(events),
+            TotalCount = count,
+            CurrentPage = page,
+            PageSize = limit,
+            PageCount = pageCount
+        };
+    }
+
+    private static Func<IQueryable<Event>, IIncludableQueryable<Event, object>> _withRelations()
+    {
+        return q => q.Include(e => e.GeneralLocation)
+                     .Include(e => e.Category)
+                     .Include(e => e.Hall);
+    }
+
     public async Task<List<GetEventDTO>> GetUpcomingEventsAsync(LanguageType language = LanguageType.English)
     {
         var currentDate = DateTime.UtcNow;
         var upcomingEvents = await _eventRepository.GetAll(
-            include: q => q.Include(e => e.GeneralLocation)
-                          .Include(e => e.Category))
+            include: _withRelations())
             .Where(e => e.EventDate > currentDate && !e.IsDeleted)
             .OrderBy(e => e.EventDate)
             .Take(6)

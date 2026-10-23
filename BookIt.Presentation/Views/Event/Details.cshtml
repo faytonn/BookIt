@@ -1,0 +1,58 @@
+@model BookIt.Presentation.Models.EventDetailsViewModel
+@{
+    ViewData["Title"] = Model.Event.Title;
+    var title = Model.Detail?.Title ?? Model.Event.Title;
+}
+
+<section class="details-banner event-details-banner hero-area bg_img seat-plan-banner" data-background="@Model.Event.ImagePath">
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-content style-two">
+                <h3 class="title">@title</h3>
+                <div class="tags">
+                    <span>@Model.Event.CategoryName</span>
+                    <span>@Model.Event.EventDate.ToString("f")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="event-book-section padding-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="event-about padding-top">
+                    <h4 class="title">About the event</h4>
+                    @if (Model.Detail != null)
+                    {
+                        <p>@Model.Detail.Description</p>
+                    }
+                    else
+                    {
+                        <p>No description has been added yet.</p>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="event-book-wrapper padding-top">
+                    <ul class="event-info">
+                        <li><span class="label">Date</span> @Model.Event.EventDate.ToString("dddd, d MMMM yyyy")</li>
+                        <li><span class="label">Time</span> @Model.Event.EventDate.ToString("HH:mm")</li>
+                        <li><span class="label">Venue</span> @Model.Event.LocationName &middot; @Model.Event.HallName</li>
+                        <li><span class="label">Price</span> @Model.Event.PriceRange</li>
+                    </ul>
+                    @if (Model.Event.IsSoldOut)
+                    {
+                        <span class="custom-button bg-secondary mt-3 disabled">sold out</span>
+                    }
+                    else
+                    {
+                        @* booking page arrives with the seat-availability work *@
+                        <a href="#" class="custom-button mt-3 disabled" aria-disabled="true">booking opens soon</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

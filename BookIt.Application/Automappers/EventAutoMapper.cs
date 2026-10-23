@@ -14,6 +14,7 @@ public class EventAutoMapper : Profile
 
         CreateMap<Event, GetEventDTO>()
     .ForMember(dest => dest.LocationName, opt => opt.MapFrom(src => src.GeneralLocation.Name))
+    .ForMember(dest => dest.HallName, opt => opt.MapFrom(src => src.Hall.Name))
     .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
 

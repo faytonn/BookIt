@@ -1,4 +1,5 @@
-﻿using BookIt.Application.DTOs.EventDTO;
+﻿using BookIt.Application.DTOs.Common;
+using BookIt.Application.DTOs.EventDTO;
 using BookIt.Application.DTOs.HallDTO;
 using BookIt.Application.Interfaces.Services.Generic;
 using BookIt.Domain.Enums;
@@ -12,4 +13,5 @@ public interface IEventService : IGetService<GetEventDTO>,IModifyService<CreateE
     public Task HardDeleteAsync(int id);
     public List<GetEventDTO> GetArchivedEvents(LanguageType language = LanguageType.English);
     public Task<List<GetEventDTO>> GetUpcomingEventsAsync(LanguageType language = LanguageType.English);
+    Task<PaginateDTO<GetEventDTO>> SearchAsync(EventFilterDTO filter, LanguageType language = LanguageType.English, int limit = 12);
 }
