@@ -2,6 +2,7 @@ using BookIt.Application.ServiceRegistrations;
 using BookIt.Infrastracture;
 using BookIt.Persistence.DataInitializers;
 using BookIt.Persistence.ServiceRegistrations;
+using BookIt.Presentation.Api;
 using BookIt.Presentation.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
@@ -32,6 +33,33 @@ public class Program
         builder.Services.AddApplicationServices();
         builder.Services.AddPersistenceServices(builder.Configuration);
         builder.Services.AddInfrastractureServices();
+
+        builder.Services.AddProblemDetails();
+
+        // API callers get status codes, browser pages still get the login redirect
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.Events.OnRedirectToLogin = context =>
+            {
+                if (context.Request.Path.StartsWithSegments("/api"))
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                }
+                context.Response.Redirect(context.RedirectUri);
+                return Task.CompletedTask;
+            };
+            options.Events.OnRedirectToAccessDenied = context =>
+            {
+                if (context.Request.Path.StartsWithSegments("/api"))
+                {
+                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    return Task.CompletedTask;
+                }
+                context.Response.Redirect(context.RedirectUri);
+                return Task.CompletedTask;
+            };
+        });
 
 
         builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -68,6 +96,8 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
+
+        app.MapSeatApi();
 
         app.MapControllerRoute(
             name: "areas",
