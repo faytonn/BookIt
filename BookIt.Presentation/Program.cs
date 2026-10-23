@@ -2,6 +2,7 @@ using BookIt.Application.ServiceRegistrations;
 using BookIt.Infrastracture;
 using BookIt.Persistence.DataInitializers;
 using BookIt.Persistence.ServiceRegistrations;
+using BookIt.Presentation.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
 
@@ -23,7 +24,10 @@ public class Program
 
 
         // Add services to the container.
-        builder.Services.AddControllersWithViews();
+        builder.Services.AddControllersWithViews(options =>
+        {
+            options.Filters.Add<NotFoundExceptionFilter>();
+        });
 
         builder.Services.AddApplicationServices();
         builder.Services.AddPersistenceServices(builder.Configuration);
