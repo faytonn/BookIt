@@ -23,7 +23,8 @@ public static class SeatEndpoints
 
         api.MapPost("/events/{eventId:int}/holds", HoldSeat)
            .WithName("HoldSeat")
-           .RequireAuthorization();
+           .RequireAuthorization()
+           .RequireRateLimiting(HoldRateLimiting.PolicyName);
 
         api.MapPost("/holds/{holdId:int}/confirm", ConfirmHold)
            .WithName("ConfirmHold")

@@ -41,6 +41,8 @@ public class Program
         builder.Services.AddHealthChecks()
             .AddDbContextCheck<AppDbContext>("sqlserver", tags: [HealthEndpoints.ReadyTag]);
 
+        builder.Services.AddHoldRateLimiting(builder.Configuration);
+
         // API callers get status codes, browser pages still get the login redirect
         builder.Services.ConfigureApplicationCookie(options =>
         {
@@ -96,6 +98,8 @@ public class Program
 
 
         app.UseRouting();
+
+        app.UseRateLimiter();
 
         // Add authentication and authorization middleware
         app.UseAuthentication();
