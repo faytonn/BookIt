@@ -1,4 +1,5 @@
 using BookIt.Application.DTOs.AuthorizationDTO;
+using BookIt.Application.DTOs.UserPanelDTO;
 using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -16,6 +17,9 @@ public interface IUserAuthorizationService
     Task<bool> EmailVerificationAsync(string token, string email);
     Task ResendConfirmationEmailAsync(string email);
     Task<ApplicationUser> GetAuthenticatedUserAsync();
+    Task<UserSettingDTO> GetSettingsAsync();
+    Task<bool> UpdateProfileAsync(UpdateUserProfileDTO dto, ModelStateDictionary ModelState);
+    Task<bool> ChangePasswordAsync(UpdateUserPasswordDTO dto, ModelStateDictionary ModelState);
     Task<List<string>> GetUserRolesAsync(string userId);
     Task<List<ApplicationUser>> GetAllMembersAsync();
     Task<string> GetRedirectUrlAsync(string email);

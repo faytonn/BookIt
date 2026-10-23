@@ -1,4 +1,5 @@
 using BookIt.Application.DTOs.AuthorizationDTO;
+using BookIt.Application.DTOs.UserPanelDTO;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Entities;
 using BookIt.Presentation.Models;
@@ -200,8 +201,41 @@ public class AccountController : Controller
 
     [Authorize]
     [HttpGet]
-    public IActionResult Settings()
+    public async Task<IActionResult> Settings()
     {
-        return View();
+        var model = await _userAuthorizationService.GetSettingsAsync();
+        return View(model);
+    }
+
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateProfile(UpdateUserProfileDTO userProfileInfo)
+    {
+        // model binding prefix matches the nested property name in UserSettingDTO
+        if (await _userAuthorizationService.UpdateProfileAsync(userProfileInfo, ModelState))
+        {
+            TempData["Success"] = "Your profile has been updated.";
+            return RedirectToAction(nameof(Settings));
+        }
+
+        var model = await _userAuthorizationService.GetSettingsAsync();
+        model.UserProfileInfo = userProfileInfo;
+        return View(nameof(Settings), model);
+    }
+
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ChangePassword(UpdateUserPasswordDTO userPasswordInfo)
+    {
+        if (await _userAuthorizationService.ChangePasswordAsync(userPasswordInfo, ModelState))
+        {
+            TempData["Success"] = "Your password has been changed.";
+            return RedirectToAction(nameof(Settings));
+        }
+
+        var model = await _userAuthorizationService.GetSettingsAsync();
+        return View(nameof(Settings), model);
     }
 } 

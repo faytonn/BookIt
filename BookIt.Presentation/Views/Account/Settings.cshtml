@@ -1,15 +1,89 @@
+@model BookIt.Application.DTOs.UserPanelDTO.UserSettingDTO
+@using BookIt.Domain.Enums
 @{
     ViewData["Title"] = "Settings";
 }
-<div class="container mt-5">
+
+<div class="container mt-5 padding-top padding-bottom">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if (TempData["Success"] is string success)
+            {
+                <div class="alert alert-success">@success</div>
+            }
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Profile</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="UpdateProfile" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control" value="@Model.Email" disabled />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="UserProfileInfo.FirstName" class="form-label">First Name</label>
+                                <input asp-for="UserProfileInfo.FirstName" class="form-control" />
+                                <span asp-validation-for="UserProfileInfo.FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="UserProfileInfo.LastName" class="form-label">Last Name</label>
+                                <input asp-for="UserProfileInfo.LastName" class="form-control" />
+                                <span asp-validation-for="UserProfileInfo.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="UserProfileInfo.PhoneNumber" class="form-label">Phone</label>
+                            <input asp-for="UserProfileInfo.PhoneNumber" class="form-control" />
+                            <span asp-validation-for="UserProfileInfo.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="UserProfileInfo.Address" class="form-label">Address</label>
+                            <input asp-for="UserProfileInfo.Address" class="form-control" />
+                            <span asp-validation-for="UserProfileInfo.Address" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="UserProfileInfo.SelectedNotificationLanguage" class="form-label">Notification language</label>
+                            <select asp-for="UserProfileInfo.SelectedNotificationLanguage" class="form-control" asp-items="Html.GetEnumSelectList<LanguageType>()"></select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save profile</button>
+                    </form>
+                </div>
+            </div>
+
             <div class="card">
-                <div class="card-body text-center">
-                    <h2 class="card-title mb-4">Settings</h2>
-                    <p class="card-text">This is your settings page. You can add your account settings here later.</p>
+                <div class="card-header">
+                    <h5 class="mb-0">Change Password</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="ChangePassword" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label asp-for="UserPasswordInfo.Password" class="form-label">Current Password</label>
+                            <input asp-for="UserPasswordInfo.Password" class="form-control" />
+                            <span asp-validation-for="UserPasswordInfo.Password" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="UserPasswordInfo.NewPassword" class="form-label">New Password</label>
+                            <input asp-for="UserPasswordInfo.NewPassword" class="form-control" />
+                            <span asp-validation-for="UserPasswordInfo.NewPassword" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="UserPasswordInfo.ConfirmPassword" class="form-label">Confirm New Password</label>
+                            <input asp-for="UserPasswordInfo.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="UserPasswordInfo.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Change password</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

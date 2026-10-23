@@ -1,4 +1,6 @@
 using BookIt.Application.DTOs.AuthorizationDTO;
+using BookIt.Application.DTOs.UserPanelDTO;
+using BookIt.Application.Exceptions;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Application.Interfaces.Services.External;
 using BookIt.Application.DTOs.EmailDTO;
@@ -264,6 +266,79 @@ public class UserAuthorizationService : IUserAuthorizationService
     public async Task<ApplicationUser> GetAuthenticatedUserAsync()
     {
         return await _userManager.GetUserAsync(_signInManager.Context.User);
+    }
+
+    public async Task<UserSettingDTO> GetSettingsAsync()
+    {
+        var user = await _getCurrentUserAsync();
+
+        return new UserSettingDTO
+        {
+            Email = user.Email ?? string.Empty,
+            UserProfileInfo = new UpdateUserProfileDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
+                SelectedNotificationLanguage = user.SelectedLanguage
+            }
+        };
+    }
+
+    public async Task<bool> UpdateProfileAsync(UpdateUserProfileDTO dto, ModelStateDictionary ModelState)
+    {
+        if (!ModelState.IsValid)
+            return false;
+
+        var user = await _getCurrentUserAsync();
+
+        user.FirstName = dto.FirstName!;
+        user.LastName = dto.LastName!;
+        user.PhoneNumber = dto.PhoneNumber;
+        user.Address = dto.Address;
+        user.SelectedLanguage = dto.SelectedNotificationLanguage;
+        user.UpdatedAt = DateTime.UtcNow;
+
+        var result = await _userManager.UpdateAsync(user);
+        if (result.Succeeded)
+            return true;
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+        return false;
+    }
+
+    public async Task<bool> ChangePasswordAsync(UpdateUserPasswordDTO dto, ModelStateDictionary ModelState)
+    {
+        if (!ModelState.IsValid)
+            return false;
+
+        var user = await _getCurrentUserAsync();
+
+        var result = await _userManager.ChangePasswordAsync(user, dto.Password!, dto.NewPassword!);
+        if (result.Succeeded)
+        {
+            // re-issue the cookie so the new security stamp is in it
+            await _signInManager.RefreshSignInAsync(user);
+            return true;
+        }
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+        return false;
+    }
+
+    private async Task<ApplicationUser> _getCurrentUserAsync()
+    {
+        var user = await _userManager.GetUserAsync(_signInManager.Context.User);
+        if (user == null)
+            throw new NotFoundException("User not found.");
+        return user;
     }
 
     public async Task<List<string>> GetUserRolesAsync(string userId)
