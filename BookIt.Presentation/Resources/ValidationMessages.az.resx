@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DefaultError" xml:space="preserve">
+    <value>Naməlum xəta baş verdi.</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>'{0}' e-poçtu artıq istifadə olunur.</value>
+  </data>
+  <data name="DuplicateRoleName" xml:space="preserve">
+    <value>'{0}' rol adı artıq mövcuddur.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>'{0}' istifadəçi adı artıq istifadə olunur.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>'{0}' e-poçtu düzgün deyil.</value>
+  </data>
+  <data name="InvalidRoleName" xml:space="preserve">
+    <value>'{0}' rol adı düzgün deyil.</value>
+  </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>Etibarsız token.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>'{0}' istifadəçi adı düzgün deyil, yalnız hərf və rəqəmlərdən ibarət ola bilər.</value>
+  </data>
+  <data name="LoginAlreadyAssociated" xml:space="preserve">
+    <value>Bu giriş məlumatları ilə istifadəçi artıq mövcuddur.</value>
+  </data>
+  <data name="PasswordMismatch" xml:space="preserve">
+    <value>Şifrə yanlışdır.</value>
+  </data>
+  <data name="PasswordRequiresDigit" xml:space="preserve">
+    <value>Şifrədə ən azı bir rəqəm ('0'-'9') olmalıdır.</value>
+  </data>
+  <data name="PasswordRequiresLower" xml:space="preserve">
+    <value>Şifrədə ən azı bir kiçik hərf ('a'-'z') olmalıdır.</value>
+  </data>
+  <data name="PasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>Şifrədə ən azı bir xüsusi simvol olmalıdır.</value>
+  </data>
+  <data name="PasswordRequiresUniqueChars" xml:space="preserve">
+    <value>Şifrədə ən azı {0} fərqli simvol olmalıdır.</value>
+  </data>
+  <data name="PasswordRequiresUpper" xml:space="preserve">
+    <value>Şifrədə ən azı bir böyük hərf ('A'-'Z') olmalıdır.</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Şifrə ən azı {0} simvoldan ibarət olmalıdır.</value>
+  </data>
+  <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
+    <value>Bərpa kodu qəbul edilmədi.</value>
+  </data>
+  <data name="UserAlreadyHasPassword" xml:space="preserve">
+    <value>İstifadəçinin artıq şifrəsi var.</value>
+  </data>
+  <data name="UserAlreadyInRole" xml:space="preserve">
+    <value>İstifadəçi artıq '{0}' rolundadır.</value>
+  </data>
+  <data name="UserLockoutNotEnabled" xml:space="preserve">
+    <value>Bu istifadəçi üçün bloklama aktiv deyil.</value>
+  </data>
+  <data name="UserNotInRole" xml:space="preserve">
+    <value>İstifadəçi '{0}' rolunda deyil.</value>
+  </data>
+</root>

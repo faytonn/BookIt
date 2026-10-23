@@ -27,22 +27,22 @@ internal class CustomIdentityErrorDescriber : IdentityErrorDescriber
 
     public override IdentityError DuplicateRoleName(string role)
     {
-        return new IdentityError { Code = nameof(DuplicateRoleName), Description = string.Format(_localizer.GetValue(nameof(DuplicateEmail)), role) };
+        return new IdentityError { Code = nameof(DuplicateRoleName), Description = string.Format(_localizer.GetValue(nameof(DuplicateRoleName)), role) };
     }
 
     public override IdentityError DuplicateUserName(string userName)
     {
-        return new IdentityError { Code = nameof(DuplicateUserName), Description = string.Format(_localizer.GetValue(nameof(DuplicateEmail)), userName) };
+        return new IdentityError { Code = nameof(DuplicateUserName), Description = string.Format(_localizer.GetValue(nameof(DuplicateUserName)), userName) };
     }
 
     public override IdentityError InvalidEmail(string? email)
     {
-        return new IdentityError { Code = nameof(InvalidEmail), Description = string.Format(_localizer.GetValue(nameof(DuplicateEmail)), email) };
+        return new IdentityError { Code = nameof(InvalidEmail), Description = string.Format(_localizer.GetValue(nameof(InvalidEmail)), email) };
     }
 
     public override IdentityError InvalidRoleName(string? role)
     {
-        return new IdentityError { Code = nameof(InvalidRoleName), Description = string.Format(_localizer.GetValue(nameof(DuplicateEmail)), role) };
+        return new IdentityError { Code = nameof(InvalidRoleName), Description = string.Format(_localizer.GetValue(nameof(InvalidRoleName)), role) };
     }
 
     public override IdentityError InvalidToken()
@@ -52,7 +52,7 @@ internal class CustomIdentityErrorDescriber : IdentityErrorDescriber
 
     public override IdentityError InvalidUserName(string? userName)
     {
-        return new IdentityError { Code = nameof(InvalidUserName), Description = string.Format(_localizer.GetValue(nameof(DuplicateEmail)), userName) };
+        return new IdentityError { Code = nameof(InvalidUserName), Description = string.Format(_localizer.GetValue(nameof(InvalidUserName)), userName) };
     }
 
     public override IdentityError LoginAlreadyAssociated()
@@ -77,7 +77,7 @@ internal class CustomIdentityErrorDescriber : IdentityErrorDescriber
 
     public override IdentityError PasswordRequiresNonAlphanumeric()
     {
-        return new IdentityError { Code = nameof(PasswordRequiresNonAlphanumeric), Description = _localizer.GetValue(nameof(PasswordRequiresUniqueChars)) };
+        return new IdentityError { Code = nameof(PasswordRequiresNonAlphanumeric), Description = _localizer.GetValue(nameof(PasswordRequiresNonAlphanumeric)) };
     }
 
     public override IdentityError PasswordRequiresUniqueChars(int uniqueChars)
