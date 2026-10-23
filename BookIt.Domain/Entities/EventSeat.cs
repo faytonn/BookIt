@@ -10,6 +10,9 @@ namespace BookIt.Domain.Entities;
 /// </summary>
 public class EventSeat : BaseEntity
 {
+    /// <summary>How long a hold keeps a seat off the market before it is released.</summary>
+    public static readonly TimeSpan HoldDuration = TimeSpan.FromMinutes(10);
+
     public int EventId { get; set; }
     public Event Event { get; set; } = null!;
 

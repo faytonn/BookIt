@@ -111,6 +111,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ISeatService, SeatService>();
         services.AddScoped<IReservationService, ReservationService>();
         services.AddScoped<INewsService, NewsService>();
+        services.AddScoped<IEventSeatService, EventSeatService>();
         services.AddScoped<IEmailService, EmailService>();
     }
 }
