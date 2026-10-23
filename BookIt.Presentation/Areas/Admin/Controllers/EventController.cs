@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using BookIt.Application.DTOs.EventAndDetailsCombinedDTO;
 using BookIt.Application.DTOs.EventDTO;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Application.Interfaces.Services.External;
