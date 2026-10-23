@@ -25,12 +25,12 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 - [x] 14. Hall: plain `Name` on Create/Update DTOs + views; delete empty `HallDetail` (migration). (17)
 - [x] 15. `Resources/ValidationMessages.{en,az,cs}.resx`; fix keys in `CustomIdentityErrorDescriber`. (18)
 - [x] 16. File upload validation in `EventController` + `CloudinaryService`. (20)
-- [ ] 17. Remove sync-over-async (`ReservationService.GetAll`, `EventDetailController.Create`, `EmailService`); delete `IdentityRepository`. (22)
+- [x] 17. Remove sync-over-async (`ReservationService.GetAll`, `EventDetailController.Create`, `EmailService`); delete `IdentityRepository`. (22)
 - [x] 18. Reservation queries: single query with includes. (23)
-- [ ] 19. `SeatService`: include `SeatType`; `BulkCreate` loads existing seats once. (24, 36)
-- [ ] 20. `CategoryService`: fix uniqueness check. (25)
+- [x] 19. `SeatService`: include `SeatType`; `BulkCreate` loads existing seats once. (24, 36)
+- [x] 20. `CategoryService`: fix uniqueness check. (25)
 - [x] 21. Deterministic seed dates; fix seeded email values. (26, 38)
-- [ ] 22. `CategoryController.Delete` → POST + antiforgery; `SeatController.Delete` antiforgery; `Category/Index.cshtml` forms. (30)
+- [x] 22. `CategoryController.Delete` → POST + antiforgery; `SeatController.Delete` antiforgery; `Category/Index.cshtml` forms. (30)
 
 ## M3 — Public site
 

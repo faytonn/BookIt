@@ -170,6 +170,7 @@ public class SeatController : Controller
         return View(dto);
     }
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(int id, int hallId)
     {
         await _seatService.DeleteAsync(id);

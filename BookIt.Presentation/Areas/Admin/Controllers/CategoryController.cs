@@ -88,6 +88,8 @@ public class CategoryController : Controller
     }
 
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(int id)
     {
         await _categoryService.DeleteAsync(id);
