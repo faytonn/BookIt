@@ -57,11 +57,11 @@ public class EventDetailController : Controller
         }
     }
 
-    public IActionResult Create(int eventId, int languageId = 1)
+    public async Task<IActionResult> Create(int eventId, int languageId = 1)
     {
         try
         {
-            var eventTitle = _eventService.GetAsync(eventId).Result?.Title ?? "Unknown Event";
+            var eventTitle = (await _eventService.GetAsync(eventId)).Title;
             ViewBag.EventId = eventId;
             ViewBag.LanguageId = languageId;
             ViewBag.EventTitle = eventTitle;
