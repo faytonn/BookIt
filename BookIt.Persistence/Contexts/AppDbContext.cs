@@ -37,24 +37,27 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
         modelBuilder.Entity<Event>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<EventDetail>().HasQueryFilter(x => !x.IsDeleted);
-        //modelBuilder.Entity<EventDetailSeatType>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Category>().HasQueryFilter(x => !x.IsDeleted);
-        //modelBuilder.Entity<CategoryDetail>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Hall>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Chat>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Message>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<News>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<GeneralLocation>().HasQueryFilter(x => !x.IsDeleted);
-        //modelBuilder.Entity<NewsDetail>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Notification>().HasQueryFilter(x => !x.IsDeleted);
-        //modelBuilder.Entity<NotificationDetail>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
-        //modelBuilder.Entity<Slider>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<WaitlistEntry>().HasQueryFilter(x => !x.IsDeleted);
-        modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<CancellationRefund>().HasQueryFilter(x => !x.IsRefunded);
         modelBuilder.Entity<SeatType>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => !x.IsDeleted);
+
+        // Dependents of a filtered principal need a matching filter, otherwise EF warns and
+        // a required navigation can come back null for rows whose parent is soft-deleted.
+        modelBuilder.Entity<Seat>().HasQueryFilter(x => !x.IsDeleted && !x.Hall.IsDeleted);
+        modelBuilder.Entity<Reservation>().HasQueryFilter(x => !x.IsDeleted && !x.Event!.IsDeleted);
+        modelBuilder.Entity<ReservationSeat>().HasQueryFilter(x => !x.IsDeleted && !x.Reservation!.IsDeleted && !x.Reservation.Event!.IsDeleted);
+        modelBuilder.Entity<CategoryDetail>().HasQueryFilter(x => !x.Category.IsDeleted);
+        modelBuilder.Entity<NewsDetail>().HasQueryFilter(x => !x.News!.IsDeleted);
+        modelBuilder.Entity<NotificationDetail>().HasQueryFilter(x => !x.Notification!.IsDeleted);
 
 
     }
