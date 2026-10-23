@@ -8,6 +8,7 @@ using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace BookIt.Persistence.Implementations.Services;
 
@@ -64,16 +65,19 @@ public class SeatService : ISeatService
         if (dto.StartRow > dto.EndRow || dto.StartColumn > dto.EndColumn)
             throw new ArgumentException("Invalid row or column range for bulk creation.");
 
+        // one query for the hall instead of one per cell
+        var existingPositions = (await _seatRepository
+                .GetAll(s => s.HallId == dto.HallId, ignoreFilter: true)
+                .Select(s => new { s.SeatRow, s.SeatColumn })
+                .ToListAsync())
+            .Select(p => (p.SeatRow, p.SeatColumn))
+            .ToHashSet();
+
         for (int row = dto.StartRow; row <= dto.EndRow; row++)
         {
             for (int col = dto.StartColumn; col <= dto.EndColumn; col++)
             {
-                var existingSeat = await _seatRepository.GetAsync(
-                    s => s.HallId == dto.HallId &&
-                         s.SeatRow == row &&
-                         s.SeatColumn == col);
-
-                if (existingSeat != null)
+                if (existingPositions.Contains((row, col)))
                 {
                     continue;
                 }
@@ -129,7 +133,7 @@ public class SeatService : ISeatService
     public async Task<IEnumerable<GetSeatDTO>> GetSeatsByHallAsync(int hallId)
     {
         var seats = await _seatRepository
-            .GetAll(predicate: s => s.HallId == hallId && !s.IsDeleted)
+            .GetAll(predicate: s => s.HallId == hallId, include: _withSeatType())
             .OrderBy(s => s.SeatRow)
             .ThenBy(s => s.SeatColumn)
             .ToListAsync();
@@ -182,7 +186,7 @@ public class SeatService : ISeatService
     public List<GetSeatDTO> GetAll(LanguageType language = LanguageType.English)
     {
         var seats = _seatRepository
-            .GetAll(predicate: s => !s.IsDeleted)
+            .GetAll(include: _withSeatType())
             .ToList();
         return _mapper.Map<List<GetSeatDTO>>(seats);
     }
@@ -190,8 +194,8 @@ public class SeatService : ISeatService
  
     public async Task<PaginateDTO<GetSeatDTO>> GetPagesAsync(LanguageType language = LanguageType.English, int page = 1, int limit = 10)
     {
-        var query = _seatRepository.GetAll(predicate: s => !s.IsDeleted);
-        int count = query.Count();
+        var query = _seatRepository.GetAll(include: _withSeatType());
+        int count = await query.CountAsync();
         int pageCount = (int)Math.Ceiling((decimal)count / limit);
 
         if (page > pageCount)
@@ -229,12 +233,17 @@ public class SeatService : ISeatService
         return _mapper.Map<UpdateSeatDTO>(seat);
     }
 
+    private static Func<IQueryable<Seat>, IIncludableQueryable<Seat, object>> _withSeatType()
+    {
+        return q => q.Include(s => s.SeatType);
+    }
+
     public async Task<List<GetSeatDTO>> GetAvailableSeatsForEventAsync(int eventId)
     {
         var ev = await _eventRepository.GetAsync(eventId);
         if (ev == null) throw new NotFoundException("Event not found.");
 
-        var allSeats = await _seatRepository.GetAll(s => s.HallId == ev.HallId && !s.IsDeleted).ToListAsync();
+        var allSeats = await _seatRepository.GetAll(s => s.HallId == ev.HallId, include: _withSeatType()).ToListAsync();
 
         var reservedSeatIds = (await _reservationSeatRepository.GetActiveByEventIdAsync(eventId))
             .Select(rs => rs.SeatId)
