@@ -48,11 +48,48 @@
                     }
                     else
                     {
-                        @* booking page arrives with the seat-availability work *@
-                        <a href="#" class="custom-button mt-3 disabled" aria-disabled="true">booking opens soon</a>
+                        <a href="#seat-map" class="custom-button mt-3">choose seats</a>
                     }
                 </div>
             </div>
         </div>
+
+        @if (!Model.Event.IsSoldOut)
+        {
+            <div id="seat-map" class="row"
+                 data-event-id="@Model.Event.Id"
+                 data-authenticated="@(User.Identity?.IsAuthenticated == true ? "true" : "false")"
+                 data-login-url="@Url.Action("Login", "Account", new { returnUrl = Url.Action("Details", "Event", new { id = Model.Event.Id }) })"
+                 data-profile-url="@Url.Action("Profile", "Account")">
+                <div class="col-lg-8">
+                    <h4 class="title mt-4">Pick your seats</h4>
+                    <div class="seat-legend">
+                        <span class="available">available</span>
+                        <span class="held">held by someone</span>
+                        <span class="sold">sold</span>
+                        <span class="mine">yours</span>
+                    </div>
+                    <div class="seat-screen">stage</div>
+                    <div id="seat-grid"></div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="event-book-wrapper mt-4">
+                        <h5 class="title">Your holds</h5>
+                        <p class="text-muted" style="font-size: 13px;">A held seat is reserved for you for 10 minutes. Confirm before the timer runs out.</p>
+                        <ul id="seat-holds"></ul>
+                        <button type="button" id="seat-confirm" class="custom-button" disabled>select seats</button>
+                        <div id="seat-message" class="seat-message"></div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/user/assets/css/seatmap.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/user/assets/js/seatmap.js" asp-append-version="true"></script>
+}

@@ -21,20 +21,34 @@ public static class SeatEndpoints
         api.MapGet("/events/{eventId:int}/seats", GetSeatMap)
            .WithName("GetSeatMap");
 
-        api.MapPost("/events/{eventId:int}/holds", HoldSeat)
-           .WithName("HoldSeat")
+        // Writes use the Identity cookie, so they must not be reachable from a plain cross-site form.
+        // Requiring a custom header forces a CORS preflight, which browsers refuse cross-origin.
+        var writes = api.MapGroup("")
            .RequireAuthorization()
+           .AddEndpointFilter(RequireCustomHeader);
+
+        writes.MapPost("/events/{eventId:int}/holds", HoldSeat)
+           .WithName("HoldSeat")
            .RequireRateLimiting(HoldRateLimiting.PolicyName);
 
-        api.MapPost("/holds/{holdId:int}/confirm", ConfirmHold)
-           .WithName("ConfirmHold")
-           .RequireAuthorization();
+        writes.MapPost("/holds/{holdId:int}/confirm", ConfirmHold)
+           .WithName("ConfirmHold");
 
-        api.MapDelete("/holds/{holdId:int}", ReleaseHold)
-           .WithName("ReleaseHold")
-           .RequireAuthorization();
+        writes.MapDelete("/holds/{holdId:int}", ReleaseHold)
+           .WithName("ReleaseHold");
 
         return app;
+    }
+
+    public const string RequiredHeader = "X-Requested-With";
+
+    private static async ValueTask<object?> RequireCustomHeader(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
+    {
+        if (!context.HttpContext.Request.Headers.ContainsKey(RequiredHeader))
+        {
+            return Results.Problem(statusCode: StatusCodes.Status400BadRequest, title: $"Missing {RequiredHeader} header.");
+        }
+        return await next(context);
     }
 
     private static async Task<IResult> GetSeatMap(int eventId, ClaimsPrincipal user, IEventSeatService eventSeatService)

@@ -55,7 +55,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 - [ ] 34b. RabbitMQ: publish `SeatSold` on confirm; hosted consumer sends confirmation email.
 - [x] 35. `AddRateLimiter` fixed-window per-IP on holds → 429.
 - [x] 36. `seed-loadtest` command: 1 hall, 5,000 seats, 1 event.
-- [ ] 37. Booking page uses the API.
+- [x] 37. Booking page uses the API.
 
 ## M6 — Containers + CI
 
