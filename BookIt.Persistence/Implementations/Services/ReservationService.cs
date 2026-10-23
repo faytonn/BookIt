@@ -120,33 +120,35 @@ public class ReservationService : IReservationService
             ReservationDate = DateTime.UtcNow,
             Status = ReservationStatus.Pending,
             NumberOfTickets = dto.SeatIds.Count,
+            ReservationSeats = new List<ReservationSeat>()
         };
 
-        await _reservationRepository.CreateAsync(reservation);
-
         decimal totalAmount = 0;
-        var reservationSeats = new List<ReservationSeat>();
         foreach (var seatId in dto.SeatIds)
         {
-            var seat = await _seatRepository.GetAsync(seatId);
+            var seat = await _getSeatWithTypeAsync(seatId);
             if (seat == null)
             {
                 modelState.AddModelError("SeatIds", $"SeatId {seatId} not found.");
                 return false;
             }
+            if (seat.HallId != ev.HallId)
+            {
+                modelState.AddModelError("SeatIds", $"SeatId {seatId} does not belong to the event's hall.");
+                return false;
+            }
             decimal seatPrice = await GetSeatPriceForEventAsync(seat, ev);
             totalAmount += seatPrice;
-            var rs = new ReservationSeat
+            reservation.ReservationSeats.Add(new ReservationSeat
             {
-                ReservationId = reservation.Id,
                 SeatId = seat.Id,
                 Price = seatPrice
-            };
-            reservationSeats.Add(rs);
+            });
         }
         reservation.TotalAmount = totalAmount;
-        _reservationRepository.Update(reservation);
-        await _reservationSeatRepository.CreateRangeAsync(reservationSeats);
+
+        await _reservationRepository.CreateAsync(reservation);
+        await _reservationRepository.SaveChangesAsync();
         return true;
     }
 
@@ -164,6 +166,7 @@ public class ReservationService : IReservationService
         reservation.EventId = dto.EventId;
         reservation.Status = dto.Status;
         _reservationRepository.Update(reservation);
+        await _reservationRepository.SaveChangesAsync();
         return true;
     }
 
@@ -188,6 +191,7 @@ public class ReservationService : IReservationService
         //my softdelete is cancel here, because hard deleting does not sound ethical in this case
         reservation.Status = ReservationStatus.Cancelled;
         _reservationRepository.Update(reservation);
+        await _reservationRepository.SaveChangesAsync();
     }
 
     public async Task<bool> ConfirmReservationAsync(int id, string? note)
@@ -197,6 +201,7 @@ public class ReservationService : IReservationService
         if (reservation.Status != ReservationStatus.Pending) return false;
         reservation.Status = ReservationStatus.Confirmed;
         _reservationRepository.Update(reservation);
+        await _reservationRepository.SaveChangesAsync();
         return true;
     }
 
@@ -206,6 +211,7 @@ public class ReservationService : IReservationService
         if (reservation == null) return false;
         reservation.Status = ReservationStatus.Cancelled;
         _reservationRepository.Update(reservation);
+        await _reservationRepository.SaveChangesAsync();
         return true;
     }
 
@@ -231,8 +237,8 @@ public class ReservationService : IReservationService
 
         foreach (var seatId in seatIds)
         {
-            var seat = await _seatRepository.GetAsync(seatId);
-            if (seat == null)
+            var seat = await _getSeatWithTypeAsync(seatId);
+            if (seat == null || seat.HallId != ev.HallId)
                 return false;
             decimal seatPrice = await GetSeatPriceForEventAsync(seat, ev);
             additionalCost += seatPrice;
@@ -268,6 +274,7 @@ public class ReservationService : IReservationService
         reservation.TotalAmount -= refund;
         reservation.NumberOfTickets -= toRemove.Count;
         _reservationRepository.Update(reservation);
+        await _reservationRepository.SaveChangesAsync();
         return true;
     }
 
@@ -300,5 +307,11 @@ public class ReservationService : IReservationService
     private async Task<decimal> GetSeatPriceForEventAsync(Seat seat, Event ev)
     {
         return seat.SeatType?.DefaultPrice ?? 0m;
+    }
+
+    private async Task<Seat?> _getSeatWithTypeAsync(int seatId)
+    {
+        return await _seatRepository.GetAsync(s => s.Id == seatId,
+            include: q => q.Include(s => s.SeatType));
     }
 }
