@@ -51,7 +51,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 ## M5 — API + health
 
 - [x] 33. `GET /api/events/{id}/seats`, `POST /api/events/{id}/holds` (201/409), `POST /api/holds/{id}/confirm`.
-- [ ] 34. Health checks `/health/live`, `/health/ready` (SQL Server, RabbitMQ).
+- [x] 34. Health checks `/health/live`, `/health/ready` (SQL Server, RabbitMQ).
 - [ ] 34b. RabbitMQ: publish `SeatSold` on confirm; hosted consumer sends confirmation email.
 - [ ] 35. `AddRateLimiter` fixed-window per-IP on holds → 429.
 - [ ] 36. `seed-loadtest` command: 1 hall, 5,000 seats, 1 event.

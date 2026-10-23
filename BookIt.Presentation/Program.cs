@@ -2,8 +2,10 @@ using BookIt.Application.ServiceRegistrations;
 using BookIt.Infrastracture;
 using BookIt.Persistence.DataInitializers;
 using BookIt.Persistence.ServiceRegistrations;
+using BookIt.Persistence.Contexts;
 using BookIt.Presentation.Api;
 using BookIt.Presentation.Filters;
+using BookIt.Presentation.Health;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
 
@@ -35,6 +37,9 @@ public class Program
         builder.Services.AddInfrastractureServices();
 
         builder.Services.AddProblemDetails();
+
+        builder.Services.AddHealthChecks()
+            .AddDbContextCheck<AppDbContext>("sqlserver", tags: [HealthEndpoints.ReadyTag]);
 
         // API callers get status codes, browser pages still get the login redirect
         builder.Services.ConfigureApplicationCookie(options =>
@@ -97,6 +102,7 @@ public class Program
         app.UseAuthorization();
 
 
+        app.MapHealthEndpoints();
         app.MapSeatApi();
 
         app.MapControllerRoute(
