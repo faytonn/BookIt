@@ -44,7 +44,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 - [x] 27. `EventSeat` entity (`EventId`, `SeatId`, `Status`, `HeldUntil`, `HeldByUserId?`, `RowVersion`), config with unique `(EventId, SeatId)`, DbSet, repo.
 - [x] 28. Migration: create table, backfill per (event, seat in hall), drop `Seat.IsReserved`.
 - [x] 29. `EventSeatService`: `HoldAsync` / `ConfirmAsync` / `ReleaseAsync`; `DbUpdateConcurrencyException` → Conflict.
-- [ ] 30. `HoldExpiryService : BackgroundService`, every minute.
+- [x] 30. `HoldExpiryService : BackgroundService`, every minute.
 - [ ] 31. Admin reservation flow + `EventController.Create` use `EventSeat`.
 - [ ] 32. `BookIt.Tests` (xUnit + Testcontainers.MsSql): parallel-hold test + rule tests.
 

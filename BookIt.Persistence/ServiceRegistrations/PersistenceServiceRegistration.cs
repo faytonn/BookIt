@@ -6,6 +6,7 @@ using BookIt.Domain.Entities;
 using BookIt.Infrastracture.External;
 using BookIt.Infrastracture.Implementations.Services;
 using BookIt.Infrastracture.Localizers;
+using BookIt.Persistence.BackgroundServices;
 using BookIt.Persistence.Contexts;
 using BookIt.Persistence.DataInitializers;
 using BookIt.Persistence.Helpers;
@@ -38,6 +39,8 @@ public static class PersistenceServiceRegistration
 
         _addRepositories(services);
         _addServices(services);
+
+        services.AddHostedService<HoldExpiryService>();
 
         services.AddIdentity<ApplicationUser, IdentityRole>(options =>
         {
