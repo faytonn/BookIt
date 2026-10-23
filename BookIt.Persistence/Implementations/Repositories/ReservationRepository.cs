@@ -3,6 +3,7 @@ using BookIt.Domain.Entities;
 using BookIt.Persistence.Contexts;
 using BookIt.Persistence.Implementations.Repositories.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace BookIt.Persistence.Implementations.Repositories;
 
@@ -17,14 +18,35 @@ public class ReservationRepository : Repository<Reservation>, IReservationReposi
         return await GetAll().CountAsync();
     }
 
+    public async Task<Reservation?> GetWithDetailsAsync(int id)
+    {
+        return await GetAsync(r => r.Id == id, include: _withDetails());
+    }
+
+    public List<Reservation> GetAllWithDetails()
+    {
+        return GetAll(include: _withDetails())
+            .OrderByDescending(r => r.ReservationDate)
+            .ToList();
+    }
+
     public async Task<List<Reservation>> GetPageAsync(int page, int limit)
     {
-        return await Paginate(GetAll(), limit, page).ToListAsync();
+        var query = GetAll(include: _withDetails()).OrderByDescending(r => r.ReservationDate);
+        return await Paginate(query, limit, page).ToListAsync();
     }
 
     public async Task<List<Reservation>> GetByUserAsync(string userId)
     {
-        return await GetAll(r => r.UserId == userId)
+        return await GetAll(r => r.UserId == userId, include: _withDetails())
+            .OrderByDescending(r => r.ReservationDate)
             .ToListAsync();
+    }
+
+    private static Func<IQueryable<Reservation>, IIncludableQueryable<Reservation, object>> _withDetails()
+    {
+        return q => q.Include(r => r.Event)
+                     .Include(r => r.ReservationSeats)!
+                     .ThenInclude(rs => rs.Seat)!;
     }
 }

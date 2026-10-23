@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookIt.Application.DTOs.Common;
 using BookIt.Application.DTOs.ReservationDTO;
+using BookIt.Application.Exceptions;
 using BookIt.Application.Interfaces.Repositories;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Domain.Entities;
@@ -29,60 +30,42 @@ public class ReservationService : IReservationService
 
     public async Task<GetReservationDTO> GetAsync(int id, LanguageType language = LanguageType.English)
     {
-        var reservation = await _reservationRepository.GetAsync(id);
+        var reservation = await _reservationRepository.GetWithDetailsAsync(id);
         if (reservation == null)
-            return null;
+            throw new NotFoundException("Reservation not found.");
 
-        var dto = _mapper.Map<GetReservationDTO>(reservation);
-        dto.Seats = await MapReservationSeats(reservation.Id);
-        return dto;
+        return _mapper.Map<GetReservationDTO>(reservation);
     }
 
     public List<GetReservationDTO> GetAll(LanguageType language = LanguageType.English)
     {
-        var reservations = _reservationRepository.GetAll();
-        var dtos = new List<GetReservationDTO>();
-        foreach (var r in reservations)
-        {
-            var dto = _mapper.Map<GetReservationDTO>(r);
-            dto.Seats = MapReservationSeats(r.Id).Result;
-            dtos.Add(dto);
-        }
-        return dtos;
+        var reservations = _reservationRepository.GetAllWithDetails();
+        return _mapper.Map<List<GetReservationDTO>>(reservations);
     }
 
     public async Task<PaginateDTO<GetReservationDTO>> GetPagesAsync(LanguageType language = LanguageType.English, int page = 1, int limit = 10)
     {
-        var reservations = await _reservationRepository.GetPageAsync(page, limit);
         var totalCount = await _reservationRepository.CountAsync();
-        
-        var dtos = new List<GetReservationDTO>();
-        foreach (var r in reservations)
-        {
-            var dto = _mapper.Map<GetReservationDTO>(r);
-            dto.Seats = await MapReservationSeats(r.Id);
-            dtos.Add(dto);
-        }
+        var pageCount = (int)Math.Ceiling((decimal)totalCount / limit);
+        if (page > pageCount) page = pageCount;
+        if (page < 1) page = 1;
+
+        var reservations = await _reservationRepository.GetPageAsync(page, limit);
 
         return new PaginateDTO<GetReservationDTO>
         {
-            Items = dtos,
+            Items = _mapper.Map<List<GetReservationDTO>>(reservations),
             TotalCount = totalCount,
             CurrentPage = page,
-            PageSize = limit
+            PageSize = limit,
+            PageCount = pageCount
         };
     }
+
     public async Task<List<GetReservationDTO>> GetByUserAsync(string userId)
     {
         var reservations = await _reservationRepository.GetByUserAsync(userId);
-        var dtos = new List<GetReservationDTO>();
-        foreach (var r in reservations)
-        {
-            var dto = _mapper.Map<GetReservationDTO>(r);
-            dto.Seats = await MapReservationSeats(r.Id);
-            dtos.Add(dto);
-        }
-        return dtos;
+        return _mapper.Map<List<GetReservationDTO>>(reservations);
     }
 
 
@@ -173,7 +156,8 @@ public class ReservationService : IReservationService
     public async Task<UpdateReservationDTO> GetUpdatedDtoAsync(int id)
     {
         var reservation = await _reservationRepository.GetAsync(id);
-        if (reservation == null) return null;
+        if (reservation == null)
+            throw new NotFoundException("Reservation not found.");
         var dto = new UpdateReservationDTO
         {
             Id = reservation.Id,
@@ -276,26 +260,6 @@ public class ReservationService : IReservationService
         _reservationRepository.Update(reservation);
         await _reservationRepository.SaveChangesAsync();
         return true;
-    }
-
-    private async Task<List<GetReservationSeatDTO>> MapReservationSeats(int reservationId)
-    {
-        var reservationSeats = await _reservationSeatRepository.GetByReservationIdAsync(reservationId);
-        var seatDtos = new List<GetReservationSeatDTO>();
-        foreach (var rSeat in reservationSeats)
-        {
-            var seat = rSeat.Seat;
-            if (seat == null) continue;
-            seatDtos.Add(new GetReservationSeatDTO
-            {
-                SeatId = seat.Id,
-                SeatName = seat.SeatName,
-                Row = seat.SeatRow,
-                Column = seat.SeatColumn,
-                Price = rSeat.Price
-            });
-        }
-        return seatDtos;
     }
 
     private async Task<bool> IsSeatFreeForEventAsync(int seatId, int eventId)
