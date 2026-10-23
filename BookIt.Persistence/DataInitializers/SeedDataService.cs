@@ -65,8 +65,8 @@ public static class SeedDataService
 
 
             new SettingDetail { Id = 19, Value = "bookit.aze@gmail.com", SettingId = 7, LanguageId = 1 },
-            new SettingDetail { Id = 20, Value = "bookit.aze@gmail.com/", SettingId = 7, LanguageId = 2 },
-            new SettingDetail { Id = 21, Value = "bookit.aze@gmail.com/", SettingId = 7, LanguageId = 3 }
+            new SettingDetail { Id = 20, Value = "bookit.aze@gmail.com", SettingId = 7, LanguageId = 2 },
+            new SettingDetail { Id = 21, Value = "bookit.aze@gmail.com", SettingId = 7, LanguageId = 3 }
             );
     }
 
@@ -79,8 +79,8 @@ public static class SeedDataService
             Id = 1,
             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786112/bookit./HitMeHardAndSoft.jpg",
             IsDeleted = false,
-            CreatedAt = DateTime.Now,
-            UpdatedAt = DateTime.MinValue,
+            CreatedAt = new DateTime(2025, 2, 6, 0, 0, 0, DateTimeKind.Utc),
+            UpdatedAt = new DateTime(2025, 2, 6, 0, 0, 0, DateTimeKind.Utc),
             CreatedBy = "Default",
             UpdatedBy = "Default"
         },
@@ -90,8 +90,8 @@ public static class SeedDataService
             Id = 2,
             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786345/bookit./KendrickLamar.webp",
             IsDeleted = false,
-            CreatedAt = DateTime.Now,
-            UpdatedAt = DateTime.MinValue,
+            CreatedAt = new DateTime(2025, 2, 6, 0, 0, 0, DateTimeKind.Utc),
+            UpdatedAt = new DateTime(2025, 2, 6, 0, 0, 0, DateTimeKind.Utc),
             CreatedBy = "Default",
             UpdatedBy = "Default"
         },
@@ -101,8 +101,8 @@ public static class SeedDataService
             Id = 3,
             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786457/bookit./paddington3.jpg",
             IsDeleted = false,
-            CreatedAt = DateTime.Now,
-            UpdatedAt = DateTime.MinValue,
+            CreatedAt = new DateTime(2025, 2, 6, 0, 0, 0, DateTimeKind.Utc),
+            UpdatedAt = new DateTime(2025, 2, 6, 0, 0, 0, DateTimeKind.Utc),
             CreatedBy = "Default",
             UpdatedBy = "Default"
         }

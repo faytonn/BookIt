@@ -638,31 +638,31 @@ namespace BookIt.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 5, 18, 23, 4, 26, 627, DateTimeKind.Local).AddTicks(3721),
+                            CreatedAt = new DateTime(2025, 2, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786112/bookit./HitMeHardAndSoft.jpg",
                             IsDeleted = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2025, 2, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedBy = "Default"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 5, 18, 23, 4, 26, 627, DateTimeKind.Local).AddTicks(3808),
+                            CreatedAt = new DateTime(2025, 2, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786345/bookit./KendrickLamar.webp",
                             IsDeleted = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2025, 2, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedBy = "Default"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 5, 18, 23, 4, 26, 627, DateTimeKind.Local).AddTicks(3811),
+                            CreatedAt = new DateTime(2025, 2, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             CreatedBy = "Default",
                             ImagePath = "https://res.cloudinary.com/di3ourpee/image/upload/v1738786457/bookit./paddington3.jpg",
                             IsDeleted = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(2025, 2, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedBy = "Default"
                         });
                 });
@@ -1377,14 +1377,14 @@ namespace BookIt.Persistence.Migrations
                             Id = 20,
                             LanguageId = 2,
                             SettingId = 7,
-                            Value = "bookit.aze@gmail.com/"
+                            Value = "bookit.aze@gmail.com"
                         },
                         new
                         {
                             Id = 21,
                             LanguageId = 3,
                             SettingId = 7,
-                            Value = "bookit.aze@gmail.com/"
+                            Value = "bookit.aze@gmail.com"
                         });
                 });
 

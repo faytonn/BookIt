@@ -29,7 +29,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 - [x] 18. Reservation queries: single query with includes. (23)
 - [ ] 19. `SeatService`: include `SeatType`; `BulkCreate` loads existing seats once. (24, 36)
 - [ ] 20. `CategoryService`: fix uniqueness check. (25)
-- [ ] 21. Deterministic seed dates; fix seeded email values. (26, 38)
+- [x] 21. Deterministic seed dates; fix seeded email values. (26, 38)
 - [ ] 22. `CategoryController.Delete` → POST + antiforgery; `SeatController.Delete` antiforgery; `Category/Index.cshtml` forms. (30)
 
 ## M3 — Public site
