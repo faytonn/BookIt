@@ -80,6 +80,15 @@ public class Program
             var dataInitializer = scope.ServiceProvider.GetRequiredService<DbContextInitializer>();
 
             await dataInitializer.InitDatabaseAsync();
+
+            // `dotnet run -- seed-loadtest`: create the 5,000-seat event + user pool and exit
+            if (args.Contains("seed-loadtest"))
+            {
+                var seeder = scope.ServiceProvider.GetRequiredService<LoadTestSeeder>();
+                var eventId = await seeder.SeedAsync();
+                Console.WriteLine($"Load-test event id: {eventId}");
+                return;
+            }
         }
 
         // Configure the HTTP request pipeline.
