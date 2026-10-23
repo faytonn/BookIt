@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using BookIt.Application.DTOs.EventDTO;
+using BookIt.Application.DTOs.HallDTO;
 using BookIt.Application.Interfaces.Services;
 using BookIt.Application.Interfaces.Services.External;
 using BookIt.Domain.Enums;
+using BookIt.Persistence.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -38,8 +40,7 @@ public class EventController : Controller
     public IActionResult Create()
     {
         var model = new CreateEventDTO();
-        ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name");
-        ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name");
+        _populateDropdowns();
         return View(model);
     }
 
@@ -47,8 +48,7 @@ public class EventController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreateEventDTO dto)
     {
-        ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
-        ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
+        _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
 
         if (!ModelState.IsValid)
         {
@@ -61,6 +61,11 @@ public class EventController : Controller
 
         if (dto.ImageFile != null)
         {
+            if (!_isValidImage(dto.ImageFile))
+            {
+                _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
+                return View(dto);
+            }
             var uploadUrl = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
             dto.ImagePath = uploadUrl;
         }
@@ -91,9 +96,7 @@ public class EventController : Controller
         if (dto == null)
             return NotFound();
 
-        ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
-        ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
-        ViewBag.Halls = _hallService.GetAll().Where(h => h.LocationId == dto.GeneralLocationId).ToList();
+        _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
 
         return View(dto);
     }
@@ -104,14 +107,17 @@ public class EventController : Controller
     {
         if (!ModelState.IsValid)
         {
-            ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
-            ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
-            ViewBag.Halls = _hallService.GetAll().Where(h => h.LocationId == dto.GeneralLocationId).ToList();
+            _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
             return View(dto);
         }
 
         if (dto.ImageFile != null)
         {
+            if (!_isValidImage(dto.ImageFile))
+            {
+                _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
+                return View(dto);
+            }
             var uploadUrl = await _cloudinaryService.FileCreateAsync(dto.ImageFile);
             dto.ImagePath = uploadUrl;
         }
@@ -119,9 +125,7 @@ public class EventController : Controller
         var result = await _eventService.UpdateAsync(dto, ModelState);
         if (!result)
         {
-            ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", dto.GeneralLocationId);
-            ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", dto.CategoryId);
-            ViewBag.Halls = _hallService.GetAll().Where(h => h.LocationId == dto.GeneralLocationId).ToList();
+            _populateDropdowns(dto.GeneralLocationId, dto.CategoryId);
             return View(dto);
         }
 
@@ -170,13 +174,28 @@ public class EventController : Controller
         return Json(halls);
     }
 
-    private void PopulateDropdowns()
+    private bool _isValidImage(IFormFile file)
     {
-        var locations = _locationService.GetAll()
-            .Select(l => new SelectListItem { Value = l.Id.ToString(), Text = l.Name })
-            .ToList();
-        ViewBag.Locations = locations;
+        if (!file.CheckType("image"))
+        {
+            ModelState.AddModelError("ImageFile", "Only image files are allowed.");
+            return false;
+        }
+        if (!file.CheckSize(2))
+        {
+            ModelState.AddModelError("ImageFile", "The image must be 2 MB or smaller.");
+            return false;
+        }
+        return true;
+    }
 
+    private void _populateDropdowns(int? selectedLocationId = null, int? selectedCategoryId = null)
+    {
+        ViewData["GeneralLocations"] = new SelectList(_locationService.GetAll(), "Id", "Name", selectedLocationId);
+        ViewData["Categories"] = new SelectList(_categoryService.GetAll(LanguageType.English), "Id", "Name", selectedCategoryId);
+        ViewBag.Halls = selectedLocationId.HasValue
+            ? _hallService.GetAll().Where(h => h.LocationId == selectedLocationId.Value).ToList()
+            : new List<GetHallDTO>();
     }
 }
 

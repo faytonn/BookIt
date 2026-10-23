@@ -33,19 +33,18 @@ public class CloudinaryService : ICloudinaryService
 
     public async Task<string> FileCreateAsync(IFormFile file)
     {
-        string fileName = string.Concat(Guid.NewGuid(), file.FileName.Substring(file.FileName.LastIndexOf('.')));
+        if (file.Length == 0)
+            throw new ArgumentException("The uploaded file is empty.", nameof(file));
 
-        var uploadResult = new ImageUploadResult();
-        if (file.Length > 0)
+        string fileName = string.Concat(Guid.NewGuid(), Path.GetExtension(file.FileName));
+
+        using var stream = file.OpenReadStream();
+        var uploadParams = new ImageUploadParams
         {
-            using var stream = file.OpenReadStream();
-            var uploadParams = new ImageUploadParams
-            {
-                File = new FileDescription(fileName, stream),
-                AssetFolder = "bookit."
-            };
-            uploadResult = await _cloudinary.UploadAsync(uploadParams);
-        }
+            File = new FileDescription(fileName, stream),
+            AssetFolder = "bookit."
+        };
+        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
         string url = uploadResult.SecureUrl.ToString();
 
         return url;
