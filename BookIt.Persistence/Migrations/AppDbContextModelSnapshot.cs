@@ -984,11 +984,12 @@ namespace BookIt.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReservationId");
-
                     b.HasIndex("SeatId");
 
-                    b.ToTable("ReservationSeat");
+                    b.HasIndex("ReservationId", "SeatId")
+                        .IsUnique();
+
+                    b.ToTable("ReservationSeats", (string)null);
                 });
 
             modelBuilder.Entity("BookIt.Domain.Entities.Review", b =>
@@ -1789,7 +1790,7 @@ namespace BookIt.Persistence.Migrations
                     b.HasOne("BookIt.Domain.Entities.Seat", "Seat")
                         .WithMany("ReservationSeats")
                         .HasForeignKey("SeatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Reservation");
