@@ -19,13 +19,13 @@
         </div>
         <div class="card-body">
             <form asp-action="Create" method="post" id="reservationForm">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
 
                 <input type="hidden" asp-for="UserId" />
 
                 <div class="form-group">
                     <label asp-for="EventId" class="control-label">Event</label>
-                    <select asp-for="EventId" class="form-control" asp-items="@(new SelectList(ViewBag.Events, "Id", "Title"))">
+                    <select asp-for="EventId" class="form-control" asp-items="ViewBag.Events">
                         <option value="">-- Select Event --</option>
                     </select>
                     <span asp-validation-for="EventId" class="text-danger"></span>
@@ -33,8 +33,7 @@
 
                 <div class="form-group">
                     <label asp-for="SeatIds" class="control-label">Select Seats</label>
-                    <select asp-for="SeatIds" class="form-control" multiple size="5" id="seatSelect">
-                        <option value="">-- Select Seats --</option>
+                    <select asp-for="SeatIds" class="form-control" multiple size="8" id="seatSelect">
                     </select>
                     <small class="form-text text-muted">Hold Ctrl (Windows) or Command (Mac) to select multiple seats</small>
                     <span asp-validation-for="SeatIds" class="text-danger"></span>
@@ -60,7 +59,6 @@
                     $.get('/Admin/Reservation/GetAvailableSeats', { eventId: eventId }, function (seats) {
                         var seatSelect = $('#seatSelect');
                         seatSelect.empty();
-                        seatSelect.append($('<option></option>').val('').text('-- Select Seats --'));
                         seats.forEach(function (seat) {
                             seatSelect.append($('<option></option>')
                                 .val(seat.id)
@@ -69,55 +67,12 @@
                     });
                 } else {
                     $('#seatSelect').empty();
-                    $('#seatSelect').append($('<option></option>').val('').text('-- Select Seats --'));
                 }
             });
 
-            $('#reservationForm').submit(function (e) {
-                e.preventDefault();
-                
-                // Get selected seat IDs
-                var selectedSeats = $('#seatSelect').val();
-                if (!selectedSeats || selectedSeats.length === 0) {
-                    alert('Please select at least one seat.');
-                    return;
-                }
-
-                // Create form data
-                var formData = new FormData(this);
-                formData.delete('SeatIds'); // Remove existing SeatIds
-                
-                // Add each selected seat ID
-                selectedSeats.forEach(function(seatId) {
-                    formData.append('SeatIds', seatId);
-                });
-
-                // Submit the form
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        window.location.href = '/Admin/Reservation/Index';
-                    },
-                    error: function(xhr) {
-                        if (xhr.responseJSON) {
-                            var errors = xhr.responseJSON;
-                            var errorMessage = '';
-                            for (var key in errors) {
-                                if (errors.hasOwnProperty(key)) {
-                                    errorMessage += errors[key].join('\n') + '\n';
-                                }
-                            }
-                            alert(errorMessage);
-                        } else {
-                            alert('An error occurred while creating the reservation.');
-                        }
-                    }
-                });
-            });
+            if ($('#EventId').val()) {
+                $('#EventId').trigger('change');
+            }
         });
     </script>
 } 

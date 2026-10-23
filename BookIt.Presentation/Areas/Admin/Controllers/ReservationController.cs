@@ -209,18 +209,21 @@ public class ReservationController : Controller
 
     private void PopulateEventsViewBag()
     {
-        ViewBag.Events = new SelectList(_eventService.GetAll() ?? Enumerable.Empty<object>(), "Id", "Title");
+        ViewBag.Events = _eventService.GetAll()
+            .Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Title })
+            .ToList();
     }
 
     private void PopulateSeatsViewBag()
     {
-        ViewBag.Seats = new SelectList(new List<object>());
+        ViewBag.Seats = new List<SelectListItem>();
     }
 
     private void PopulateStatusesViewBag()
     {
-        ViewBag.Statuses = new SelectList(Enum.GetValues(typeof(ReservationStatus))
+        ViewBag.Statuses = Enum.GetValues(typeof(ReservationStatus))
             .Cast<ReservationStatus>()
-            .Select(s => new { Id = (int)s, Name = s.ToString() }), "Id", "Name");
+            .Select(s => new SelectListItem { Value = ((int)s).ToString(), Text = s.ToString() })
+            .ToList();
     }
 } 

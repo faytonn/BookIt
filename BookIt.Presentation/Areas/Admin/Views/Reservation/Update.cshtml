@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label asp-for="EventId" class="control-label">Event</label>
-                    <select asp-for="EventId" class="form-control" asp-items="@(new SelectList(ViewBag.Events, "Id", "Title"))">
+                    <select asp-for="EventId" class="form-control" asp-items="ViewBag.Events">
                         <option value="">-- Select Event --</option>
                     </select>
                     <span asp-validation-for="EventId" class="text-danger"></span>
@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <label asp-for="Status" class="control-label">Status</label>
-                    <select asp-for="Status" class="form-control" asp-items="@(new SelectList(ViewBag.Statuses, "Id", "Name"))">
+                    <select asp-for="Status" class="form-control" asp-items="ViewBag.Statuses">
                         <option value="">-- Select Status --</option>
                     </select>
                     <span asp-validation-for="Status" class="text-danger"></span>

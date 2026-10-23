@@ -54,16 +54,23 @@ public class DbContextInitializer
         var existUser = await _userManager.FindByNameAsync(admin.Username);
 
         if (existUser != null)
+        {
+            // Older seeds created the admin without a confirmed email, which blocks login.
+            if (!existUser.EmailConfirmed)
+            {
+                existUser.EmailConfirmed = true;
+                await _userManager.UpdateAsync(existUser);
+            }
             return;
+        }
 
         var newUser = new ApplicationUser
         {
             UserName = admin.Username,
             Email = admin.Email,
+            EmailConfirmed = true,
             FirstName = admin.Firstname,
             LastName = admin.Lastname,
-            PhoneNumber = "502107941",
-            Address = "Azerbaijan/Baku",
             IsActive = true,
             IsSubscribed = false
         };
