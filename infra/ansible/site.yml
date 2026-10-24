@@ -1,0 +1,10 @@
+---
+# Full VM provisioning + deploy. `--tags deploy` for a code-only rollout.
+- name: Provision and deploy BookIt
+  hosts: bookit
+  become: true
+  roles:
+    - { role: base, tags: [base] }
+    - { role: docker, tags: [docker] }
+    - { role: caddy, tags: [caddy] }
+    - { role: deploy, tags: [deploy] }

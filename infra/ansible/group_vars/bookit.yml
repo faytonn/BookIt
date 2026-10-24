@@ -1,0 +1,15 @@
+---
+deploy_user: deploy
+app_dir: /opt/bookit
+app_image: ghcr.io/faytonn/bookit
+app_image_tag: latest
+app_port: 8080
+
+# Hostname Caddy serves and gets a Let's Encrypt cert for. sslip.io resolves <ip>.sslip.io to <ip>, no domain needed.
+app_domain: "{{ inventory_hostname }}.sslip.io"
+caddy_email: ""
+
+# Filled copy of /.env.example. Copied to {{ app_dir }}/.env with mode 0600. Gitignored.
+app_env_file: "{{ playbook_dir }}/.env.prod"
+
+swap_size_mb: 2048

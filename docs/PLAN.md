@@ -67,7 +67,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 ## M7 — Infra
 
 - [x] 42. `infra/terraform/`: e2-medium Debian 12, `europe-west3`, static IP, firewall, variables, outputs.
-- [ ] 43. `infra/ansible/`: roles `base`, `docker`, `deploy`, `caddy`; idempotent.
+- [x] 43. `infra/ansible/`: roles `base`, `docker`, `deploy`, `caddy`; idempotent.
 - [ ] 44. `.github/workflows/deploy.yml` (`workflow_dispatch`).
 
 ## M8 — Observability

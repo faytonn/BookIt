@@ -1,0 +1,47 @@
+---
+- name: Create app directory
+  ansible.builtin.file:
+    path: "{{ app_dir }}"
+    state: directory
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: "0750"
+
+- name: Render compose file
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ app_dir }}/docker-compose.yml"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: "0640"
+
+- name: Copy environment file
+  ansible.builtin.copy:
+    src: "{{ app_env_file }}"
+    dest: "{{ app_dir }}/.env"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: "0600"
+
+# Pulls the tag, recreates only containers whose image or config changed.
+- name: Pull images and start the stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_dir }}"
+    state: present
+    pull: always
+    remove_orphans: true
+
+- name: Wait for the app to be ready
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ app_port }}/health/ready"
+    status_code: 200
+  register: deploy_ready
+  until: deploy_ready.status == 200
+  retries: 36
+  delay: 5
+
+- name: Remove dangling images from previous releases
+  community.docker.docker_prune:
+    images: true
+    images_filters:
+      dangling: true

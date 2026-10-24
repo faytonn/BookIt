@@ -1,0 +1,17 @@
+# Managed by Ansible. TLS from Let's Encrypt, automatic.
+{% if caddy_email %}
+{
+    email {{ caddy_email }}
+}
+{% endif %}
+
+{{ app_domain }} {
+    encode gzip
+    reverse_proxy 127.0.0.1:{{ app_port }}
+
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy strict-origin-when-cross-origin
+        -Server
+    }
+}
