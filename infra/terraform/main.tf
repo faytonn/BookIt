@@ -97,3 +97,42 @@ resource "google_compute_instance" "vm" {
     app = var.name
   }
 }
+
+# ---- CI deploy path: GitHub Actions reaches port 22 through IAP TCP forwarding, never from the internet ----
+
+resource "google_project_service" "iap" {
+  service            = "iap.googleapis.com"
+  disable_on_destroy = false
+}
+
+# 35.235.240.0/20 is Google's fixed IAP forwarding range.
+resource "google_compute_firewall" "iap_ssh" {
+  name    = "${var.name}-allow-iap-ssh"
+  network = google_compute_network.vpc.id
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["35.235.240.0/20"]
+  target_tags   = ["${var.name}-vm"]
+}
+
+# Identity the deploy workflow uses. Can open an IAP tunnel and read instance metadata, nothing else.
+resource "google_service_account" "deployer" {
+  account_id   = "${var.name}-deployer"
+  display_name = "${var.name} GitHub Actions deployer"
+}
+
+resource "google_project_iam_member" "deployer_iap" {
+  project = var.project_id
+  role    = "roles/iap.tunnelResourceAccessor"
+  member  = "serviceAccount:${google_service_account.deployer.email}"
+}
+
+resource "google_project_iam_member" "deployer_compute_viewer" {
+  project = var.project_id
+  role    = "roles/compute.viewer"
+  member  = "serviceAccount:${google_service_account.deployer.email}"
+}

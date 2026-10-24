@@ -11,3 +11,12 @@ output "ansible_inventory" {
   description = "Paste into infra/ansible/inventory.ini."
   value       = "[bookit]\n${google_compute_address.public_ip.address} ansible_user=${var.ssh_user} ansible_ssh_private_key_file=~/.ssh/bookit"
 }
+
+output "vm_name" {
+  value = google_compute_instance.vm.name
+}
+
+output "deployer_service_account" {
+  description = "Create a key for GitHub Actions: gcloud iam service-accounts keys create key.json --iam-account=<this>"
+  value       = google_service_account.deployer.email
+}

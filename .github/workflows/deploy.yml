@@ -1,0 +1,96 @@
+name: Deploy
+
+# Manual only. Picks an image tag already pushed by ci.yml (latest or sha-<commit>) and rolls it out.
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Image tag to deploy (latest or sha-xxxxxxx)"
+        type: string
+        default: latest
+      full_provision:
+        description: "Run all roles (base, docker, caddy), not only deploy"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Never two deploys at once; a second click waits for the first to finish.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  GCP_ZONE: europe-west3-a
+  VM_NAME: bookit-vm
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.image_tag }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Ansible
+        run: |
+          pip install --quiet "ansible>=10,<12"
+          ansible-galaxy collection install -r infra/ansible/requirements.yml
+
+      # Host is the instance name: the ProxyCommand tunnels to it through IAP, so CI needs no public port 22.
+      - name: Write SSH key, env file and inventory
+        env:
+          VM_SSH_KEY: ${{ secrets.VM_SSH_KEY }}
+          PROD_ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$VM_SSH_KEY" > ~/.ssh/bookit
+          chmod 600 ~/.ssh/bookit
+          printf '%s\n' "$PROD_ENV_FILE" > infra/ansible/.env.prod
+          PROXY="gcloud compute start-iap-tunnel %h 22 --listen-on-stdin --project=$GCP_PROJECT_ID --zone=$GCP_ZONE --verbosity=warning"
+          {
+            echo "[bookit]"
+            echo "$VM_NAME ansible_user=deploy ansible_ssh_private_key_file=~/.ssh/bookit ansible_ssh_common_args='-o ProxyCommand=\"$PROXY\"'"
+          } > infra/ansible/inventory.ini
+
+      # Repository variable APP_DOMAIN wins; otherwise <static-ip>.sslip.io
+      - name: Resolve public hostname
+        env:
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          APP_DOMAIN_VAR: ${{ vars.APP_DOMAIN }}
+        run: |
+          if [ -n "$APP_DOMAIN_VAR" ]; then
+            echo "APP_DOMAIN=$APP_DOMAIN_VAR" >> "$GITHUB_ENV"
+          else
+            IP=$(gcloud compute instances describe "$VM_NAME" --project="$GCP_PROJECT_ID" --zone="$GCP_ZONE" \
+                   --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+            echo "APP_DOMAIN=$IP.sslip.io" >> "$GITHUB_ENV"
+          fi
+
+      - name: Run Ansible
+        working-directory: infra/ansible
+        env:
+          ANSIBLE_FORCE_COLOR: "1"
+          IMAGE_TAG: ${{ inputs.image_tag }}
+          FULL_PROVISION: ${{ inputs.full_provision }}
+        run: |
+          TAGS=()
+          if [ "$FULL_PROVISION" != "true" ]; then TAGS=(--tags deploy); fi
+          ansible-playbook site.yml "${TAGS[@]}" \
+            -e "app_image_tag=$IMAGE_TAG" \
+            -e "app_domain=$APP_DOMAIN"
+
+      - name: Smoke test
+        run: curl --fail --silent --show-error --retry 5 --retry-delay 5 "https://$APP_DOMAIN/health/ready"
