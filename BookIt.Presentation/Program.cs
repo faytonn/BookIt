@@ -1,4 +1,4 @@
-using BookIt.Application.ServiceRegistrations;
+﻿using BookIt.Application.ServiceRegistrations;
 using BookIt.Infrastracture;
 using BookIt.Persistence.DataInitializers;
 using BookIt.Persistence.ServiceRegistrations;
@@ -80,6 +80,14 @@ public class Program
             var dataInitializer = scope.ServiceProvider.GetRequiredService<DbContextInitializer>();
 
             await dataInitializer.InitDatabaseAsync();
+
+            // `dotnet BookIt.Presentation.dll migrate`: the compose `migrator` service applies
+            // migrations + seeds and exits, so the web container never races another replica
+            if (args.Contains("migrate"))
+            {
+                app.Logger.LogInformation("Migrations applied; exiting.");
+                return;
+            }
 
             // `dotnet run -- seed-loadtest`: create the 5,000-seat event + user pool and exit
             if (args.Contains("seed-loadtest"))

@@ -60,7 +60,7 @@ Decisions: RabbitMQ added with one real use (SeatSold → confirmation email); T
 ## M6 — Containers + CI
 
 - [x] 38. Multi-stage `Dockerfile`, non-root, `HEALTHCHECK`, `.dockerignore`.
-- [ ] 39. `docker-compose.yml`: app + SQL Server + RabbitMQ, healthchecks, `migrator` one-off service.
+- [x] 39. `docker-compose.yml`: app + SQL Server + RabbitMQ, healthchecks, `migrator` one-off service.
 - [ ] 40. `.github/workflows/ci.yml`: build/test, gitleaks, docker build, Trivy, push to `ghcr.io` on main; least-privilege `permissions`, `concurrency`.
 - [ ] 41. README badge + quick-start.
 

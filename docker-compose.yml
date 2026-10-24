@@ -1,0 +1,68 @@
+# Local/VM stack: SQL Server + RabbitMQ + one-off migrator + web app.
+# Copy .env.example to .env first. `docker compose up -d --build`.
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    volumes:
+      - mssql-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' -b || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RabbitMq__User}
+      RABBITMQ_DEFAULT_PASS: ${RabbitMq__Password}
+    ports:
+      - "127.0.0.1:15672:15672"   # management UI, loopback only
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  # Runs migrations + seed once and exits; app waits for it to finish successfully.
+  migrator:
+    build: .
+    image: ${APP_IMAGE:-bookit:local}
+    env_file: .env
+    environment:
+      RabbitMq__Host: ""          # no broker needed just to migrate
+    command: ["migrate"]
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    restart: "no"
+
+  app:
+    build: .
+    image: ${APP_IMAGE:-bookit:local}
+    env_file: .env
+    ports:
+      - "${APP_PORT:-8080}:8080"   # host port; override with APP_PORT in .env
+    volumes:
+      - dp-keys:/home/app/.aspnet/DataProtection-Keys
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mssql-data:
+  rabbitmq-data:
+  dp-keys:

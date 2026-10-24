@@ -26,6 +26,9 @@ RUN apt-get update \
 
 COPY --from=build /app/publish .
 
+# data-protection keys (auth cookies) live here; compose mounts a volume so logins survive restarts
+RUN mkdir -p /home/app/.aspnet/DataProtection-Keys && chown -R app:app /home/app/.aspnet
+
 # `app` (uid 1654) ships with the aspnet image; port 8080 needs no root
 USER app
 ENV ASPNETCORE_HTTP_PORTS=8080 \
