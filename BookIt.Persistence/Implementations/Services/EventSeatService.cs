@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BookIt.Application.DTOs.EventSeatDTO;
 using BookIt.Application.Exceptions;
+using BookIt.Application.Interfaces.Messaging;
 using BookIt.Application.Interfaces.Repositories;
 using BookIt.Application.Interfaces.Services;
+using BookIt.Application.Messaging;
 using BookIt.Domain.Entities;
 using BookIt.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +17,7 @@ public class EventSeatService : IEventSeatService
     private readonly IEventRepository _eventRepository;
     private readonly ISeatRepository _seatRepository;
     private readonly IReservationRepository _reservationRepository;
+    private readonly IMessagePublisher _messagePublisher;
     private readonly IMapper _mapper;
 
     public EventSeatService(
@@ -22,12 +25,14 @@ public class EventSeatService : IEventSeatService
         IEventRepository eventRepository,
         ISeatRepository seatRepository,
         IReservationRepository reservationRepository,
+        IMessagePublisher messagePublisher,
         IMapper mapper)
     {
         _eventSeatRepository = eventSeatRepository;
         _eventRepository = eventRepository;
         _seatRepository = seatRepository;
         _reservationRepository = reservationRepository;
+        _messagePublisher = messagePublisher;
         _mapper = mapper;
     }
 
@@ -96,7 +101,7 @@ public class EventSeatService : IEventSeatService
     public async Task<HoldResultDTO> ConfirmAsync(int eventSeatId, string userId)
     {
         var es = await _eventSeatRepository.GetAsync(x => x.Id == eventSeatId,
-            include: q => q.Include(x => x.Seat).ThenInclude(s => s.SeatType));
+            include: q => q.Include(x => x.Seat).ThenInclude(s => s.SeatType).Include(x => x.Event));
         if (es == null)
             return HoldResultDTO.Of(HoldOutcome.NotFound);
 
@@ -138,6 +143,18 @@ public class EventSeatService : IEventSeatService
         {
             return HoldResultDTO.Of(HoldOutcome.Conflict);
         }
+
+        // after the commit: the sale stands even if the broker is down (publisher swallows failures)
+        await _messagePublisher.PublishAsync(SeatSoldMessage.RoutingKey, new SeatSoldMessage(
+            reservation.Id,
+            es.EventId,
+            es.Event.Title,
+            es.Event.EventDate,
+            es.SeatId,
+            es.Seat.SeatName,
+            price,
+            userId,
+            now));
 
         return new HoldResultDTO
         {

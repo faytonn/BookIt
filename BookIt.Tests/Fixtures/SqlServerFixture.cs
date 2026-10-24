@@ -48,7 +48,7 @@ public sealed class SqlServerFixture : IAsyncLifetime
         services.AddSingleton<IConfiguration>(configuration);
         services.AddApplicationServices();
         services.AddPersistenceServices(configuration);
-        services.AddInfrastractureServices();
+        services.AddInfrastractureServices(configuration);
         Services = services.BuildServiceProvider();
 
         using var scope = Services.CreateScope();

@@ -34,7 +34,7 @@ public class Program
 
         builder.Services.AddApplicationServices();
         builder.Services.AddPersistenceServices(builder.Configuration);
-        builder.Services.AddInfrastractureServices();
+        builder.Services.AddInfrastractureServices(builder.Configuration);
 
         builder.Services.AddProblemDetails();
 
