@@ -1,0 +1,6 @@
+# Copy to terraform.tfvars (gitignored) and fill in.
+project_id          = "my-gcp-project-id"
+admin_cidr          = "203.0.113.4/32"          # curl -4 ifconfig.me
+ssh_public_key_path = "~/.ssh/bookit.pub"
+# ssh_user          = "deploy"
+# zone              = "europe-west3-a"
