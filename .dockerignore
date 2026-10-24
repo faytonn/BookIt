@@ -1,0 +1,17 @@
+# Build context for the Dockerfile: source only, no local build output or secrets.
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+.git/
+.github/
+.env
+.env.*
+docs/
+infra/
+BookIt/
+BookIt.Core/
+BookIt.Tests/
+Dockerfile
+docker-compose*.yml
+*.md
