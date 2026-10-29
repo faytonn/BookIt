@@ -1,0 +1,502 @@
+/* BookIt overrides on top of the Boleto template (main.css) */
+
+/* Language switch: EN | AZ | CS pills in the header */
+.header-wrapper .menu li.lang-item {
+  padding-right: 16px;
+}
+
+.lang-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.header-wrapper .menu .lang-switch a {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+  color: #dbe2fb;
+  text-transform: uppercase;
+}
+
+.header-wrapper .menu .lang-switch a::before {
+  display: none;
+}
+
+.header-wrapper .menu .lang-switch a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.header-wrapper .menu .lang-switch a.active {
+  color: #ffffff;
+  background-image: linear-gradient(169deg, #5560ff 17%, #aa52a1 63%, #ff4343 100%);
+}
+
+/* Pages without a hero banner (e.g. /Event): start the content below the fixed header,
+   otherwise the search box sits underneath it and can't be reached by scrolling up */
+.below-header {
+  padding-top: 170px;
+}
+
+/* the template pulls this section up 150px to overlap a hero banner */
+.search-ticket-section.below-header {
+  margin-top: 0;
+}
+
+@media (max-width: 991px) {
+  .below-header {
+    padding-top: 120px;
+  }
+}
+
+/* Bootstrap cards and forms (Account/Settings etc.): the template's text is light,
+   so the default white cards made headings and labels invisible */
+.card {
+  border: 0;
+  border-radius: 16px;
+  background: #032055;
+  color: #dbe2fb;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  padding: 20px 24px;
+}
+
+.card-header h1, .card-header h2, .card-header h3, .card-header h4, .card-header h5, .card-title {
+  margin: 0;
+  color: #ffffff;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+.card label {
+  color: #9aace5;
+  font-weight: 600;
+}
+
+.card .form-control,
+.card select.form-control,
+.card .form-select {
+  height: auto;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: #0a1e5e;
+  color: #ffffff;
+}
+
+.card .form-control:focus {
+  border-color: #5560ff;
+  box-shadow: 0 0 0 3px rgba(85, 96, 255, 0.25);
+}
+
+.card .form-control[readonly],
+.card .form-control:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: #9aace5;
+}
+
+.card .btn-primary {
+  border: 0;
+  border-radius: 25px;
+  background-image: linear-gradient(169deg, #5560ff 17%, #aa52a1 63%, #ff4343 100%);
+  font-weight: 600;
+}
+
+.card .text-danger {
+  color: #ff6b6b !important;
+}
+
+/* Tickets page (/tickets/{code}) */
+.tickets-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.tickets-head .title {
+  margin: 6px 0 8px;
+  color: #ffffff;
+}
+
+.tickets-kicker {
+  color: #31d7a9;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.tickets-muted {
+  color: #9aace5;
+}
+
+.tickets-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.tickets-invalid {
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: rgba(255, 67, 67, 0.15);
+  color: #ff8a8a;
+}
+
+.ticket-card {
+  margin-bottom: 30px;
+  padding: 22px;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #1b1f3b;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ticket-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 14px;
+  border-bottom: 2px dashed #d8dcef;
+}
+
+.ticket-label {
+  display: block;
+  color: #7a80a6;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ticket-seat {
+  display: block;
+  font-size: 30px;
+  line-height: 1.1;
+  color: #1b1f3b;
+}
+
+.ticket-sub {
+  color: #5b6185;
+  font-size: 14px;
+}
+
+.ticket-price {
+  font-weight: 700;
+  color: #5560ff;
+}
+
+.ticket-qr {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.ticket-qr img {
+  width: 220px;
+  height: 220px;
+  image-rendering: pixelated;
+}
+
+.ticket-void {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 220px;
+  border: 3px dashed #ff4343;
+  border-radius: 12px;
+  color: #ff4343;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 6px;
+}
+
+.ticket-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: #1b1f3b;
+}
+
+.ticket-event {
+  margin-top: 10px;
+  color: #7a80a6;
+  font-size: 13px;
+}
+
+.ticket-card.is-void {
+  opacity: 0.6;
+}
+
+@media print {
+  .header-section, .footer-section, .no-print, .preloader, .scrollToTop {
+    display: none !important;
+  }
+
+  body, .tickets-page {
+    background: #ffffff !important;
+  }
+
+  .tickets-page {
+    padding-top: 0;
+  }
+
+  .tickets-head .title, .tickets-kicker, .tickets-head p, .tickets-muted {
+    color: #1b1f3b !important;
+  }
+
+  .ticket-card {
+    box-shadow: none;
+    border: 1px solid #c9cde0;
+    break-inside: avoid;
+  }
+}
+
+/* Profile page: dark cards matching the template */
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 30px;
+  border-radius: 16px;
+  background: #032055;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.profile-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background-image: linear-gradient(169deg, #5560ff 17%, #aa52a1 63%, #ff4343 100%);
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.profile-info .title {
+  margin: 0 0 4px;
+  color: #ffffff;
+}
+
+.profile-info p {
+  margin: 0;
+  color: #dbe2fb;
+}
+
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.profile-link {
+  color: #31d7a9;
+  font-weight: 600;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.profile-stats > div {
+  padding: 20px;
+  border-radius: 16px;
+  background: #0a1e5e;
+  text-align: center;
+}
+
+.profile-stats strong {
+  display: block;
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.profile-stats span {
+  color: #9aace5;
+  font-size: 14px;
+}
+
+.profile-card .title {
+  color: #ffffff;
+}
+
+.profile-table {
+  color: #dbe2fb;
+}
+
+.profile-table th {
+  border-top: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: #9aace5;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.profile-table td {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  vertical-align: middle;
+}
+
+.profile-table a {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.ticket-code-cell {
+  font-family: Consolas, "Courier New", monospace;
+  letter-spacing: 1px;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-pill.is-confirmed {
+  background: rgba(49, 215, 169, 0.15);
+  color: #31d7a9;
+}
+
+.status-pill.is-cancelled {
+  background: rgba(255, 67, 67, 0.15);
+  color: #ff6b6b;
+}
+
+.status-pill.is-pending {
+  background: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+}
+
+@media (max-width: 575px) {
+  .profile-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Keep Log in / Register (or the user menu) on one line */
+.header-wrapper .menu li.header-button {
+  white-space: nowrap;
+}
+
+.header-wrapper .menu li.header-button > a {
+  padding: 10px 28px;
+}
+
+.header-wrapper .menu li.header-button > a + a {
+  margin-left: 8px;
+}
+
+/* User menu: opens on hover and on keyboard focus, no Bootstrap JS needed */
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.header-wrapper .menu li.header-button .user-menu-toggle {
+  padding: 10px 24px;
+}
+
+.user-menu-list {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 100;
+  min-width: 200px;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  border-radius: 12px;
+  background: #0a1e5e;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all ease 0.2s;
+}
+
+.user-menu:hover .user-menu-list,
+.user-menu:focus-within .user-menu-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.header-wrapper .menu .user-menu-list li {
+  display: block;
+  padding: 0;
+}
+
+.header-wrapper .menu li.header-button .user-menu-list a,
+.user-menu-list button {
+  display: block;
+  width: 100%;
+  padding: 9px 20px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  text-transform: none;
+  color: #dbe2fb;
+  cursor: pointer;
+}
+
+.header-wrapper .menu li.header-button .user-menu-list a:hover,
+.user-menu-list button:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+
+.user-menu-list i {
+  width: 18px;
+  margin-right: 6px;
+  color: #31d7a9;
+}
+
+.user-menu-list form {
+  margin: 0;
+}

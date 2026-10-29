@@ -1,9 +1,13 @@
 ﻿@using System.Globalization
 @{
     var current = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var returnUrl = Context.Request.Path + Context.Request.QueryString;
+    var languages = new[] { ("en", "English"), ("az", "Azərbaycanca"), ("cs", "Čeština") };
 }
-<select id="languageSelect" class="selectpicker" data-width="fit" aria-label="Language">
-    <option value="en" selected="@(current == "en")">EN</option>
-    <option value="az" selected="@(current == "az")">AZ</option>
-    <option value="cs" selected="@(current == "cs")">CS</option>
-</select>
+<div class="lang-switch" role="group" aria-label="Language">
+    @foreach (var (code, name) in languages)
+    {
+        <a asp-controller="Home" asp-action="SetLanguage" asp-area="" asp-route-culture="@code" asp-route-returnUrl="@returnUrl"
+           class="@(current == code ? "active" : null)" title="@name" aria-current="@(current == code ? "true" : null)">@code</a>
+    }
+</div>

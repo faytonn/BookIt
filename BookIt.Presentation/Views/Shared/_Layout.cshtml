@@ -27,9 +27,7 @@
     <link rel="stylesheet" href="~/user/assets/css/nice-select.css">
     <link rel="stylesheet" href="~/user/assets/css/jquery.animatedheadline.css">
     <link rel="stylesheet" href="~/user/assets/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
-          integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q=="
-          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="~/user/assets/css/bookit.css" asp-append-version="true">
     @await RenderSectionAsync("Styles", required: false)
 
 @*     <link rel="shortcut icon" href="https://res.cloudinary.com/di3ourpee/image/upload/v1738766959/bookit./ev0nyzhntlkho22k7bd3.png" type="image/x-icon">
@@ -61,7 +59,7 @@
         <div class="container">
             <div class="header-wrapper">
                 <div class="logo">
-                    <a href="index.html">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/user/assets/images/logo/logo.png" alt="logo">
                     </a>
                 </div>
@@ -72,21 +70,31 @@
                     <li>
                         <a asp-controller="Event" asp-action="Index">events</a>
                     </li>
-                    <li class="header-button pr-0">
+                    <li class="lang-item">
                         <partial name="_LanguageChooser" />
+                    </li>
+                    <li class="header-button pr-0">
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <div class="dropdown" style="display: inline-block;">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user-circle"></i> @User.Identity.Name
+                            @* CSS-only menu (hover / keyboard focus): the template ships Bootstrap 4 without Popper *@
+                            <div class="user-menu">
+                                <a href="#0" class="user-menu-toggle" aria-haspopup="true">
+                                    <i class="fas fa-user-circle"></i> @User.Identity!.Name <i class="fas fa-angle-down"></i>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Settings">Settings</a></li>
-                                    <li><hr class="dropdown-divider"></li>
+                                <ul class="user-menu-list">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="fas fa-tachometer-alt"></i> Admin panel</a></li>
+                                    }
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                    {
+                                        <li><a asp-area="Admin" asp-controller="CheckIn" asp-action="Index"><i class="fas fa-qrcode"></i> Door check-in</a></li>
+                                    }
+                                    <li><a asp-area="" asp-controller="Account" asp-action="Profile"><i class="fas fa-user"></i> Profile</a></li>
+                                    <li><a asp-area="" asp-controller="Account" asp-action="Settings"><i class="fas fa-cog"></i> Settings</a></li>
                                     <li>
-                                        <form asp-controller="Account" asp-action="Logout" method="post" style="margin: 0;">
-                                            <button type="submit" class="dropdown-item">Log out</button>
+                                        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                                            <button type="submit"><i class="fas fa-sign-out-alt"></i> Log out</button>
                                         </form>
                                     </li>
                                 </ul>
@@ -129,7 +137,7 @@
         <div class="container">
             <div class="footer-top">
                 <div class="logo">
-                    <a href="index-1.html">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/user/assets/images/footer/footer-logo.png" alt="footer">
                     </a>
                 </div>
@@ -204,23 +212,14 @@
     <script src="~/user/assets/js/viewport.jquery.js"></script>
     <script src="~/user/assets/js/nice-select.js"></script>
     <script src="~/user/assets/js/main.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
-            integrity="sha512-4Vx1PRCl3NQ6+RHqJROgWXHcg9gnSDFoR0T+S7IYXtM8au5qJw8fE/pD0vH8Sx/l+QrZUL1tMw2PZ0ab2OIFxg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        $(document).ready(function () {
-            $('#languageSelect').selectpicker();
-
-            $('#languageSelect').on('changed.bs.select', function () {
-                var selectedCulture = $(this).val();
-                var returnUrl = window.location.pathname;
-                window.location.href = '@Url.Action("SetLanguage", "Home")'
-                    + '?culture=' + selectedCulture
-                    + '&returnUrl=' + encodeURIComponent(returnUrl);
-            });
+        // Event search bar (home + /Event): picking a location, date or category runs the search right away.
+        // nice-select re-triggers "change" on the hidden <select>, so this covers the styled dropdowns too.
+        $(document).on('change', '.ticket-search-form select, .ticket-search-form input[type=date]', function () {
+            this.form.submit();
         });
     </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
