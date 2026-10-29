@@ -1,6 +1,6 @@
 # BookIt — project conventions
 
-Event/ticket booking site. ASP.NET Core 8 MVC + EF Core 8 (SQL Server) + ASP.NET Identity + AutoMapper + Cloudinary + MailKit.
+Event/ticket booking site.
 Admin panel under `BookIt.Presentation/Areas/Admin`, public site under `BookIt.Presentation/Controllers` + `Views`.
 
 ## Git
@@ -22,17 +22,9 @@ Tests: `BookIt.Tests` (xUnit + Testcontainers.MsSql). `dotnet test BookIt.sln` n
 
 ## Solution layout
 
-| Project | Holds |
-|---|---|
-| `BookIt.Domain` | Entities (`Entities/`), enums (`Enums/`), appsettings POCOs (`AppSettingModels/`) |
-| `BookIt.Application` | DTOs (`DTOs/{X}DTO/`), interfaces (`Interfaces/Repositories`, `Interfaces/Services`), AutoMapper profiles (`Automappers/`), `Exceptions/` |
-| `BookIt.Persistence` | `AppDbContext`, `Configurations/`, `Migrations/`, `Implementations/Repositories`, `Implementations/Services` (business services live here), `DataInitializers/`, `Interceptors/` |
-| `BookIt.Infrastracture` | External integrations: `UserAuthorizationService`, `CloudinaryService`, `EmailService`, localizers |
-| `BookIt.Presentation` | MVC app, views, `wwwroot` (admin template under `wwwroot/admin`, public template under `wwwroot/user`) |
-| `BookIt.Core` | Empty. Do not add to it. |
-| `BookIt/` (root folder) | Dead template project, not in the sln. Ignore. |
-
-Keep this split. Business services stay in Persistence; only external-system adapters go in Infrastracture.
+- `BookIt.Core` is empty. Do not add to it.
+- `BookIt/` (root folder) is a dead template project, not in the sln. Ignore it.
+- Business services live in `BookIt.Persistence/Implementations/Services`; only external-system adapters go in `BookIt.Infrastracture`.
 **Namespace must match folder** (`BookIt.Persistence.Implementations.Services`, `BookIt.Presentation.Areas.Admin.Controllers`, …). Some old files drift; fix when touching them.
 
 ## Layering rules
@@ -42,14 +34,10 @@ Controller → `I{X}Service` → `I{X}Repository` → `AppDbContext`.
 - Controllers never use repositories or `AppDbContext`.
 - Every entity gets: `I{X}Repository : IRepository<X>` + `{X}Repository : Repository<X>, I{X}Repository` (usually empty), and `I{X}Service` + `{X}Service`.
 - Register both in `PersistenceServiceRegistration._addRepositories` / `._addServices` (all `AddScoped`). A service that is not registered crashes at first request — check this first when adding one.
-- Services implement the generic contracts from `Application/Interfaces/Services/Generic`:
-  - `IGetService<GetDTO>` → `GetAsync(id, language)`, `GetAll(language)`, `GetPagesAsync(language, page, limit)`, `IsExistAsync(id)`
-  - `IModifyService<CreateDTO, UpdateDTO>` → `CreateAsync(dto, ModelState)`, `UpdateAsync(dto, ModelState)`, `GetUpdatedDtoAsync(id)`, `DeleteAsync(id)`
-  - plus per-entity `RestoreAsync(id)`, `HardDeleteAsync(id)`, `GetArchived{X}s(language)`.
+- Services implement the generic contracts from `Application/Interfaces/Services/Generic` (`IGetService`, `IModifyService`), plus per-entity `RestoreAsync(id)`, `HardDeleteAsync(id)`, `GetArchived{X}s(language)`.
 
 ## Repository contract (`IRepository<T>`)
 
-- `GetAsync(id)`, `GetAsync(predicate, include, ignoreFilter)`, `GetAll(predicate, include, ignoreFilter)` returns `IQueryable`, `IsExistAsync`, `Paginate(query, limit, page)`.
 - `CreateAsync`, `Update`, `SoftDelete`, `HardDelete`, `Repair` **do not save**. The service calls `await _repo.SaveChangesAsync()` once at the end of the operation.
 - Includes are passed as lambdas: `include: q => q.Include(e => e.Category).Include(e => e.GeneralLocation)`.
 - Soft delete = `IsDeleted = true`; global `HasQueryFilter(x => !x.IsDeleted)` in `AppDbContext.OnModelCreating`. Archived queries use `GetAll(ignoreFilter: true).Where(x => x.IsDeleted)`.
@@ -99,33 +87,7 @@ public async Task<bool> CreateAsync(CreateXDTO dto, ModelStateDictionary modelSt
 - No `Console.WriteLine`. Use `ILogger<T>` if logging is needed.
 - Anything that writes more than one aggregate (reservation + seats, event + details) must save in one `SaveChangesAsync` or inside an explicit transaction.
 
-## Controller shape (admin)
-
-```csharp
-[Area("Admin")]
-[Authorize(Roles = "Admin")]
-public class XController : Controller
-{
-    public IActionResult Index() => View(_xService.GetAll());
-
-    public IActionResult Create() { _populateDropdowns(); return View(); }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(CreateXDTO dto)
-    {
-        if (!ModelState.IsValid) { _populateDropdowns(); return View(dto); }
-        if (!await _xService.CreateAsync(dto, ModelState)) { _populateDropdowns(); return View(dto); }
-        return RedirectToAction(nameof(Index));
-    }
-}
-```
-
-- Every state-changing action (`Create`, `Update`, `Delete`, `Restore`, `HardDelete`, `Confirm`, `Cancel`) is `[HttpPost]` + `[ValidateAntiForgeryToken]`. Views use `<form method="post">` for them, never `<a>` links.
-- Errors reach the view through `ModelState` + `<div asp-validation-summary="All">` / `asp-validation-for`. Do not loop errors into `TempData["Error"]`.
-- Dropdown data goes through `ViewBag.{Name} = List<SelectListItem>` built in a private `_populate...()` helper. Not `ViewData[...] = SelectList`, not lists inside DTOs.
-- Cascading dropdowns use small JSON actions (`GetHallsByLocation(int generalLocationId)`) returning `Json(list.Select(h => new { id = h.Id, name = h.Name }))`.
-- Admin controllers require `[Authorize(Roles = "Admin")]` (Moderator may be added where it makes sense). Public controllers that need a user use `[Authorize]`.
+Controller and view conventions live in `BookIt.Presentation/CLAUDE.md` (loaded when working there).
 
 ## Naming
 
@@ -133,13 +95,6 @@ public class XController : Controller
 - **Private methods `_camelCase`** (`_populateDropdowns`, `_sendConfirmEmailTokenAsync`). Public methods PascalCase, async ones end in `Async` (except the sync `GetAll`).
 - File-scoped namespaces (`namespace X;`). One type per file, file name = type name.
 - Views: `Areas/Admin/Views/{Controller}/{Index,Create,Update,Archived}.cshtml`, shared partials in `Views/Shared/Partials/_{Name}Partial.cshtml`.
-
-## Views
-
-- Admin: KaiAdmin template. Page = `<div class="card"><div class="card-body">` + `<table class="table table-striped">`, action buttons `btn btn-warning` (Update) / `btn btn-danger` (Delete) / `btn btn-success` (Create).
-- Public: Boleto template under `wwwroot/user`. Layout injects `ILayoutService`, `SignInManager`, `UserManager`.
-- `@model List<GetXDTO>` for lists, `@model CreateXDTO` for forms. Use tag helpers (`asp-for`, `asp-action`, `asp-items`).
-- Validation scripts via `@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }`.
 
 ## Config & auth
 
