@@ -1,15 +1,22 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BookIt.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookIt.Presentation.Areas.Admin.Controllers
+namespace BookIt.Presentation.Areas.Admin.Controllers;
+
+[Area("Admin")]
+[Authorize(Roles = "Admin")]
+public class DashboardController : Controller
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class DashboardController : Controller
+    private readonly IDashboardService _dashboardService;
+
+    public DashboardController(IDashboardService dashboardService)
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        _dashboardService = dashboardService;
+    }
+
+    public async Task<IActionResult> Index()
+    {
+        return View(await _dashboardService.GetAsync());
     }
 }

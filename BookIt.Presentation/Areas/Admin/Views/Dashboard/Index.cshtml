@@ -1,35 +1,38 @@
-﻿@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<br>
-<br>
-<br>
-<br>
+﻿@using System.Globalization
+@using BookIt.Domain.Enums
+@model BookIt.Application.DTOs.DashboardDTO.GetDashboardDTO
+@{
+    ViewData["Title"] = "Dashboard";
+    var inv = CultureInfo.InvariantCulture;
+    string money(decimal v) => "€" + v.ToString("N0", inv);
+    var fillPercent = Model.SeatsOnSale == 0 ? 0 : (int)Math.Round(100.0 * Model.NextEvents.Sum(e => e.SeatsSold) / Math.Max(1, Model.NextEvents.Sum(e => e.SeatsTotal)));
+}
 
-<div class="container">
-    <div class="page-inner">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
             <div>
-                <h3 class="fw-bold mb-3">Dashboard</h3>
-                <h6 class="op-7 mb-2">BookIt</h6>
+                <h3 class="fw-bold mb-1">Dashboard</h3>
+                <h6 class="op-7 mb-2">Sales and seats across all venues, live from the database</h6>
             </div>
             <div class="ms-md-auto py-2 py-md-0">
-                <a href="#" class="btn btn-label-info btn-round me-2">Manage</a>
-                <a href="#" class="btn btn-primary btn-round">Add Customer</a>
+                <a asp-controller="Reservation" asp-action="Index" class="btn btn-label-info btn-round me-2">Reservations</a>
+                <a asp-controller="Event" asp-action="Create" class="btn btn-primary btn-round"><i class="fas fa-plus me-1"></i> New event</a>
             </div>
         </div>
+
+        <!-- Stat cards -->
         <div class="row">
             <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
+                <div class="card card-stats card-round stat-card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
-                                <div class="icon-big text-center icon-primary bubble-shadow-small">
-                                    <i class="fas fa-users"></i>
-                                </div>
+                                <div class="icon-big text-center icon-primary bubble-shadow-small"><i class="fas fa-calendar-alt"></i></div>
                             </div>
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <p class="card-category">Upcoming events</p>
+                                    <h4 class="card-title">@Model.UpcomingEvents</h4>
+                                    <span class="stat-sub">@Model.SoldOutEvents sold out</span>
                                 </div>
                             </div>
                         </div>
@@ -37,18 +40,17 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
+                <div class="card card-stats card-round stat-card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
-                                <div class="icon-big text-center icon-info bubble-shadow-small">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
+                                <div class="icon-big text-center icon-info bubble-shadow-small"><i class="fas fa-ticket-alt"></i></div>
                             </div>
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
-                                    <p class="card-category">Subscribers</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <p class="card-category">Tickets sold</p>
+                                    <h4 class="card-title">@Model.TicketsSold.ToString("N0", inv)</h4>
+                                    <span class="stat-sub">@Model.ConfirmedReservations.ToString("N0", inv) reservations</span>
                                 </div>
                             </div>
                         </div>
@@ -56,18 +58,17 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
+                <div class="card card-stats card-round stat-card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
-                                <div class="icon-big text-center icon-success bubble-shadow-small">
-                                    <i class="fas fa-luggage-cart"></i>
-                                </div>
+                                <div class="icon-big text-center icon-success bubble-shadow-small"><i class="fas fa-euro-sign"></i></div>
                             </div>
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">Revenue</p>
+                                    <h4 class="card-title">@money(Model.Revenue)</h4>
+                                    <span class="stat-sub">@money(Model.RevenueLast7Days) in the last 7 days</span>
                                 </div>
                             </div>
                         </div>
@@ -75,18 +76,17 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
+                <div class="card card-stats card-round stat-card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-icon">
-                                <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                                    <i class="far fa-check-circle"></i>
-                                </div>
+                                <div class="icon-big text-center icon-secondary bubble-shadow-small"><i class="fas fa-hourglass-half"></i></div>
                             </div>
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <p class="card-category">Seats on hold now</p>
+                                    <h4 class="card-title">@Model.ActiveHolds</h4>
+                                    <span class="stat-sub">held for 10 min at checkout</span>
                                 </div>
                             </div>
                         </div>
@@ -94,449 +94,126 @@
                 </div>
             </div>
         </div>
+
+        <!-- Charts -->
         <div class="row">
             <div class="col-md-8">
                 <div class="card card-round">
                     <div class="card-header">
                         <div class="card-head-row">
-                            <div class="card-title">User Statistics</div>
-                            <div class="card-tools">
-                                <a href="#"
-                                   class="btn btn-label-success btn-round btn-sm me-2">
-                                    <span class="btn-label">
-                                        <i class="fa fa-pencil"></i>
-                                    </span>
-                                    Export
-                                </a>
-                                <a href="#" class="btn btn-label-info btn-round btn-sm">
-                                    <span class="btn-label">
-                                        <i class="fa fa-print"></i>
-                                    </span>
-                                    Print
-                                </a>
-                            </div>
+                            <div class="card-title">Sales, last @Model.SalesByDay.Count days</div>
                         </div>
+                        <div class="card-category">Revenue per day (bars) and tickets sold (line)</div>
                     </div>
                     <div class="card-body">
-                        <div class="chart-container" style="min-height: 375px">
-                            <canvas id="statisticsChart"></canvas>
-                        </div>
-                        <div id="myChartLegend"></div>
+                        <div class="chart-box"><canvas id="salesChart"></canvas></div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-primary card-round">
-                    <div class="card-header">
-                        <div class="card-head-row">
-                            <div class="card-title">Daily Sales</div>
-                            <div class="card-tools">
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-label-light dropdown-toggle"
-                                            type="button"
-                                            id="dropdownMenuButton"
-                                            data-bs-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false">
-                                        Export
-                                    </button>
-                                    <div class="dropdown-menu"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-category">March 25 - April 02</div>
-                    </div>
-                    <div class="card-body pb-0">
-                        <div class="mb-4 mt-2">
-                            <h1>$4,578.58</h1>
-                        </div>
-                        <div class="pull-in">
-                            <canvas id="dailySalesChart"></canvas>
-                        </div>
-                    </div>
-                </div>
                 <div class="card card-round">
-                    <div class="card-body pb-0">
-                        <div class="h1 fw-bold float-end text-primary">+5%</div>
-                        <h2 class="mb-2">17</h2>
-                        <p class="text-muted">Users online</p>
-                        <div class="pull-in sparkline-fix">
-                            <div id="lineChart"></div>
-                        </div>
+                    <div class="card-header">
+                        <div class="card-title">Tickets by category</div>
+                        <div class="card-category">All time</div>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.SalesByCategory.Count == 0)
+                        {
+                            <p class="text-muted mb-0">No tickets sold yet.</p>
+                        }
+                        else
+                        {
+                            <div class="chart-box"><canvas id="categoryChart"></canvas></div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-md-12">
+            <!-- Next events -->
+            <div class="col-md-7">
                 <div class="card card-round">
                     <div class="card-header">
                         <div class="card-head-row card-tools-still-right">
-                            <h4 class="card-title">Users Geolocation</h4>
+                            <div class="card-title">Next events</div>
                             <div class="card-tools">
-                                <button class="btn btn-icon btn-link btn-primary btn-xs">
-                                    <span class="fa fa-angle-down"></span>
-                                </button>
-                                <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card">
-                                    <span class="fa fa-sync-alt"></span>
-                                </button>
-                                <button class="btn btn-icon btn-link btn-primary btn-xs">
-                                    <span class="fa fa-times"></span>
-                                </button>
+                                <a asp-controller="Event" asp-action="Index" class="btn btn-sm btn-label-primary btn-round">All events</a>
                             </div>
                         </div>
-                        <p class="card-category">
-                            Map of the distribution of users around the world
-                        </p>
+                        <div class="card-category">Seats sold so far: @fillPercent% across these shows</div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="table-responsive table-hover table-sales">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="~/admin/assets/img/flags/id.png"
-                                                             alt="indonesia" />
-                                                    </div>
-                                                </td>
-                                                <td>Indonesia</td>
-                                                <td class="text-end">2.320</td>
-                                                <td class="text-end">42.18%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="~/admin/assets/img/flags/us.png"
-                                                             alt="united states" />
-                                                    </div>
-                                                </td>
-                                                <td>USA</td>
-                                                <td class="text-end">240</td>
-                                                <td class="text-end">4.36%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="~/admin/assets/img/flags/au.png"
-                                                             alt="australia" />
-                                                    </div>
-                                                </td>
-                                                <td>Australia</td>
-                                                <td class="text-end">119</td>
-                                                <td class="text-end">2.16%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="~/admin/assets/img/flags/ru.png"
-                                                             alt="russia" />
-                                                    </div>
-                                                </td>
-                                                <td>Russia</td>
-                                                <td class="text-end">1.081</td>
-                                                <td class="text-end">19.65%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="~/admin/assets/img/flags/cn.png"
-                                                             alt="china" />
-                                                    </div>
-                                                </td>
-                                                <td>China</td>
-                                                <td class="text-end">1.100</td>
-                                                <td class="text-end">20%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="flag">
-                                                        <img src="~/admin/assets/img/flags/br.png"
-                                                             alt="brazil" />
-                                                    </div>
-                                                </td>
-                                                <td>Brasil</td>
-                                                <td class="text-end">640</td>
-                                                <td class="text-end">11.63%</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mapcontainer">
-                                    <div id="world-map"
-                                         class="w-100"
-                                         style="height: 300px"></div>
-                                </div>
-                            </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                                <tbody>
+                                    @foreach (var e in Model.NextEvents)
+                                    {
+                                        <tr>
+                                            <td style="width: 60px;"><img src="@e.ImagePath" alt="" class="event-row-thumb" /></td>
+                                            <td>
+                                                <div class="fw-bold">@e.Title</div>
+                                                <small class="text-muted">@e.EventDate.ToString("ddd d MMM, HH:mm", inv) · @e.LocationName · @e.CategoryName</small>
+                                            </td>
+                                            <td style="width: 190px;">
+                                                <div class="d-flex justify-content-between">
+                                                    <small>@e.SeatsSold / @e.SeatsTotal</small>
+                                                    <small class="fw-bold">@(e.PercentSold)%</small>
+                                                </div>
+                                                <div class="fill-bar @(e.PercentSold >= 100 ? "is-full" : null)"><span style="width: @(e.PercentSold)%"></span></div>
+                                            </td>
+                                        </tr>
+                                    }
+                                    @if (Model.NextEvents.Count == 0)
+                                    {
+                                        <tr><td class="text-muted p-4">No upcoming events.</td></tr>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-round">
-                    <div class="card-body">
-                        <div class="card-head-row card-tools-still-right">
-                            <div class="card-title">New Customers</div>
-                            <div class="card-tools">
-                                <div class="dropdown">
-                                    <button class="btn btn-icon btn-clean me-0"
-                                            type="button"
-                                            id="dropdownMenuButton"
-                                            data-bs-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-list py-4">
-                            <div class="item-list">
-                                <div class="avatar">
-                                    <img src="~/admin/assets/img/jm_denis.jpg"
-                                         alt="..."
-                                         class="avatar-img rounded-circle" />
-                                </div>
-                                <div class="info-user ms-3">
-                                    <div class="username">Jimmy Denis</div>
-                                    <div class="status">Graphic Designer</div>
-                                </div>
-                                <button class="btn btn-icon btn-link op-8 me-1">
-                                    <i class="far fa-envelope"></i>
-                                </button>
-                                <button class="btn btn-icon btn-link btn-danger op-8">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            </div>
-                            <div class="item-list">
-                                <div class="avatar">
-                                    <span class="avatar-title rounded-circle border border-white">CF</span>
-                                </div>
-                                <div class="info-user ms-3">
-                                    <div class="username">Chandra Felix</div>
-                                    <div class="status">Sales Promotion</div>
-                                </div>
-                                <button class="btn btn-icon btn-link op-8 me-1">
-                                    <i class="far fa-envelope"></i>
-                                </button>
-                                <button class="btn btn-icon btn-link btn-danger op-8">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            </div>
-                            <div class="item-list">
-                                <div class="avatar">
-                                    <img src="~/admin/assets/img/talha.jpg"
-                                         alt="..."
-                                         class="avatar-img rounded-circle" />
-                                </div>
-                                <div class="info-user ms-3">
-                                    <div class="username">Talha</div>
-                                    <div class="status">Front End Designer</div>
-                                </div>
-                                <button class="btn btn-icon btn-link op-8 me-1">
-                                    <i class="far fa-envelope"></i>
-                                </button>
-                                <button class="btn btn-icon btn-link btn-danger op-8">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            </div>
-                            <div class="item-list">
-                                <div class="avatar">
-                                    <img src="~/admin/assets/img/chadengle.jpg"
-                                         alt="..."
-                                         class="avatar-img rounded-circle" />
-                                </div>
-                                <div class="info-user ms-3">
-                                    <div class="username">Chad</div>
-                                    <div class="status">CEO Zeleaf</div>
-                                </div>
-                                <button class="btn btn-icon btn-link op-8 me-1">
-                                    <i class="far fa-envelope"></i>
-                                </button>
-                                <button class="btn btn-icon btn-link btn-danger op-8">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            </div>
-                            <div class="item-list">
-                                <div class="avatar">
-                                    <span class="avatar-title rounded-circle border border-white bg-primary">H</span>
-                                </div>
-                                <div class="info-user ms-3">
-                                    <div class="username">Hizrian</div>
-                                    <div class="status">Web Designer</div>
-                                </div>
-                                <button class="btn btn-icon btn-link op-8 me-1">
-                                    <i class="far fa-envelope"></i>
-                                </button>
-                                <button class="btn btn-icon btn-link btn-danger op-8">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            </div>
-                            <div class="item-list">
-                                <div class="avatar">
-                                    <span class="avatar-title rounded-circle border border-white bg-secondary">F</span>
-                                </div>
-                                <div class="info-user ms-3">
-                                    <div class="username">Farrah</div>
-                                    <div class="status">Marketing</div>
-                                </div>
-                                <button class="btn btn-icon btn-link op-8 me-1">
-                                    <i class="far fa-envelope"></i>
-                                </button>
-                                <button class="btn btn-icon btn-link btn-danger op-8">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
+
+            <!-- Recent reservations -->
+            <div class="col-md-5">
                 <div class="card card-round">
                     <div class="card-header">
                         <div class="card-head-row card-tools-still-right">
-                            <div class="card-title">Transaction History</div>
+                            <div class="card-title">Latest reservations</div>
                             <div class="card-tools">
-                                <div class="dropdown">
-                                    <button class="btn btn-icon btn-clean me-0"
-                                            type="button"
-                                            id="dropdownMenuButton"
-                                            data-bs-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu"
-                                         aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
+                                <a asp-controller="Reservation" asp-action="Index" class="btn btn-sm btn-label-primary btn-round">View all</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <!-- Projects table -->
                             <table class="table align-items-center mb-0">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">Payment Number</th>
-                                        <th scope="col" class="text-end">Date & Time</th>
-                                        <th scope="col" class="text-end">Amount</th>
-                                        <th scope="col" class="text-end">Status</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">
-                                            <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            Payment from #10231
-                                        </th>
-                                        <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                        <td class="text-end">$250.00</td>
-                                        <td class="text-end">
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            Payment from #10231
-                                        </th>
-                                        <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                        <td class="text-end">$250.00</td>
-                                        <td class="text-end">
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            Payment from #10231
-                                        </th>
-                                        <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                        <td class="text-end">$250.00</td>
-                                        <td class="text-end">
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            Payment from #10231
-                                        </th>
-                                        <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                        <td class="text-end">$250.00</td>
-                                        <td class="text-end">
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            Payment from #10231
-                                        </th>
-                                        <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                        <td class="text-end">$250.00</td>
-                                        <td class="text-end">
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            Payment from #10231
-                                        </th>
-                                        <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                        <td class="text-end">$250.00</td>
-                                        <td class="text-end">
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            Payment from #10231
-                                        </th>
-                                        <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                        <td class="text-end">$250.00</td>
-                                        <td class="text-end">
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                    </tr>
+                                    @foreach (var r in Model.RecentReservations)
+                                    {
+                                        var badge = r.Status switch
+                                        {
+                                            ReservationStatus.Confirmed => "badge-success",
+                                            ReservationStatus.Pending => "badge-warning",
+                                            ReservationStatus.Cancelled or ReservationStatus.Refunded => "badge-danger",
+                                            _ => "badge-secondary"
+                                        };
+                                        <tr>
+                                            <td>
+                                                <a asp-controller="Reservation" asp-action="Details" asp-route-id="@r.Id" class="fw-bold">@r.EventTitle</a>
+                                                <div><small class="text-muted">@r.UserEmail · @r.ReservationDate.ToString("d MMM HH:mm", inv)</small></div>
+                                            </td>
+                                            <td class="text-end">
+                                                <div class="fw-bold">@money(r.TotalAmount)</div>
+                                                <span class="badge @badge">@r.NumberOfTickets × · @r.Status</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                    @if (Model.RecentReservations.Count == 0)
+                                    {
+                                        <tr><td class="text-muted p-4">No reservations yet.</td></tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -544,5 +221,49 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var days = @Json.Serialize(Model.SalesByDay.Select(d => d.Day.ToString("d MMM", inv)));
+            var revenue = @Json.Serialize(Model.SalesByDay.Select(d => d.Revenue));
+            var tickets = @Json.Serialize(Model.SalesByDay.Select(d => d.Tickets));
+
+            new Chart(document.getElementById('salesChart'), {
+                type: 'bar',
+                data: {
+                    labels: days,
+                    datasets: [
+                        { type: 'line', label: 'Tickets', data: tickets, yAxisID: 'tickets', borderColor: '#f25961', backgroundColor: 'transparent', pointBackgroundColor: '#f25961', borderWidth: 2, lineTension: 0.3 },
+                        { label: 'Revenue (€)', data: revenue, yAxisID: 'revenue', backgroundColor: 'rgba(85, 96, 255, 0.75)' }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: { position: 'bottom' },
+                    scales: {
+                        yAxes: [
+                            { id: 'revenue', position: 'left', ticks: { beginAtZero: true, callback: function (v) { return '€' + v; } } },
+                            { id: 'tickets', position: 'right', gridLines: { display: false }, ticks: { beginAtZero: true, precision: 0 } }
+                        ]
+                    }
+                }
+            });
+
+            var categoryCanvas = document.getElementById('categoryChart');
+            if (categoryCanvas) {
+                new Chart(categoryCanvas, {
+                    type: 'doughnut',
+                    data: {
+                        labels: @Json.Serialize(Model.SalesByCategory.Select(c => c.Name)),
+                        datasets: [{
+                            data: @Json.Serialize(Model.SalesByCategory.Select(c => c.TicketsSold)),
+                            backgroundColor: ['#5560ff', '#aa52a1', '#f25961', '#31ce36', '#ffad46', '#48abf7', '#6861ce', '#1d7af3', '#8d9498']
+                        }]
+                    },
+                    options: { maintainAspectRatio: false, cutoutPercentage: 62, legend: { position: 'bottom', labels: { boxWidth: 12 } } }
+                });
+            }
+        })();
+    </script>
+}

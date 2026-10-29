@@ -1,0 +1,171 @@
+/* BookIt overrides on top of KaiAdmin (kaiadmin.min.css) */
+
+.bookit-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bookit-badge {
+  background: linear-gradient(169deg, #5560ff 17%, #aa52a1 63%, #ff4343 100%);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.bookit-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #5560ff, #aa52a1);
+  color: #fff;
+  font-weight: 700;
+}
+
+.bookit-page-title {
+  font-size: 15px;
+}
+
+/* List pages: many views render a bare <table>; give it the card look and compact actions */
+.bookit-page > .table,
+.bookit-page > .table-responsive,
+.bookit-page > form > .table {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(69, 65, 78, 0.08);
+}
+
+.bookit-page > .btn,
+.bookit-page > .mb-3 > .btn {
+  margin-bottom: 16px;
+}
+
+.bookit-page .table > :not(caption) > * > * {
+  padding: 12px 16px;
+  vertical-align: middle;
+}
+
+.bookit-page .table td form {
+  display: inline-block;
+  margin: 0;
+}
+
+.bookit-page .table td .btn {
+  margin: 2px 1px;
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+.bookit-page .table td:last-child {
+  white-space: nowrap;
+}
+
+/* Label / value lists on detail pages */
+.detail-list dt {
+  margin-bottom: 8px;
+  color: #8d9498;
+  font-weight: 500;
+}
+
+.detail-list dd {
+  margin-bottom: 8px;
+}
+
+/* Door check-in */
+.checkin-input {
+  font-family: Consolas, "Courier New", monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.checkin-camera {
+  max-width: 420px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.checkin-result {
+  padding: 22px 24px;
+  border-radius: 14px;
+  color: #ffffff;
+}
+
+.checkin-result.is-idle { background: #8d9498; }
+.checkin-result.is-ok { background: #31ce36; }
+.checkin-result.is-used { background: #ffad46; }
+.checkin-result.is-bad { background: #f25961; }
+
+.checkin-result-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.checkin-result-text {
+  font-size: 17px;
+}
+
+.checkin-result-who {
+  margin-top: 6px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.checkin-history li {
+  padding: 9px 18px;
+  border-bottom: 1px solid #ebedf2;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+}
+
+.checkin-history li.is-ok { color: #2aa22e; }
+.checkin-history li.is-used { color: #d4891f; }
+.checkin-history li.is-bad { color: #f25961; }
+
+/* Dashboard */
+.stat-card .icon-big {
+  border-radius: 14px;
+}
+
+.stat-card .card-title {
+  font-size: 26px;
+}
+
+.stat-card .stat-sub {
+  font-size: 12px;
+  color: #8d9498;
+}
+
+.event-row-thumb {
+  width: 44px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.fill-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: #ebedf2;
+  overflow: hidden;
+}
+
+.fill-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #5560ff, #aa52a1);
+}
+
+.fill-bar.is-full > span {
+  background: linear-gradient(90deg, #f25961, #ff4343);
+}
+
+.chart-box {
+  position: relative;
+  height: 300px;
+}
