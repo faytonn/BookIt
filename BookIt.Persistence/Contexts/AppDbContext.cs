@@ -46,7 +46,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<Notification>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<Review>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<WaitlistEntry>().HasQueryFilter(x => !x.IsDeleted);
-        modelBuilder.Entity<CancellationRefund>().HasQueryFilter(x => !x.IsRefunded);
+        // soft delete like every other auditable entity (it used to filter on IsRefunded, which hid paid-out refunds)
+        modelBuilder.Entity<CancellationRefund>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<SeatType>().HasQueryFilter(x => !x.IsDeleted);
         modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => !x.IsDeleted);
 

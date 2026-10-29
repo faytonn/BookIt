@@ -21,7 +21,12 @@
             <form asp-action="Create" method="post" id="reservationForm">
                 <div asp-validation-summary="All" class="text-danger"></div>
 
-                <input type="hidden" asp-for="UserId" />
+                <div class="form-group">
+                    <label asp-for="CustomerEmail" class="control-label">Customer email</label>
+                    <input asp-for="CustomerEmail" type="email" class="form-control" placeholder="customer@example.com" />
+                    <small class="form-text text-muted">The booking is made for this customer's account and the seats are sold right away.</small>
+                    <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                </div>
 
                 <div class="form-group">
                     <label asp-for="EventId" class="control-label">Event</label>
@@ -62,7 +67,7 @@
                         seats.forEach(function (seat) {
                             seatSelect.append($('<option></option>')
                                 .val(seat.id)
-                                .text(seat.name + ' (Row ' + seat.row + ', Column ' + seat.column + ') - $' + seat.price));
+                                .text(seat.name + ' (Row ' + seat.row + ', Column ' + seat.column + ') - €' + seat.price.toFixed(2)));
                         });
                     });
                 } else {

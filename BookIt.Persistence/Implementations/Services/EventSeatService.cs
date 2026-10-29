@@ -144,6 +144,8 @@ public class EventSeatService : IEventSeatService
             return HoldResultDTO.Of(HoldOutcome.Conflict);
         }
 
+        await _eventRepository.RefreshSeatStatsAsync(es.EventId);
+
         // after the commit: the sale stands even if the broker is down (publisher swallows failures)
         await _messagePublisher.PublishAsync(SeatSoldMessage.RoutingKey, new SeatSoldMessage(
             reservation.Id,
@@ -154,7 +156,8 @@ public class EventSeatService : IEventSeatService
             es.Seat.SeatName,
             price,
             userId,
-            now));
+            now,
+            reservation.Code));
 
         return new HoldResultDTO
         {
@@ -223,6 +226,7 @@ public class EventSeatService : IEventSeatService
             await _eventSeatRepository.CreateAsync(row);
 
         await _eventSeatRepository.SaveChangesAsync();
+        await _eventRepository.RefreshSeatStatsAsync(eventId);
         return rows.Count;
     }
 

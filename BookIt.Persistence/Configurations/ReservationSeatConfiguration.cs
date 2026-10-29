@@ -29,5 +29,16 @@ public class ReservationSeatConfiguration : IEntityTypeConfiguration<Reservation
         // a seat can appear only once inside one reservation
         builder.HasIndex(rs => new { rs.ReservationId, rs.SeatId })
                .IsUnique();
+
+        // the door scanner looks tickets up by this code, so it is unique and indexed
+        builder.Property(rs => rs.TicketCode)
+               .IsRequired()
+               .HasMaxLength(16)
+               .IsUnicode(false);
+        builder.HasIndex(rs => rs.TicketCode)
+               .IsUnique();
+
+        builder.Property(rs => rs.CheckedInBy)
+               .HasMaxLength(256);
     }
 }

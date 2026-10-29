@@ -1,0 +1,181 @@
+@using System.Globalization
+@using BookIt.Application.DTOs.TicketDTO
+@{
+    ViewData["Title"] = "Door check-in";
+    var inv = CultureInfo.InvariantCulture;
+    var events = (List<CheckInEventDTO>)ViewBag.Events;
+    var selected = ViewBag.SelectedEvent as CheckInEventDTO;
+}
+
+<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pb-3">
+    <div>
+        <h3 class="fw-bold mb-1">Door check-in</h3>
+        <h6 class="op-7 mb-0">Scan a ticket QR code (camera or USB scanner) or type the code. Each ticket gets in once.</h6>
+    </div>
+</div>
+
+@if (selected == null)
+{
+    <div class="card card-round">
+        <div class="card-header"><div class="card-title">Pick the event at this door</div></div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <tbody>
+                        @foreach (var e in events)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-bold">@e.Title</div>
+                                    <small class="text-muted">@e.EventDate.ToString("ddd d MMM yyyy, HH:mm", inv) · @e.LocationName</small>
+                                </td>
+                                <td>@e.CheckedInCount / @e.TicketCount checked in</td>
+                                <td class="text-end">
+                                    <a asp-action="Index" asp-route-eventId="@e.EventId" class="btn btn-primary btn-round btn-sm">Open door</a>
+                                </td>
+                            </tr>
+                        }
+                        @if (events.Count == 0)
+                        {
+                            <tr><td class="text-muted p-4">No events in the check-in window right now.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card card-round">
+                <div class="card-header">
+                    <div class="card-head-row card-tools-still-right">
+                        <div>
+                            <div class="card-title">@selected.Title</div>
+                            <div class="card-category">@selected.EventDate.ToString("ddd d MMM yyyy, HH:mm", inv) · @selected.LocationName</div>
+                        </div>
+                        <div class="card-tools">
+                            <a asp-action="Index" class="btn btn-sm btn-label-info btn-round">Change event</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="scanForm" autocomplete="off">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="eventId" value="@selected.EventId" />
+                        <div class="input-group input-group-lg">
+                            <input type="text" name="code" id="codeInput" class="form-control checkin-input" placeholder="Scan or type ticket code" autofocus />
+                            <button type="submit" class="btn btn-primary">Check in</button>
+                        </div>
+                    </form>
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="button" id="cameraBtn" class="btn btn-label-primary btn-round"><i class="fas fa-camera me-1"></i> Use camera</button>
+                        <span class="text-muted small align-self-center">The camera needs HTTPS or localhost.</span>
+                    </div>
+                    <div id="cameraBox" class="checkin-camera mt-3" hidden></div>
+
+                    <div id="result" class="checkin-result is-idle mt-4">
+                        <div class="checkin-result-title">Ready</div>
+                        <div class="checkin-result-text">Waiting for the first ticket.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card card-round">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-end mb-2">
+                        <div class="card-title">Checked in</div>
+                        <div class="fs-4 fw-bold"><span id="countIn">@selected.CheckedInCount</span> / <span id="countAll">@selected.TicketCount</span></div>
+                    </div>
+                    @{ var pct = selected.TicketCount == 0 ? 0 : 100 * selected.CheckedInCount / selected.TicketCount; }
+                    <div class="fill-bar"><span id="countBar" style="width: @(pct)%"></span></div>
+                </div>
+            </div>
+            <div class="card card-round">
+                <div class="card-header"><div class="card-title">Last scans</div></div>
+                <div class="card-body p-0">
+                    <ul id="history" class="list-unstyled mb-0 checkin-history"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @if (selected != null)
+    {
+        <script src="~/admin/assets/js/plugin/html5-qrcode/html5-qrcode.min.js"></script>
+        <script>
+            (function () {
+                var form = document.getElementById('scanForm');
+                var input = document.getElementById('codeInput');
+                var result = document.getElementById('result');
+                var history = document.getElementById('history');
+                var scanUrl = '@Url.Action("Scan", "CheckIn", new { area = "Admin" })';
+                var busy = false, lastCode = '', lastAt = 0;
+
+                var looks = {
+                    Admitted: ['is-ok', 'ADMIT'],
+                    AlreadyUsed: ['is-used', 'ALREADY USED'],
+                    WrongEvent: ['is-bad', 'WRONG EVENT'],
+                    NotValid: ['is-bad', 'NOT VALID'],
+                    Unknown: ['is-bad', 'UNKNOWN TICKET']
+                };
+
+                function show(r) {
+                    var look = looks[r.outcome] || ['is-bad', r.outcome];
+                    result.className = 'checkin-result mt-4 ' + look[0];
+                    var who = [r.seatName && ('Seat ' + r.seatName + (r.seatType ? ' · ' + r.seatType : '')), r.customerName, r.bookingCode]
+                        .filter(Boolean).join(' · ');
+                    result.innerHTML = '';
+                    [['checkin-result-title', look[1]], ['checkin-result-text', r.message], ['checkin-result-who', who]]
+                        .forEach(function (p) { var d = document.createElement('div'); d.className = p[0]; d.textContent = p[1]; result.appendChild(d); });
+
+                    document.getElementById('countIn').textContent = r.checkedInCount;
+                    document.getElementById('countAll').textContent = r.ticketCount;
+                    document.getElementById('countBar').style.width = (r.ticketCount ? Math.round(100 * r.checkedInCount / r.ticketCount) : 0) + '%';
+
+                    var li = document.createElement('li');
+                    li.className = look[0];
+                    li.textContent = new Date().toLocaleTimeString() + '  ' + look[1] + (r.seatName ? '  ' + r.seatName : '');
+                    history.insertBefore(li, history.firstChild);
+                    while (history.children.length > 12) history.removeChild(history.lastChild);
+                }
+
+                function submit(code) {
+                    code = (code || '').trim();
+                    // the camera reads the same QR many times a second: ignore repeats for 3 s
+                    if (!code || busy || (code === lastCode && Date.now() - lastAt < 3000)) return;
+                    busy = true; lastCode = code; lastAt = Date.now();
+                    var data = new FormData(form);
+                    data.set('code', code);
+                    fetch(scanUrl, { method: 'POST', body: data })
+                        .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+                        .then(show)
+                        .catch(function (e) { show({ outcome: 'Error', message: 'Scan failed: ' + e.message, checkedInCount: 0, ticketCount: 0 }); })
+                        .finally(function () { busy = false; input.value = ''; input.focus(); });
+                }
+
+                // USB scanners type the code and press Enter, so a plain form submit covers them
+                form.addEventListener('submit', function (e) { e.preventDefault(); submit(input.value); });
+
+                var camera = null;
+                document.getElementById('cameraBtn').addEventListener('click', function () {
+                    var box = document.getElementById('cameraBox');
+                    if (camera) {
+                        camera.stop().then(function () { camera.clear(); camera = null; box.hidden = true; });
+                        return;
+                    }
+                    box.hidden = false;
+                    camera = new Html5Qrcode('cameraBox');
+                    camera.start({ facingMode: 'environment' }, { fps: 10, qrbox: 240 }, function (text) { submit(text); })
+                        .catch(function (e) { box.hidden = true; camera = null; show({ outcome: 'Error', message: 'Camera not available: ' + e, checkedInCount: +document.getElementById('countIn').textContent, ticketCount: +document.getElementById('countAll').textContent }); });
+                });
+            })();
+        </script>
+    }
+}

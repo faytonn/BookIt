@@ -13,7 +13,9 @@ public record SeatSoldMessage(
     string SeatName,
     decimal Price,
     string UserId,
-    DateTime SoldAtUtc)
+    DateTime SoldAtUtc,
+    // added later: optional so messages already queued by an older version still deserialize
+    string? BookingCode = null)
 {
     public const string RoutingKey = "seat.sold";
 }

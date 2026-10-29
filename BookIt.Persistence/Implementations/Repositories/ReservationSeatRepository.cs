@@ -26,4 +26,15 @@ public class ReservationSeatRepository : Repository<ReservationSeat>, IReservati
             .ToListAsync();
     }
 
+    /// <summary>
+    /// Conditional UPDATE ... WHERE CheckedInAt IS NULL: when two doors scan the same ticket at once,
+    /// the database lets exactly one of them change the row, the other gets 0 back.
+    /// </summary>
+    public async Task<int> CheckInAsync(int ticketId, DateTime checkedInAt, string checkedInBy)
+    {
+        return await GetAll(rs => rs.Id == ticketId && rs.CheckedInAt == null)
+            .ExecuteUpdateAsync(set => set
+                .SetProperty(rs => rs.CheckedInAt, checkedInAt)
+                .SetProperty(rs => rs.CheckedInBy, checkedInBy));
+    }
 }

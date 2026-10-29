@@ -1,0 +1,75 @@
+@using System.Globalization
+@model BookIt.Application.DTOs.TicketDTO.GetBookingTicketsDTO
+@{
+    ViewData["Title"] = $"Tickets {Model.BookingCode}";
+    var inv = CultureInfo.InvariantCulture;
+}
+
+<section class="below-header padding-bottom tickets-page">
+    <div class="container">
+        <div class="tickets-head">
+            <div>
+                <span class="tickets-kicker">Booking @Model.BookingCode</span>
+                <h2 class="title">@Model.EventTitle</h2>
+                <p>
+                    @Model.EventDate.ToString("dddd d MMMM yyyy, HH:mm", inv) · @Model.LocationName, @Model.HallName
+                    @if (!string.IsNullOrWhiteSpace(Model.LocationAddress))
+                    {
+                        <br /><span class="tickets-muted">@Model.LocationAddress</span>
+                    }
+                </p>
+            </div>
+            <div class="tickets-actions no-print">
+                <button type="button" class="custom-button" onclick="window.print()">Print tickets</button>
+                <a asp-controller="Account" asp-action="Profile" class="profile-link">Back to my bookings</a>
+            </div>
+        </div>
+
+        @if (!Model.IsValid)
+        {
+            <div class="tickets-invalid">
+                This booking is <strong>@Model.Status.ToString().ToLowerInvariant()</strong>. These tickets are not valid for entry.
+            </div>
+        }
+        else
+        {
+            <p class="tickets-muted no-print">Show the QR code at the door, on your phone or printed. Each ticket gets one person in, once.</p>
+        }
+
+        <div class="row">
+            @foreach (var t in Model.Tickets)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="ticket-card @(Model.IsValid ? null : "is-void")">
+                        <div class="ticket-top">
+                            <div>
+                                <span class="ticket-label">Seat</span>
+                                <strong class="ticket-seat">@t.SeatName</strong>
+                                <span class="ticket-sub">Row @t.Row · seat @t.Column · @t.SeatType</span>
+                            </div>
+                            <span class="ticket-price">€@t.Price.ToString("N2", inv)</span>
+                        </div>
+                        <div class="ticket-qr">
+                            @if (Model.IsValid)
+                            {
+                                <img src="/tickets/qr/@t.TicketCode" alt="QR code for seat @t.SeatName" width="220" height="220" />
+                            }
+                            else
+                            {
+                                <div class="ticket-void">VOID</div>
+                            }
+                        </div>
+                        <div class="ticket-bottom">
+                            <span class="ticket-code">@string.Join(" ", t.TicketCode.Chunk(4).Select(c => new string(c)))</span>
+                            @if (t.CheckedInAt.HasValue)
+                            {
+                                <span class="status-pill is-pending">used @t.CheckedInAt.Value.ToLocalTime().ToString("d MMM HH:mm", inv)</span>
+                            }
+                        </div>
+                        <div class="ticket-event">@Model.EventTitle · @Model.EventDate.ToString("d MMM yyyy, HH:mm", inv)</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

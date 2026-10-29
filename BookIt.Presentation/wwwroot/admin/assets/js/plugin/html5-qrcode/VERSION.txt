@@ -1,0 +1,2 @@
+﻿// html5-qrcode 2.3.8 (Apache-2.0), https://github.com/mebjas/html5-qrcode
+// downloaded from unpkg.com/html5-qrcode@2.3.8, sha256 660B12437B1D747E3E68B8BE0685C08CB728140110AD213F167B14B66F8B1D8E

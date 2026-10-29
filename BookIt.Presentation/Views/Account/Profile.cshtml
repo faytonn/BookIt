@@ -1,53 +1,89 @@
+@using System.Globalization
+@using BookIt.Domain.Enums
 @model BookIt.Presentation.Models.ProfileViewModel
 @{
     ViewData["Title"] = "My Profile";
+    var inv = CultureInfo.InvariantCulture;
+    var initials = string.Concat(new[] { Model.FirstName, Model.LastName }.Where(n => !string.IsNullOrWhiteSpace(n)).Select(n => char.ToUpperInvariant(n[0])));
+    var active = Model.Reservations.Where(r => r.Status == ReservationStatus.Confirmed).ToList();
 }
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-body text-center">
- 
-                    <h2 class="card-title mb-2">@Model.FirstName @Model.LastName</h2>
-                    <p class="card-text">@Model.Email</p>
+
+<section class="below-header padding-bottom">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="profile-card">
+                    <div class="profile-avatar">@(string.IsNullOrEmpty(initials) ? "?" : initials)</div>
+                    <div class="profile-info">
+                        <h3 class="title">@Model.FirstName @Model.LastName</h3>
+                        <p>@Model.Email</p>
+                    </div>
+                    <div class="profile-actions">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="custom-button">Admin panel</a>
+                        }
+                        <a asp-action="Settings" class="profile-link"><i class="fas fa-cog"></i> Settings</a>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">My Reservations</h5>
+
+                <div class="profile-stats">
+                    <div><strong>@active.Count</strong><span>active bookings</span></div>
+                    <div><strong>@active.Sum(r => r.NumberOfTickets)</strong><span>tickets</span></div>
+                    <div><strong>€@active.Sum(r => r.TotalAmount).ToString("N2", inv)</strong><span>spent</span></div>
                 </div>
-                <div class="card-body p-0">
+
+                <div class="profile-card d-block">
+                    <h4 class="title mb-3">My reservations</h4>
                     @if (Model.Reservations.Any())
                     {
-                        <table class="table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Event</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var r in Model.Reservations)
-                                {
+                        <div class="table-responsive">
+                            <table class="table profile-table mb-0">
+                                <thead>
                                     <tr>
-                                        <td>@r.EventTitle</td>
-                                        <td>@r.ReservationDate.ToString("g")</td>
-                                        <td>@r.Status</td>
-                                        <td>@r.TotalAmount.ToString("C")</td>
+                                        <th>Event</th>
+                                        <th>Booking</th>
+                                        <th>Booked</th>
+                                        <th>Tickets</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Total</th>
+                                        <th></th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var r in Model.Reservations.OrderByDescending(r => r.ReservationDate))
+                                    {
+                                        var status = r.Status switch
+                                        {
+                                            ReservationStatus.Confirmed => "is-confirmed",
+                                            ReservationStatus.Cancelled or ReservationStatus.Refunded => "is-cancelled",
+                                            _ => "is-pending"
+                                        };
+                                        <tr>
+                                            <td><a asp-controller="Event" asp-action="Details" asp-route-id="@r.EventId">@r.EventTitle</a></td>
+                                            <td class="ticket-code-cell">@r.Code</td>
+                                            <td>@r.ReservationDate.ToString("d MMM yyyy, HH:mm", inv)</td>
+                                            <td>@r.NumberOfTickets</td>
+                                            <td><span class="status-pill @status">@r.Status</span></td>
+                                            <td class="text-right">€@r.TotalAmount.ToString("N2", inv)</td>
+                                            <td class="text-right">
+                                                @if (r.Status == ReservationStatus.Confirmed)
+                                                {
+                                                    <a href="/tickets/@r.Code" class="status-pill is-confirmed">Tickets</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     }
                     else
                     {
-                        <p class="p-3">You have no reservations.</p>
+                        <p class="mb-0">You have no reservations yet. <a asp-controller="Event" asp-action="Index">Find an event</a>.</p>
                     }
                 </div>
             </div>
         </div>
     </div>
-</div> 
-
+</section>

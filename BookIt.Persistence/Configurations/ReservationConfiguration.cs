@@ -16,6 +16,13 @@ public class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
                .IsRequired()
                .HasMaxLength(450);
 
+        builder.Property(r => r.Code)
+               .IsRequired()
+               .HasMaxLength(9)
+               .IsUnicode(false);
+        builder.HasIndex(r => r.Code)
+               .IsUnique();
+
         builder.Property(r => r.NumberOfTickets)
                .IsRequired();
 

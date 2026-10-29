@@ -20,6 +20,7 @@ public static class InfrastractureServiceRegistration
     {
         services.AddScoped<IUserAuthorizationService, UserAuthorizationService>();
         services.AddScoped<ICloudinaryService, CloudinaryService>();
+        services.AddSingleton<IQrCodeService, QrCodeService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IValidationMessagesProvider, ValidationMessagesLocalizer>();
 

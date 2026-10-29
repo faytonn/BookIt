@@ -18,15 +18,17 @@ public class ReservationService : IReservationService
     private readonly IReservationSeatRepository _reservationSeatRepository;
     private readonly IEventRepository _eventRepository;
     private readonly IEventSeatRepository _eventSeatRepository;
+    private readonly ICancellationRefundRepository _cancellationRefundRepository;
     private readonly IMapper _mapper;
 
-    public ReservationService(IReservationRepository reservationRepository, ISeatRepository seatRepository, IReservationSeatRepository reservationSeatRepository, IEventRepository eventRepository, IEventSeatRepository eventSeatRepository, IMapper mapper)
+    public ReservationService(IReservationRepository reservationRepository, ISeatRepository seatRepository, IReservationSeatRepository reservationSeatRepository, IEventRepository eventRepository, IEventSeatRepository eventSeatRepository, ICancellationRefundRepository cancellationRefundRepository, IMapper mapper)
     {
         _reservationRepository = reservationRepository;
         _seatRepository = seatRepository;
         _reservationSeatRepository = reservationSeatRepository;
         _eventRepository = eventRepository;
         _eventSeatRepository = eventSeatRepository;
+        _cancellationRefundRepository = cancellationRefundRepository;
         _mapper = mapper;
     }
 
@@ -89,12 +91,20 @@ public class ReservationService : IReservationService
         }
 
         var now = DateTime.UtcNow;
+        if (ev.EventDate < now)
+        {
+            modelState.AddModelError("EventId", "This event has already taken place.");
+            return false;
+        }
+
+        // An admin booking is a box-office sale: the seats are sold right away, so the booking is Confirmed.
+        // (Pending used to block the seats as Sold with no way to ever expire.)
         var reservation = new Reservation
         {
             EventId = ev.Id,
             UserId = dto.UserId,
             ReservationDate = now,
-            Status = ReservationStatus.Pending,
+            Status = ReservationStatus.Confirmed,
             NumberOfTickets = dto.SeatIds.Count,
             ReservationSeats = new List<ReservationSeat>()
         };
@@ -142,6 +152,7 @@ public class ReservationService : IReservationService
             modelState.AddModelError("SeatIds", "One of the seats was taken by someone else a moment ago. Please pick again.");
             return false;
         }
+        await _eventRepository.RefreshSeatStatsAsync(ev.Id);
         return true;
     }
 
@@ -156,11 +167,25 @@ public class ReservationService : IReservationService
             modelState.AddModelError("Id", "Reservation not found.");
             return false;
         }
-        reservation.EventId = dto.EventId;
-        reservation.Status = dto.Status;
-        _reservationRepository.Update(reservation);
-        await _reservationRepository.SaveChangesAsync();
-        return true;
+
+        // Only the status can change here, and only through the real transitions.
+        // The event is fixed: the seats belong to that event's hall. Seats change via Add/RemoveSeats.
+        if (dto.Status == reservation.Status)
+            return true;
+
+        return dto.Status switch
+        {
+            ReservationStatus.Confirmed => await ConfirmReservationAsync(dto.Id, null) || _fail(modelState, "Only a pending reservation can be confirmed."),
+            ReservationStatus.Cancelled => await CancelReservationAsync(dto.Id, modelState),
+            ReservationStatus.Refunded => await MarkRefundedAsync(dto.Id, modelState),
+            _ => _fail(modelState, $"A reservation can't be moved to {dto.Status} by hand.")
+        };
+    }
+
+    private static bool _fail(ModelStateDictionary modelState, string message)
+    {
+        modelState.AddModelError("", message);
+        return false;
     }
 
     public async Task<UpdateReservationDTO> GetUpdatedDtoAsync(int id)
@@ -180,13 +205,8 @@ public class ReservationService : IReservationService
 
     public async Task DeleteAsync(int id)
     {
-        var reservation = await _reservationRepository.GetAsync(id);
-        if (reservation == null) return;
         //my softdelete is cancel here, because hard deleting does not sound ethical in this case
-        reservation.Status = ReservationStatus.Cancelled;
-        _reservationRepository.Update(reservation);
-        await _releaseSeatsAsync(reservation.Id);
-        await _reservationRepository.SaveChangesAsync();
+        await CancelReservationAsync(id, new ModelStateDictionary());
     }
 
     public async Task<bool> ConfirmReservationAsync(int id, string? note)
@@ -200,13 +220,50 @@ public class ReservationService : IReservationService
         return true;
     }
 
-    public async Task<bool> CancelReservationAsync(int id)
+    public async Task<bool> CancelReservationAsync(int id, ModelStateDictionary modelState)
     {
-        var reservation = await _reservationRepository.GetAsync(id);
-        if (reservation == null) return false;
+        var reservation = await _reservationRepository.GetAsync(r => r.Id == id,
+            include: q => q.Include(r => r.Event).Include(r => r.CancellationRefund));
+        if (reservation == null)
+            return _fail(modelState, "Reservation not found.");
+        if (reservation.Status is ReservationStatus.Cancelled or ReservationStatus.Refunded)
+            return _fail(modelState, "This reservation is already cancelled.");
+
+        var now = DateTime.UtcNow;
+        if (reservation.Event != null && reservation.Event.EventDate < now)
+            return _fail(modelState, "The event has already taken place, so this booking can't be cancelled.");
+
+        // money was taken for a confirmed booking: record what is owed back (TotalAmount stays as the sale price)
+        if (reservation.Status == ReservationStatus.Confirmed && reservation.TotalAmount > 0 && reservation.CancellationRefund == null)
+        {
+            await _cancellationRefundRepository.CreateAsync(new CancellationRefund
+            {
+                ReservationId = reservation.Id,
+                CancellationDate = now,
+                RefundAmount = reservation.TotalAmount,
+                IsRefunded = false
+            });
+        }
+
         reservation.Status = ReservationStatus.Cancelled;
         _reservationRepository.Update(reservation);
         await _releaseSeatsAsync(reservation.Id);
+        await _reservationRepository.SaveChangesAsync();
+        await _eventRepository.RefreshSeatStatsAsync(reservation.EventId);
+        return true;
+    }
+
+    public async Task<bool> MarkRefundedAsync(int id, ModelStateDictionary modelState)
+    {
+        var reservation = await _reservationRepository.GetAsync(r => r.Id == id, include: q => q.Include(r => r.CancellationRefund));
+        if (reservation == null)
+            return _fail(modelState, "Reservation not found.");
+        if (reservation.Status != ReservationStatus.Cancelled || reservation.CancellationRefund == null)
+            return _fail(modelState, "Only a cancelled booking with a refund owed can be marked as refunded.");
+
+        reservation.CancellationRefund.IsRefunded = true;
+        reservation.Status = ReservationStatus.Refunded;
+        _reservationRepository.Update(reservation);
         await _reservationRepository.SaveChangesAsync();
         return true;
     }
@@ -214,7 +271,7 @@ public class ReservationService : IReservationService
     public async Task<bool> AddSeatsToReservationAsync(int reservationId, List<int> seatIds)   
     {
         var reservation = await _reservationRepository.GetAsync(reservationId);
-        if (reservation == null) 
+        if (reservation == null || reservation.Status is ReservationStatus.Cancelled or ReservationStatus.Refunded)
             return false;
 
         var ev = await _eventRepository.GetAsync(reservation.EventId);
@@ -260,6 +317,7 @@ public class ReservationService : IReservationService
         {
             return false;
         }
+        await _eventRepository.RefreshSeatStatsAsync(ev.Id);
         return true;
     }
 
@@ -284,8 +342,12 @@ public class ReservationService : IReservationService
         }
         reservation.TotalAmount -= refund;
         reservation.NumberOfTickets -= toRemove.Count;
+        // a booking with no seats left is not a booking any more
+        if (reservation.NumberOfTickets <= 0)
+            reservation.Status = ReservationStatus.Cancelled;
         _reservationRepository.Update(reservation);
         await _reservationRepository.SaveChangesAsync();
+        await _eventRepository.RefreshSeatStatsAsync(reservation.EventId);
         return true;
     }
 

@@ -53,45 +53,29 @@ public class ReservationController : Controller
         return View("Index", reservations);
     }
 
-    public async Task<IActionResult> Create()
+    public IActionResult Create()
     {
-        var currentUser = await _userManager.GetUserAsync(User);
-        if (currentUser == null)
-        {
-            return RedirectToAction("Login", "Account", new { area = "" });
-        }
-
-        var model = new CreateReservationDTO
-        {
-            UserId = currentUser.Id
-        };
-
         PopulateEventsViewBag();
         PopulateSeatsViewBag();
-        return View(model);
+        return View(new CreateReservationDTO());
     }
 
+    // Box-office sale: the admin books seats for a customer (found by email), not for themselves
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreateReservationDTO model)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
-        if (currentUser == null)
+        ModelState.Remove(nameof(CreateReservationDTO.UserId));
+        if (ModelState.IsValid)
         {
-            return RedirectToAction("Login", "Account", new { area = "" });
+            var customer = await _userManager.FindByEmailAsync(model.CustomerEmail.Trim());
+            if (customer == null)
+                ModelState.AddModelError(nameof(CreateReservationDTO.CustomerEmail), "No customer account with this email. Ask them to register first.");
+            else
+                model.UserId = customer.Id;
         }
 
-        // Ensure the UserId matches the current user
-        model.UserId = currentUser.Id;
-
-        if (!ModelState.IsValid)
-        {
-            PopulateEventsViewBag();
-            PopulateSeatsViewBag();
-            return View(model);
-        }
-
-        if (await _reservationService.CreateAsync(model, ModelState))
+        if (ModelState.IsValid && await _reservationService.CreateAsync(model, ModelState))
         {
             return RedirectToAction(nameof(Index));
         }
@@ -112,36 +96,11 @@ public class ReservationController : Controller
         return View(reservation);
     }
 
-    public async Task<IActionResult> Update(int id)
+    // The old edit form could move a booking to another event (its seats stayed in the old hall)
+    // and set "Cancelled" without freeing seats. Every change now goes through Details.
+    public IActionResult Update(int id)
     {
-        var reservation = await _reservationService.GetUpdatedDtoAsync(id);
-        if (reservation == null)
-            return NotFound();
-
-        PopulateEventsViewBag();
-        PopulateStatusesViewBag();
-        return View(reservation);
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Update(UpdateReservationDTO model)
-    {
-        if (!ModelState.IsValid)
-        {
-            PopulateEventsViewBag();
-            PopulateStatusesViewBag();
-            return View(model);
-        }
-
-        if (await _reservationService.UpdateAsync(model, ModelState))
-        {
-            return RedirectToAction(nameof(Index));
-        }
-
-        PopulateEventsViewBag();
-        PopulateStatusesViewBag();
-        return View(model);
+        return RedirectToAction(nameof(Details), new { id });
     }
 
     [HttpPost]
@@ -150,20 +109,72 @@ public class ReservationController : Controller
     {
         if (await _reservationService.ConfirmReservationAsync(id, null))
         {
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), new { id });
         }
-        return NotFound();
+        ModelState.AddModelError("", "Only a pending reservation can be confirmed.");
+        return View(nameof(Details), await _reservationService.GetAsync(id));
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Cancel(int id)
     {
-        if (await _reservationService.CancelReservationAsync(id))
+        if (await _reservationService.CancelReservationAsync(id, ModelState))
         {
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), new { id });
         }
-        return NotFound();
+        return View(nameof(Details), await _reservationService.GetAsync(id));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> MarkRefunded(int id)
+    {
+        if (await _reservationService.MarkRefundedAsync(id, ModelState))
+        {
+            return RedirectToAction(nameof(Details), new { id });
+        }
+        return View(nameof(Details), await _reservationService.GetAsync(id));
+    }
+
+    public async Task<IActionResult> AddSeats(int id)
+    {
+        var reservation = await _reservationService.GetAsync(id);
+        await _populateAvailableSeatsAsync(reservation.EventId);
+        return View(reservation);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddSeats(int id, List<int> seatIds)
+    {
+        if (seatIds.Count == 0)
+            ModelState.AddModelError("", "Pick at least one seat.");
+        else if (await _reservationService.AddSeatsToReservationAsync(id, seatIds))
+            return RedirectToAction(nameof(Details), new { id });
+        else
+            ModelState.AddModelError("", "Those seats can't be added: one was taken a moment ago, or the reservation is cancelled.");
+
+        var reservation = await _reservationService.GetAsync(id);
+        await _populateAvailableSeatsAsync(reservation.EventId);
+        return View(reservation);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RemoveSeats(int id, List<int> seatIds)
+    {
+        await _reservationService.RemoveSeatsFromReservationAsync(id, seatIds);
+        return RedirectToAction(nameof(Details), new { id });
+    }
+
+    private async Task _populateAvailableSeatsAsync(int eventId)
+    {
+        var seatMap = await _eventSeatService.GetSeatMapAsync(eventId);
+        ViewBag.AvailableSeats = seatMap
+            .Where(s => s.Status == EventSeatStatus.Available)
+            .OrderBy(s => s.Row).ThenBy(s => s.Column)
+            .ToList();
     }
 
     [HttpPost]

@@ -4,6 +4,7 @@ using BookIt.Application.Interfaces.Services.External;
 using BookIt.Application.Messaging;
 using BookIt.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -26,12 +27,15 @@ public class SeatSoldEmailConsumer : BackgroundService
     private readonly RabbitMqConnection _connection;
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly ILogger<SeatSoldEmailConsumer> _logger;
+    private readonly string? _publicBaseUrl;
 
-    public SeatSoldEmailConsumer(RabbitMqConnection connection, IServiceScopeFactory scopeFactory, ILogger<SeatSoldEmailConsumer> logger)
+    public SeatSoldEmailConsumer(RabbitMqConnection connection, IServiceScopeFactory scopeFactory, ILogger<SeatSoldEmailConsumer> logger, IConfiguration configuration)
     {
         _connection = connection;
         _scopeFactory = scopeFactory;
         _logger = logger;
+        // emails need absolute links; without this setting the email just shows the booking code
+        _publicBaseUrl = configuration["App:PublicBaseUrl"]?.TrimEnd('/');
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -101,12 +105,18 @@ public class SeatSoldEmailConsumer : BackgroundService
             return;
         }
 
+        var reference = message.BookingCode ?? $"#{message.ReservationId}";
+        var ticketsLink = message.BookingCode != null && _publicBaseUrl != null
+            ? $"""<p><a href="{_publicBaseUrl}/tickets/{message.BookingCode}">Open your ticket (QR code for the door)</a></p>"""
+            : "<p>Your ticket with its QR code is under My Profile on BookIt.</p>";
+
         var body = $"""
             <h2>Your ticket is confirmed</h2>
             <p>Hi {user.FirstName},</p>
             <p>Seat <strong>{message.SeatName}</strong> for <strong>{message.EventTitle}</strong>
                on {message.EventDate:dddd, d MMMM yyyy HH:mm} is yours.</p>
-            <p>Price: {message.Price:0.00} &middot; Reservation #{message.ReservationId}</p>
+            <p>Price: €{message.Price:0.00} &middot; Booking <strong>{reference}</strong></p>
+            {ticketsLink}
             <p>See you there!<br/>BookIt</p>
             """;
 

@@ -45,8 +45,12 @@ public class ReservationRepository : Repository<Reservation>, IReservationReposi
 
     private static Func<IQueryable<Reservation>, IIncludableQueryable<Reservation, object>> _withDetails()
     {
-        return q => q.Include(r => r.Event)
+        return q => q.Include(r => r.User)
+                     .Include(r => r.CancellationRefund)
+                     .Include(r => r.Event).ThenInclude(e => e!.GeneralLocation)
+                     .Include(r => r.Event).ThenInclude(e => e!.Hall)
                      .Include(r => r.ReservationSeats)!
-                     .ThenInclude(rs => rs.Seat)!;
+                     .ThenInclude(rs => rs.Seat)!
+                     .ThenInclude(s => s!.SeatType);
     }
 }

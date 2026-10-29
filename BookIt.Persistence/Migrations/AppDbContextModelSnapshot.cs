@@ -947,6 +947,12 @@ namespace BookIt.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(9)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -989,6 +995,9 @@ namespace BookIt.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.HasIndex("EventId");
 
                     b.HasIndex("PaymentTransactionId")
@@ -1007,6 +1016,13 @@ namespace BookIt.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CheckedInAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CheckedInBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1027,6 +1043,12 @@ namespace BookIt.Persistence.Migrations
                     b.Property<int>("SeatId")
                         .HasColumnType("int");
 
+                    b.Property<string>("TicketCode")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(16)");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -1037,6 +1059,9 @@ namespace BookIt.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("SeatId");
+
+                    b.HasIndex("TicketCode")
+                        .IsUnique();
 
                     b.HasIndex("ReservationId", "SeatId")
                         .IsUnique();

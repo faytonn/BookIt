@@ -21,9 +21,9 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Booking</th>
                             <th>Event</th>
-                            <th>User</th>
+                            <th>Customer</th>
                             <th>Status</th>
                             <th>Date</th>
                             <th>Tickets</th>
@@ -35,9 +35,12 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Id</td>
+                                <td><code>@item.Code</code></td>
                                 <td>@item.EventTitle</td>
-                                <td>@item.UserId</td>
+                                <td>
+                                    <div class="fw-bold">@item.CustomerName</div>
+                                    <small class="text-muted">@item.CustomerEmail</small>
+                                </td>
                                 <td>
                                     <span class="badge @(item.Status switch {
                                         ReservationStatus.Confirmed => "badge-success",
@@ -52,14 +55,11 @@
                                 </td>
                                 <td>@item.ReservationDate.ToString("g")</td>
                                 <td>@item.NumberOfTickets</td>
-                                <td>@item.TotalAmount.ToString("C")</td>
+                                <td>€@item.TotalAmount.ToString("N2", System.Globalization.CultureInfo.InvariantCulture)</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
                                             <i class="fas fa-info-circle"></i>
-                                        </a>
-                                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i>
                                         </a>
                                         @if (item.Status == ReservationStatus.Pending)
                                         {
