@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b6e4f"/><stop offset="1" stop-color="#04233a"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#04233a" stop-opacity="0"/><stop offset="1" stop-color="#04233a" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<rect x="-480" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="-360" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="-240" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="-120" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="0" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="120" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="240" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="360" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="480" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="600" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="720" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="840" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="960" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="1080" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="1200" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<rect x="1320" y="-200" width="50" height="944.9999999999999" fill="#ffbe0b" opacity="0.10" transform="rotate(25 600 337.5)"/>
+<circle cx="714.1222257446498" cy="243" r="170" fill="#ffbe0b"/>
+<path d="M544.1222257446498,243 H884.1222257446498 M714.1222257446498,73 V413" stroke="#1b1b1b" stroke-width="8"/>
+<path d="M594.1222257446498,123 Q714.1222257446498,243 594.1222257446498,363 M834.1222257446498,123 Q714.1222257446498,243 834.1222257446498,363" stroke="#1b1b1b" stroke-width="8" fill="none"/>
+<rect width="1200" height="675" fill="url(#fade)"/>
+<text x="1144" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#f7f7f2">BOOKIT NEWS</text>
+<text x="56" y="525" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="64" font-weight="900" fill="#ffffff">How seat holds work</text>
+<rect x="56" y="557" width="90" height="8" rx="4" fill="#f7f7f2"/>
+<text x="56" y="611" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#ffbe0b">bookit</text>
+</svg>

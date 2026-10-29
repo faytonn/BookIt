@@ -37,6 +37,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<BaseEntityInterceptor>();
         services.AddScoped<DbContextInitializer>();
         services.AddScoped<LoadTestSeeder>();
+        services.AddScoped<DemoSeeder>();
 
         _addRepositories(services);
         _addServices(services);

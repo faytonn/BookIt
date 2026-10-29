@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a1020"/><stop offset="1" stop-color="#2b0a0a"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#2b0a0a" stop-opacity="0"/><stop offset="1" stop-color="#2b0a0a" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="800" height="1000" fill="url(#bg)"/>
+<ellipse cx="400" cy="600" rx="256" ry="40" fill="#ffe8a3" opacity="0.25"/>
+<path d="M340,0 L180,600 L620,600 L460,0 Z" fill="#ffe8a3" opacity="0.12"/>
+<path d="M0,0 Q230,300 20,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.25" stroke-linecap="round"/>
+<path d="M34,0 Q210,300 50,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.35" stroke-linecap="round"/>
+<path d="M68,0 Q190,300 80,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.45" stroke-linecap="round"/>
+<path d="M102,0 Q170,300 110,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.55" stroke-linecap="round"/>
+<path d="M136,0 Q150,300 140,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.65" stroke-linecap="round"/>
+<path d="M170,0 Q130,300 170,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.75" stroke-linecap="round"/>
+<path d="M800,0 Q570,300 780,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.25" stroke-linecap="round"/>
+<path d="M766,0 Q590,300 750,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.35" stroke-linecap="round"/>
+<path d="M732,0 Q610,300 720,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.45" stroke-linecap="round"/>
+<path d="M698,0 Q630,300 690,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.55" stroke-linecap="round"/>
+<path d="M664,0 Q650,300 660,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.65" stroke-linecap="round"/>
+<path d="M630,0 Q670,300 630,660" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.75" stroke-linecap="round"/>
+<rect width="800" height="1000" fill="url(#fade)"/>
+<text x="744" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#f4c542">THEATRE</text>
+<text x="56" y="850" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">The Last Tram Home</text>
+<rect x="56" y="882" width="90" height="8" rx="4" fill="#f4c542"/>
+<text x="56" y="936" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#ffe8a3">Old Town Stage · Prague</text>
+</svg>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a1b9a"/><stop offset="1" stop-color="#1a0b3d"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#1a0b3d" stop-opacity="0"/><stop offset="1" stop-color="#1a0b3d" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="800" height="1000" fill="url(#bg)"/>
+<circle cx="494.6783886477351" cy="360" r="342" fill="none" stroke="#ff4f8b" stroke-width="12" opacity="0.08"/>
+<circle cx="494.6783886477351" cy="360" r="304" fill="none" stroke="#ffd166" stroke-width="11" opacity="0.15000000000000002"/>
+<circle cx="494.6783886477351" cy="360" r="266" fill="none" stroke="#ff4f8b" stroke-width="10" opacity="0.22000000000000003"/>
+<circle cx="494.6783886477351" cy="360" r="228" fill="none" stroke="#ffd166" stroke-width="9" opacity="0.29000000000000004"/>
+<circle cx="494.6783886477351" cy="360" r="190" fill="none" stroke="#ff4f8b" stroke-width="8" opacity="0.36000000000000004"/>
+<circle cx="494.6783886477351" cy="360" r="152" fill="none" stroke="#ffd166" stroke-width="7" opacity="0.43000000000000005"/>
+<circle cx="494.6783886477351" cy="360" r="114" fill="none" stroke="#ff4f8b" stroke-width="6" opacity="0.5"/>
+<circle cx="494.6783886477351" cy="360" r="76" fill="none" stroke="#ffd166" stroke-width="5" opacity="0.5700000000000001"/>
+<circle cx="494.6783886477351" cy="360" r="38" fill="none" stroke="#ff4f8b" stroke-width="4" opacity="0.64"/>
+<rect x="40" y="578.439290523529" width="22" height="41.56070947647095" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="70" y="540.3332309797406" width="22" height="79.66676902025938" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="100" y="581.987440250814" width="22" height="38.01255974918604" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="130" y="459.8028642311692" width="22" height="160.19713576883078" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="160" y="520.6366822496057" width="22" height="99.36331775039434" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="190" y="511.3582082092762" width="22" height="108.6417917907238" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="220" y="499.84864577651024" width="22" height="120.15135422348976" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="250" y="537.0815879106522" width="22" height="82.91841208934784" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="280" y="474.56414241343737" width="22" height="145.43585758656263" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="310" y="516.8165028467774" width="22" height="103.18349715322256" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="340" y="572.2241590544581" width="22" height="47.77584094554186" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="370" y="579.4146498665214" width="22" height="40.58535013347864" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="400" y="569.3510856106877" width="22" height="50.64891438931227" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="430" y="532.6352758333087" width="22" height="87.3647241666913" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="460" y="437.73651000112295" width="22" height="182.26348999887705" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="490" y="465.761671513319" width="22" height="154.23832848668098" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="520" y="509.8009618744254" width="22" height="110.19903812557459" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="550" y="478.96680299192667" width="22" height="141.03319700807333" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="580" y="443.1595729291439" width="22" height="176.8404270708561" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="610" y="514.8644927144051" width="22" height="105.13550728559494" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="640" y="582.6062314212322" width="22" height="37.39376857876778" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="670" y="510.2124774083495" width="22" height="109.78752259165049" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="700" y="573.4156857058406" width="22" height="46.58431429415941" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="730" y="510.79111363738775" width="22" height="109.20888636261225" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect width="800" height="1000" fill="url(#fade)"/>
+<text x="744" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#ff4f8b">CONCERT</text>
+<text x="56" y="850" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Synthwave Sunset</text>
+<rect x="56" y="882" width="90" height="8" rx="4" fill="#ff4f8b"/>
+<text x="56" y="936" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#ffd166">Riverside Hall · Brno</text>
+</svg>

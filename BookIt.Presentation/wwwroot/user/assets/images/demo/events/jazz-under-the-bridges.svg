@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a1b9a"/><stop offset="1" stop-color="#1a0b3d"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#1a0b3d" stop-opacity="0"/><stop offset="1" stop-color="#1a0b3d" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="800" height="1000" fill="url(#bg)"/>
+<circle cx="410.66434022039175" cy="360" r="342" fill="none" stroke="#ff4f8b" stroke-width="12" opacity="0.08"/>
+<circle cx="410.66434022039175" cy="360" r="304" fill="none" stroke="#ffd166" stroke-width="11" opacity="0.15000000000000002"/>
+<circle cx="410.66434022039175" cy="360" r="266" fill="none" stroke="#ff4f8b" stroke-width="10" opacity="0.22000000000000003"/>
+<circle cx="410.66434022039175" cy="360" r="228" fill="none" stroke="#ffd166" stroke-width="9" opacity="0.29000000000000004"/>
+<circle cx="410.66434022039175" cy="360" r="190" fill="none" stroke="#ff4f8b" stroke-width="8" opacity="0.36000000000000004"/>
+<circle cx="410.66434022039175" cy="360" r="152" fill="none" stroke="#ffd166" stroke-width="7" opacity="0.43000000000000005"/>
+<circle cx="410.66434022039175" cy="360" r="114" fill="none" stroke="#ff4f8b" stroke-width="6" opacity="0.5"/>
+<circle cx="410.66434022039175" cy="360" r="76" fill="none" stroke="#ffd166" stroke-width="5" opacity="0.5700000000000001"/>
+<circle cx="410.66434022039175" cy="360" r="38" fill="none" stroke="#ff4f8b" stroke-width="4" opacity="0.64"/>
+<rect x="40" y="540.0672339275479" width="22" height="79.93276607245207" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="70" y="470.99173225462437" width="22" height="149.00826774537563" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="100" y="508.2334217429161" width="22" height="111.76657825708389" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="130" y="430.49732342362404" width="22" height="189.50267657637596" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="160" y="480.4173054918647" width="22" height="139.58269450813532" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="190" y="434.64278757572174" width="22" height="185.35721242427826" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="220" y="483.3399960026145" width="22" height="136.6600039973855" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="250" y="437.10226614028215" width="22" height="182.89773385971785" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="280" y="431.517532505095" width="22" height="188.482467494905" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="310" y="481.4123060554266" width="22" height="138.5876939445734" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="340" y="535.1022201776505" width="22" height="84.89777982234955" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="370" y="583.0007451400161" width="22" height="36.99925485998392" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="400" y="545.0087675079703" width="22" height="74.99123249202967" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="430" y="452.60476656258106" width="22" height="167.39523343741894" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="460" y="544.7840314731002" width="22" height="75.21596852689981" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="490" y="550.0146374851465" width="22" height="69.98536251485348" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="520" y="481.3095288351178" width="22" height="138.69047116488218" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="550" y="518.1629857048392" width="22" height="101.83701429516077" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="580" y="586.3890156894922" width="22" height="33.610984310507774" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="610" y="451.02776002138853" width="22" height="168.97223997861147" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="640" y="574.8529963195324" width="22" height="45.147003680467606" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="670" y="477.06842955201864" width="22" height="142.93157044798136" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="700" y="517.4981973692775" width="22" height="102.50180263072252" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="730" y="470.0364014133811" width="22" height="149.9635985866189" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect width="800" height="1000" fill="url(#fade)"/>
+<text x="744" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#ff4f8b">CONCERT</text>
+<text x="56" y="778.72" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Jazz Under the</text>
+<text x="56" y="850" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Bridges</text>
+<rect x="56" y="882" width="90" height="8" rx="4" fill="#ff4f8b"/>
+<text x="56" y="936" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#ffd166">Old Town Stage · Prague</text>
+</svg>

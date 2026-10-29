@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a1b9a"/><stop offset="1" stop-color="#1a0b3d"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#1a0b3d" stop-opacity="0"/><stop offset="1" stop-color="#1a0b3d" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="800" height="1000" fill="url(#bg)"/>
+<circle cx="335.43913753703237" cy="360" r="342" fill="none" stroke="#ff4f8b" stroke-width="12" opacity="0.08"/>
+<circle cx="335.43913753703237" cy="360" r="304" fill="none" stroke="#ffd166" stroke-width="11" opacity="0.15000000000000002"/>
+<circle cx="335.43913753703237" cy="360" r="266" fill="none" stroke="#ff4f8b" stroke-width="10" opacity="0.22000000000000003"/>
+<circle cx="335.43913753703237" cy="360" r="228" fill="none" stroke="#ffd166" stroke-width="9" opacity="0.29000000000000004"/>
+<circle cx="335.43913753703237" cy="360" r="190" fill="none" stroke="#ff4f8b" stroke-width="8" opacity="0.36000000000000004"/>
+<circle cx="335.43913753703237" cy="360" r="152" fill="none" stroke="#ffd166" stroke-width="7" opacity="0.43000000000000005"/>
+<circle cx="335.43913753703237" cy="360" r="114" fill="none" stroke="#ff4f8b" stroke-width="6" opacity="0.5"/>
+<circle cx="335.43913753703237" cy="360" r="76" fill="none" stroke="#ffd166" stroke-width="5" opacity="0.5700000000000001"/>
+<circle cx="335.43913753703237" cy="360" r="38" fill="none" stroke="#ff4f8b" stroke-width="4" opacity="0.64"/>
+<rect x="40" y="478.79106167703867" width="22" height="141.20893832296133" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="70" y="458.1483952701092" width="22" height="161.85160472989082" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="100" y="489.39434479922056" width="22" height="130.60565520077944" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="130" y="489.5576495677233" width="22" height="130.44235043227673" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="160" y="554.1673606261611" width="22" height="65.8326393738389" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="190" y="436.8121588230133" width="22" height="183.1878411769867" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="220" y="553.7699183821678" width="22" height="66.23008161783218" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="250" y="432.39175483584404" width="22" height="187.60824516415596" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="280" y="553.2072835788131" width="22" height="66.79271642118692" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="310" y="521.6145377606153" width="22" height="98.38546223938465" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="340" y="562.1448042243719" width="22" height="57.85519577562809" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="370" y="431.7768407985568" width="22" height="188.2231592014432" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="400" y="529.313021376729" width="22" height="90.68697862327099" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="430" y="436.77521374076605" width="22" height="183.22478625923395" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="460" y="510.6619096919894" width="22" height="109.33809030801058" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="490" y="582.7410328015685" width="22" height="37.25896719843149" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="520" y="548.0729347467422" width="22" height="71.92706525325775" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="550" y="562.2733623161912" width="22" height="57.726637683808804" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="580" y="507.2815990820527" width="22" height="112.71840091794729" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="610" y="547.2480902075768" width="22" height="72.75190979242325" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="640" y="549.6663733199239" width="22" height="70.33362668007612" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="670" y="586.3197677209973" width="22" height="33.68023227900267" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="700" y="585.175978988409" width="22" height="34.82402101159096" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="730" y="495.0477357208729" width="22" height="124.95226427912712" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect width="800" height="1000" fill="url(#fade)"/>
+<text x="744" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#ff4f8b">CONCERT</text>
+<text x="56" y="850" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Baku Jazz Nights</text>
+<rect x="56" y="882" width="90" height="8" rx="4" fill="#ff4f8b"/>
+<text x="56" y="936" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#ffd166">Caspian Concert Hall · Baku</text>
+</svg>

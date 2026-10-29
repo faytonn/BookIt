@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a1b9a"/><stop offset="1" stop-color="#1a0b3d"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#1a0b3d" stop-opacity="0"/><stop offset="1" stop-color="#1a0b3d" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<circle cx="532.3584268894047" cy="243" r="342" fill="none" stroke="#ff4f8b" stroke-width="12" opacity="0.08"/>
+<circle cx="532.3584268894047" cy="243" r="304" fill="none" stroke="#ffd166" stroke-width="11" opacity="0.15000000000000002"/>
+<circle cx="532.3584268894047" cy="243" r="266" fill="none" stroke="#ff4f8b" stroke-width="10" opacity="0.22000000000000003"/>
+<circle cx="532.3584268894047" cy="243" r="228" fill="none" stroke="#ffd166" stroke-width="9" opacity="0.29000000000000004"/>
+<circle cx="532.3584268894047" cy="243" r="190" fill="none" stroke="#ff4f8b" stroke-width="8" opacity="0.36000000000000004"/>
+<circle cx="532.3584268894047" cy="243" r="152" fill="none" stroke="#ffd166" stroke-width="7" opacity="0.43000000000000005"/>
+<circle cx="532.3584268894047" cy="243" r="114" fill="none" stroke="#ff4f8b" stroke-width="6" opacity="0.5"/>
+<circle cx="532.3584268894047" cy="243" r="76" fill="none" stroke="#ffd166" stroke-width="5" opacity="0.5700000000000001"/>
+<circle cx="532.3584268894047" cy="243" r="38" fill="none" stroke="#ff4f8b" stroke-width="4" opacity="0.64"/>
+<rect x="40" y="319.8525306433439" width="38.666666666666664" height="98.64746935665607" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="86.66666666666666" y="331.06851080805063" width="38.666666666666664" height="87.43148919194937" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="133.33333333333331" y="370.01446234434843" width="38.666666666666664" height="48.48553765565157" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="180" y="333.0539805665612" width="38.666666666666664" height="85.44601943343878" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="226.66666666666666" y="366.73398251086473" width="38.666666666666664" height="51.766017489135265" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="273.3333333333333" y="277.82705983519554" width="38.666666666666664" height="140.67294016480446" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="320" y="257.0002289712429" width="38.666666666666664" height="161.4997710287571" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="366.66666666666663" y="323.12342988699675" width="38.666666666666664" height="95.37657011300325" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="413.3333333333333" y="336.37936113774776" width="38.666666666666664" height="82.12063886225224" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="460" y="312.96731366217136" width="38.666666666666664" height="105.53268633782864" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="506.66666666666663" y="367.7787467315793" width="38.666666666666664" height="50.721253268420696" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="553.3333333333333" y="266.0247825682163" width="38.666666666666664" height="152.47521743178368" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="600" y="261.3954941034317" width="38.666666666666664" height="157.1045058965683" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="646.6666666666666" y="376.70977207273245" width="38.666666666666664" height="41.79022792726755" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="693.3333333333333" y="343.5934439897537" width="38.666666666666664" height="74.90655601024628" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="740" y="278.54641503095627" width="38.666666666666664" height="139.95358496904373" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="786.6666666666666" y="319.68468947708607" width="38.666666666666664" height="98.81531052291393" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="833.3333333333333" y="271.5749138444662" width="38.666666666666664" height="146.9250861555338" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="880" y="381.4226974397898" width="38.666666666666664" height="37.07730256021023" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="926.6666666666666" y="248.8075786679983" width="38.666666666666664" height="169.6924213320017" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="973.3333333333333" y="344.8361019268632" width="38.666666666666664" height="73.6638980731368" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="1020" y="344.25719717890024" width="38.666666666666664" height="74.24280282109976" rx="6" fill="#ffd166" opacity="0.85"/>
+<rect x="1066.6666666666665" y="312.8596276268363" width="38.666666666666664" height="105.6403723731637" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect x="1113.3333333333333" y="365.2999040335417" width="38.666666666666664" height="53.20009596645832" rx="6" fill="#ff4f8b" opacity="0.85"/>
+<rect width="1200" height="675" fill="url(#fade)"/>
+<text x="1144" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#ff4f8b">BOOKIT NEWS</text>
+<text x="56" y="455.88" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="64" font-weight="900" fill="#ffffff">Winter season line-up</text>
+<text x="56" y="525" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="64" font-weight="900" fill="#ffffff">announced</text>
+<rect x="56" y="557" width="90" height="8" rx="4" fill="#ff4f8b"/>
+<text x="56" y="611" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#ffd166">bookit</text>
+</svg>

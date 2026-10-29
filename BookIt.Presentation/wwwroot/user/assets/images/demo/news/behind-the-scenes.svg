@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a1020"/><stop offset="1" stop-color="#2b0a0a"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#2b0a0a" stop-opacity="0"/><stop offset="1" stop-color="#2b0a0a" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<ellipse cx="600" cy="405" rx="384" ry="40" fill="#ffe8a3" opacity="0.25"/>
+<path d="M540,0 L380,405 L820,405 L660,0 Z" fill="#ffe8a3" opacity="0.12"/>
+<path d="M0,0 Q230,202.5 20,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.25" stroke-linecap="round"/>
+<path d="M34,0 Q210,202.5 50,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.35" stroke-linecap="round"/>
+<path d="M68,0 Q190,202.5 80,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.45" stroke-linecap="round"/>
+<path d="M102,0 Q170,202.5 110,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.55" stroke-linecap="round"/>
+<path d="M136,0 Q150,202.5 140,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.65" stroke-linecap="round"/>
+<path d="M170,0 Q130,202.5 170,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.75" stroke-linecap="round"/>
+<path d="M1200,0 Q970,202.5 1180,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.25" stroke-linecap="round"/>
+<path d="M1166,0 Q990,202.5 1150,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.35" stroke-linecap="round"/>
+<path d="M1132,0 Q1010,202.5 1120,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.45" stroke-linecap="round"/>
+<path d="M1098,0 Q1030,202.5 1090,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.55" stroke-linecap="round"/>
+<path d="M1064,0 Q1050,202.5 1060,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.65" stroke-linecap="round"/>
+<path d="M1030,0 Q1070,202.5 1030,445.5" stroke="#f4c542" stroke-width="22" fill="none" opacity="0.75" stroke-linecap="round"/>
+<rect width="1200" height="675" fill="url(#fade)"/>
+<text x="1144" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#f4c542">BOOKIT NEWS</text>
+<text x="56" y="455.88" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="64" font-weight="900" fill="#ffffff">Behind the scenes at Vltava</text>
+<text x="56" y="525" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="64" font-weight="900" fill="#ffffff">Arena</text>
+<rect x="56" y="557" width="90" height="8" rx="4" fill="#f4c542"/>
+<text x="56" y="611" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#ffe8a3">bookit</text>
+</svg>

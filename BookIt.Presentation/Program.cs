@@ -97,6 +97,15 @@ public class Program
                 Console.WriteLine($"Load-test event id: {eventId}");
                 return;
             }
+
+            // `dotnet run -- seed-demo`: add demo categories, venues, events and news, then exit
+            if (args.Contains("seed-demo"))
+            {
+                var demoSeeder = scope.ServiceProvider.GetRequiredService<DemoSeeder>();
+                var created = await demoSeeder.SeedAsync();
+                Console.WriteLine($"Demo events created: {created}");
+                return;
+            }
         }
 
         // Configure the HTTP request pipeline.

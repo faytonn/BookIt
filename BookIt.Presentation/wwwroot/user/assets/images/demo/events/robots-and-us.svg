@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f3f46"/><stop offset="1" stop-color="#111111"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#111111" stop-opacity="0"/><stop offset="1" stop-color="#111111" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="800" height="1000" fill="url(#bg)"/>
+<rect x="66" y="126" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#38bdf8" opacity="0.9"/>
+<rect x="66" y="239.33333333333331" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.06218899701721966"/>
+<rect x="66" y="352.66666666666663" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.12423925671260803"/>
+<rect x="66" y="466" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.11228704216424376"/>
+<rect x="179.33333333333331" y="126" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.11665510341059417"/>
+<rect x="179.33333333333331" y="239.33333333333331" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.06993842806201428"/>
+<rect x="179.33333333333331" y="352.66666666666663" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.139950503166765"/>
+<rect x="179.33333333333331" y="466" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.06569034530781209"/>
+<rect x="292.66666666666663" y="126" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.094863860020414"/>
+<rect x="292.66666666666663" y="239.33333333333331" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#38bdf8" opacity="0.9"/>
+<rect x="292.66666666666663" y="352.66666666666663" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#f97316" opacity="0.9"/>
+<rect x="292.66666666666663" y="466" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.08775032888166606"/>
+<rect x="406" y="126" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.1429569027060643"/>
+<rect x="406" y="239.33333333333331" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.09031989329028875"/>
+<rect x="406" y="352.66666666666663" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.13692508329637348"/>
+<rect x="406" y="466" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#38bdf8" opacity="0.9"/>
+<rect x="519.3333333333333" y="126" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.14673807673621925"/>
+<rect x="519.3333333333333" y="239.33333333333331" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.15794477203395219"/>
+<rect x="519.3333333333333" y="352.66666666666663" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.15996837261132896"/>
+<rect x="519.3333333333333" y="466" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.12181424069218338"/>
+<rect x="632.6666666666666" y="126" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.09448389032855631"/>
+<rect x="632.6666666666666" y="239.33333333333331" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.10304908269550651"/>
+<rect x="632.6666666666666" y="352.66666666666663" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.11795434988103806"/>
+<rect x="632.6666666666666" y="466" width="101.33333333333333" height="101.33333333333333" rx="10" fill="#ffffff" opacity="0.09467348548583687"/>
+<rect width="800" height="1000" fill="url(#fade)"/>
+<text x="744" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#38bdf8">EXHIBITION</text>
+<text x="56" y="707.4399999999999" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Robots &amp; Us:</text>
+<text x="56" y="778.72" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Interactive</text>
+<text x="56" y="850" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Exhibition</text>
+<rect x="56" y="882" width="90" height="8" rx="4" fill="#38bdf8"/>
+<text x="56" y="936" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#f97316">Silesia Event Centre · Ostrava</text>
+</svg>

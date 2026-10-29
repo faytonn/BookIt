@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f2a44"/><stop offset="1" stop-color="#0b1320"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#0b1320" stop-opacity="0"/><stop offset="1" stop-color="#0b1320" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<path d="M-20,183 C360,83 840,283 1220,163" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,213 C360,113 840,313 1220,193" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,243 C360,143 840,343 1220,223" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,273 C360,173 840,373 1220,253" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,303 C360,203 840,403 1220,283" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<ellipse cx="70" cy="277.0135055826977" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 70 277.0135055826977)"/><line x1="88" y1="277.0135055826977" x2="88" y2="167.0135055826977" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="202.5" cy="289.2545448821038" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 202.5 289.2545448821038)"/><line x1="220.5" y1="289.2545448821038" x2="220.5" y2="179.2545448821038" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="335" cy="185.4074866482988" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 335 185.4074866482988)"/><line x1="353" y1="185.4074866482988" x2="353" y2="75.4074866482988" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="467.5" cy="256.3535896334797" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 467.5 256.3535896334797)"/><line x1="485.5" y1="256.3535896334797" x2="485.5" y2="146.35358963347971" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="600" cy="292.47164391633123" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 600 292.47164391633123)"/><line x1="618" y1="292.47164391633123" x2="618" y2="182.47164391633123" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="732.5" cy="222.28087807260454" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 732.5 222.28087807260454)"/><line x1="750.5" y1="222.28087807260454" x2="750.5" y2="112.28087807260454" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="865" cy="301.933427981101" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 865 301.933427981101)"/><line x1="883" y1="301.933427981101" x2="883" y2="191.93342798110098" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="997.5" cy="198.71627744007856" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 997.5 198.71627744007856)"/><line x1="1015.5" y1="198.71627744007856" x2="1015.5" y2="88.71627744007856" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="1130" cy="209.98284334503114" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 1130 209.98284334503114)"/><line x1="1148" y1="209.98284334503114" x2="1148" y2="99.98284334503114" stroke="#f5f0e1" stroke-width="5"/>
+<rect width="1200" height="675" fill="url(#fade)"/>
+<text x="1144" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#d4af37">BOOKIT NEWS</text>
+<text x="56" y="455.88" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="64" font-weight="900" fill="#ffffff">Caspian Concert Hall opens</text>
+<text x="56" y="525" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="64" font-weight="900" fill="#ffffff">its doors</text>
+<rect x="56" y="557" width="90" height="8" rx="4" fill="#d4af37"/>
+<text x="56" y="611" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#f5f0e1">bookit</text>
+</svg>

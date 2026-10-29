@@ -17,6 +17,7 @@ cd BookIt.Presentation && dotnet run --launch-profile http   # http://localhost:
 ```
 
 Startup (`Program.cs`) calls `DbContextInitializer.InitDatabaseAsync()`: applies migrations, seeds roles from `Role` enum and the admin user from `appsettings.json:Admin`.
+Demo content: `dotnet run --project BookIt.Presentation -- seed-demo` (30 events, venues, news, sales; idempotent). Sales need the `@bookit.test` users from `seed-loadtest`. Posters are generated SVGs in `wwwroot/user/assets/images/demo`.
 Migrations live in `BookIt.Persistence/Migrations`; add with `dotnet ef migrations add <Name> -p BookIt.Persistence -s BookIt.Presentation`.
 Tests: `BookIt.Tests` (xUnit + Testcontainers.MsSql). `dotnet test BookIt.sln` needs Docker running; the fixture starts a real SQL Server, runs the migrations and seeds a small venue. Never use the EF in-memory provider — it ignores rowversion tokens and unique indexes.
 

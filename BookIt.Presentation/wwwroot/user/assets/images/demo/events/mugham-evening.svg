@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f2a44"/><stop offset="1" stop-color="#0b1320"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#0b1320" stop-opacity="0"/><stop offset="1" stop-color="#0b1320" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="800" height="1000" fill="url(#bg)"/>
+<path d="M-20,300 C240,200 560,400 820,280" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,330 C240,230 560,430 820,310" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,360 C240,260 560,460 820,340" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,390 C240,290 560,490 820,370" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,420 C240,320 560,520 820,400" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<ellipse cx="70" cy="294.72858271561563" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 70 294.72858271561563)"/><line x1="88" y1="294.72858271561563" x2="88" y2="184.72858271561563" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="152.5" cy="369.59231577813625" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 152.5 369.59231577813625)"/><line x1="170.5" y1="369.59231577813625" x2="170.5" y2="259.59231577813625" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="235" cy="417.3362336261198" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 235 417.3362336261198)"/><line x1="253" y1="417.3362336261198" x2="253" y2="307.3362336261198" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="317.5" cy="307.89559154305607" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 317.5 307.89559154305607)"/><line x1="335.5" y1="307.89559154305607" x2="335.5" y2="197.89559154305607" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="400" cy="368.16702630370855" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 400 368.16702630370855)"/><line x1="418" y1="368.16702630370855" x2="418" y2="258.16702630370855" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="482.5" cy="380.30163689050823" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 482.5 380.30163689050823)"/><line x1="500.5" y1="380.30163689050823" x2="500.5" y2="270.30163689050823" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="565" cy="351.42938585951924" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 565 351.42938585951924)"/><line x1="583" y1="351.42938585951924" x2="583" y2="241.42938585951924" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="647.5" cy="308.72465370222926" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 647.5 308.72465370222926)"/><line x1="665.5" y1="308.72465370222926" x2="665.5" y2="198.72465370222926" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="730" cy="371.659617186524" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 730 371.659617186524)"/><line x1="748" y1="371.659617186524" x2="748" y2="261.659617186524" stroke="#f5f0e1" stroke-width="5"/>
+<rect width="800" height="1000" fill="url(#fade)"/>
+<text x="744" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#d4af37">OPERA &amp; CLASSICAL</text>
+<text x="56" y="850" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Mugham Evening</text>
+<rect x="56" y="882" width="90" height="8" rx="4" fill="#d4af37"/>
+<text x="56" y="936" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#f5f0e1">Caspian Concert Hall · Baku</text>
+</svg>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f2a44"/><stop offset="1" stop-color="#0b1320"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#0b1320" stop-opacity="0"/><stop offset="1" stop-color="#0b1320" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="800" height="1000" fill="url(#bg)"/>
+<path d="M-20,300 C240,200 560,400 820,280" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,330 C240,230 560,430 820,310" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,360 C240,260 560,460 820,340" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,390 C240,290 560,490 820,370" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,420 C240,320 560,520 820,400" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<ellipse cx="70" cy="390.76958804856986" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 70 390.76958804856986)"/><line x1="88" y1="390.76958804856986" x2="88" y2="280.76958804856986" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="152.5" cy="316.5264411503449" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 152.5 316.5264411503449)"/><line x1="170.5" y1="316.5264411503449" x2="170.5" y2="206.5264411503449" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="235" cy="299.230716265738" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 235 299.230716265738)"/><line x1="253" y1="299.230716265738" x2="253" y2="189.230716265738" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="317.5" cy="321.2565074535087" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 317.5 321.2565074535087)"/><line x1="335.5" y1="321.2565074535087" x2="335.5" y2="211.25650745350868" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="400" cy="402.1317356964573" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 400 402.1317356964573)"/><line x1="418" y1="402.1317356964573" x2="418" y2="292.1317356964573" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="482.5" cy="311.47115263156593" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 482.5 311.47115263156593)"/><line x1="500.5" y1="311.47115263156593" x2="500.5" y2="201.47115263156593" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="565" cy="373.51761664263904" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 565 373.51761664263904)"/><line x1="583" y1="373.51761664263904" x2="583" y2="263.51761664263904" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="647.5" cy="309.42542204633355" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 647.5 309.42542204633355)"/><line x1="665.5" y1="309.42542204633355" x2="665.5" y2="199.42542204633355" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="730" cy="340.6485808873549" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 730 340.6485808873549)"/><line x1="748" y1="340.6485808873549" x2="748" y2="230.6485808873549" stroke="#f5f0e1" stroke-width="5"/>
+<rect width="800" height="1000" fill="url(#fade)"/>
+<text x="744" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#d4af37">OPERA &amp; CLASSICAL</text>
+<text x="56" y="778.72" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Dvořák: New World</text>
+<text x="56" y="850" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Symphony</text>
+<rect x="56" y="882" width="90" height="8" rx="4" fill="#d4af37"/>
+<text x="56" y="936" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#f5f0e1">Riverside Hall · Brno</text>
+</svg>

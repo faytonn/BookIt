@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f2a44"/><stop offset="1" stop-color="#0b1320"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#0b1320" stop-opacity="0"/><stop offset="1" stop-color="#0b1320" stop-opacity="0.95"/></linearGradient>
+</defs>
+<rect width="800" height="1000" fill="url(#bg)"/>
+<path d="M-20,300 C240,200 560,400 820,280" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,330 C240,230 560,430 820,310" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,360 C240,260 560,460 820,340" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,390 C240,290 560,490 820,370" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<path d="M-20,420 C240,320 560,520 820,400" stroke="#d4af37" stroke-width="3" fill="none" opacity="0.8"/>
+<ellipse cx="70" cy="360.81281695049256" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 70 360.81281695049256)"/><line x1="88" y1="360.81281695049256" x2="88" y2="250.81281695049256" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="152.5" cy="384.34282124973834" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 152.5 384.34282124973834)"/><line x1="170.5" y1="384.34282124973834" x2="170.5" y2="274.34282124973834" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="235" cy="426.7350516980514" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 235 426.7350516980514)"/><line x1="253" y1="426.7350516980514" x2="253" y2="316.7350516980514" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="317.5" cy="347.4161719204858" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 317.5 347.4161719204858)"/><line x1="335.5" y1="347.4161719204858" x2="335.5" y2="237.4161719204858" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="400" cy="385.8150961250067" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 400 385.8150961250067)"/><line x1="418" y1="385.8150961250067" x2="418" y2="275.8150961250067" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="482.5" cy="399.3753978377208" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 482.5 399.3753978377208)"/><line x1="500.5" y1="399.3753978377208" x2="500.5" y2="289.3753978377208" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="565" cy="299.04644259251654" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 565 299.04644259251654)"/><line x1="583" y1="299.04644259251654" x2="583" y2="189.04644259251654" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="647.5" cy="393.6479145567864" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 647.5 393.6479145567864)"/><line x1="665.5" y1="393.6479145567864" x2="665.5" y2="283.6479145567864" stroke="#f5f0e1" stroke-width="5"/>
+<ellipse cx="730" cy="380.34792381804436" rx="20" ry="14" fill="#f5f0e1" transform="rotate(-20 730 380.34792381804436)"/><line x1="748" y1="380.34792381804436" x2="748" y2="270.34792381804436" stroke="#f5f0e1" stroke-width="5"/>
+<rect width="800" height="1000" fill="url(#fade)"/>
+<text x="744" y="80" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#d4af37">OPERA &amp; CLASSICAL</text>
+<text x="56" y="707.4399999999999" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Vivaldi: The Four</text>
+<text x="56" y="778.72" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Seasons by</text>
+<text x="56" y="850" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#ffffff">Candlelight</text>
+<rect x="56" y="882" width="90" height="8" rx="4" fill="#d4af37"/>
+<text x="56" y="936" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#f5f0e1">Old Town Stage · Prague</text>
+</svg>
